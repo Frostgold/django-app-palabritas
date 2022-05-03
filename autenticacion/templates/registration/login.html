@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Inicio de sesión{% endblock titulo %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-4 mx-auto">
+            <h2>Log In</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock content %}

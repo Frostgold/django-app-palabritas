@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} .invalid-feedback {display: inline !important;} {% endblock estilos %}
+
+{% block titulo %}Inicio{% endblock titulo %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-4 mx-auto">
+            <h2>Registro de usuario</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="invalid-feedback">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                        {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit">Registrar</button>
+
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock content %}
