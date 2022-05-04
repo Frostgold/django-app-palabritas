@@ -33,8 +33,9 @@ def registration(request):
             else:
                 context['form'] = form
         
-        except ValidationError:
-            form.add_error('password', "Formato del campo incorrecto")
+        except ValidationError as e:
+            #form.add_error('password', "Formato del campo incorrecto")
+            form.add_error('password', e)
             context['form'] = form
 
     return render(request, 'registration/registration.html', context)
