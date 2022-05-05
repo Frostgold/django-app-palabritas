@@ -32,7 +32,7 @@ def registration_view(request):
             form.add_error('password', e)
             context['form'] = form
 
-    return render(request, 'registration/registration.html', context)
+    return render(request, 'registration/registration_form.html', context)
 
 def logout_view(request):
     logout(request)
