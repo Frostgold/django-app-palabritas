@@ -1,0 +1,17 @@
+{% extends 'base_autenticacion.html' %}
+{% load static %}
+
+{% block titulo %}Reestablecer contraseña{% endblock titulo %}
+
+{% block h1 %}Reestablecer contraseña{% endblock h1 %}
+{% block content %}
+
+    <div class="container">
+        <h1>Restablecimiento de contraseña enviado</h1>
+        <p>Le enviamos instrucciones por correo electrónico para configurar su contraseña, si existe una cuenta con el correo electrónico que ingresó. Debería recibirlos en breve.</p>
+        <p>Si no recibe un correo electrónico, asegúrese de haber ingresado la dirección con la que se registró y verifique su carpeta de correo no deseado.</p>
+        <p><a href="{% url 'inicio' %}">Volver al inicio</a></p>
+    </div>
+
+
+{% endblock content %}

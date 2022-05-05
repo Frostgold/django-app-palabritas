@@ -1,32 +1,27 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.password_validation import validate_password
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
+from django.contrib.auth import logout
 
-from .forms import registro
-from .models import Usuario
+from .forms import Registro
 
-def registration(request):
+def inicio_view(request):
+    return render(request, 'inicio.html')
+
+def registration_view(request):
 
     context = {}
-    context['form'] = registro
+    context['form'] = Registro
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = registro(request.POST)
-        password = request.POST['password']
+        form = Registro(request.POST)
 
         try:
             # check whether it's valid:
-            validate_password(password, user=Usuario)
             if form.is_valid():
-
-                print(form)
                 
-                new_user = form.save(commit=False) #Save form without commiting
-                new_user.password = make_password(new_user.password) #Encrypt password
-                new_user.save()
+                form.save()
 
                 return HttpResponse("<h1>Gracias por registrarte</h1>")
 
@@ -34,8 +29,11 @@ def registration(request):
                 context['form'] = form
         
         except ValidationError as e:
-            #form.add_error('password', "Formato del campo incorrecto")
             form.add_error('password', e)
             context['form'] = form
 
     return render(request, 'registration/registration.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('inicio')
