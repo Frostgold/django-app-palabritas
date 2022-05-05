@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'autenticacion',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'autenticacion.validators.ValidateAlphanumericPassword',
+    },
 ]
 
 
@@ -125,6 +129,10 @@ USE_TZ = True
 # Set default user to custom model
 AUTH_USER_MODEL = 'autenticacion.Usuario'
 
+LOGIN_URL = '/cuentas/login/'
+
+LOGIN_REDIRECT_URL = 'inicio'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -138,3 +146,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
