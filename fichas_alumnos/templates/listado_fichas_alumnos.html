@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Ficha alumnos{% endblock titulo %}
+
+{% block content %}
+
+<div class="col col-md-10 col-lg-8 mx-auto">
+
+    <h3 class="mt-4 mb-3">Buscar alumno</h3>
+    <div class="mb-5">
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-between mx-2">
+        <h3>Alumnos</h3>
+        <a class="py-2" href="">Agregar ficha</a> 
+    </div>
+
+    <div class="table-responsive-md">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">RUT</th>
+                    <th scope="col">Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in listado %}
+
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ alumno.rut }}</td>
+                        <td>{{ alumno.nombre }}</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+{% endblock content %}
