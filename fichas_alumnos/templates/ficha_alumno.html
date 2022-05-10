@@ -5,48 +5,121 @@
 
 {% block content %}
 
-<div class="col col-md-10 col-lg-8 mx-auto">
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    Accordion Item #1
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    Accordion Item #2
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                <div class="accordion-body">
-                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                    Accordion Item #3
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body">
-                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-            </div>
+<div class="col">
+
+    <div class="container-fluid bg-secondary bg-opacity-75 py-5">
+        <div class="container">
+            {% for alumno in ficha %}
+            
+                <h1 class="d-block">{{ alumno.nombre }}</h1>
+                <h4 class="d-block">{{ alumno.rut_formatted }}</h4>
+                <h6 class="d-block">{{ alumno.fecha_nacimiento }}</h6>
+                {% if alumno.estado == 'lista_espera' %} <h6 class="d-block text-primary">Lista de espera</h6> {% endif %}
+                {% if alumno.estado == 'documentos_pendientes' %} <h6 class="d-block text-warning">Documentos pendientes</h6> {% endif %}
+                {% if alumno.estado == 'curso_asignado' %} <h6 class="d-block text-success">Curso asignado</h6> {% endif %}
+                {% if alumno.estado == 'retirado' %} <h6 class="d-block text-danger">Alumno retirado</h6> {% endif %}
+
+            {% endfor %}
         </div>
     </div>
 
+    <div class="col col-md-10 col-lg-8 mx-auto my-5">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Avances del alumno
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    
+                    {% for avance in avances %}
+                        <div class="container-fluid border">
+                
+                            <p class="d-block m-0 p-2">{{ avance.comentario }}</p>
+                            <div class="row align-items-center justify-content-between py-2 gx-2">
+                                <div class="col">
+                                    <p class="d-flex mb-0 ps-2 text-muted">{{ avance.geteditor }} - {{ avance.fecha_edicion }}</p>
+                                </div>
+                                <div class="col-md-2 my-3 my-md-0 text-center mx-2">
+                                    <button type="button" class="btn btn-secondary">Modificar</button>
+                                </div>
+                            </div>
+        
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        Trabajos
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                    
+                    <div class="table-responsive-md">
+                        <table class="table table-hover fs-5">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Trabajos</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for trabajo in trabajos %}
+                
+                                    <tr>
+                                        <td class="col-11 text-wrap">{{ trabajo.filename }}</td>
+                                        <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                    </tr>
+                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        Banco de documentos
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+
+                    <div class="table-responsive-md">
+                        <table class="table table-hover fs-5">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Documentos</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for doc in documentos %}
+                
+                                    <tr>
+                                        <td class="col-11 text-wrap">{{ doc.filename }}</td>
+                                        <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                    </tr>
+                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     
+        
+    </div>
+
 </div>
+
 
 
 {% endblock content %}
