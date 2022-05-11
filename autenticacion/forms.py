@@ -31,9 +31,6 @@ class Registro(ModelForm):
             'usaurio': TextInput(attrs={'autofocus': True}),
             'email': TextInput(attrs={'placeholder': "nombre@ejemplo.com"}),
         }
-        validators = {
-            ''
-        }
         labels = {
             'usuario': ('Nombre de usuario'),
             'email': ('Correo electrónico'),

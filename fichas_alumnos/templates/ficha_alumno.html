@@ -11,13 +11,30 @@
         <div class="container">
             {% for alumno in ficha %}
             
-                <h1 class="d-block">{{ alumno.nombre }}</h1>
+                <h1 class="d-block fw-bold">{{ alumno.nombre }}</h1>
                 <h4 class="d-block">{{ alumno.rut_formatted }}</h4>
-                <h6 class="d-block">{{ alumno.fecha_nacimiento }}</h6>
-                {% if alumno.estado == 'lista_espera' %} <h6 class="d-block text-primary">Lista de espera</h6> {% endif %}
-                {% if alumno.estado == 'documentos_pendientes' %} <h6 class="d-block text-warning">Documentos pendientes</h6> {% endif %}
-                {% if alumno.estado == 'curso_asignado' %} <h6 class="d-block text-success">Curso asignado</h6> {% endif %}
-                {% if alumno.estado == 'retirado' %} <h6 class="d-block text-danger">Alumno retirado</h6> {% endif %}
+                <h6 class="d-block fw-light">{{ alumno.fecha_nacimiento }}</h6>
+
+                {% if apoderado %}
+                    {% for a in apoderado %}
+                        <h6 class="d-block fw-light">{{ a.apoderado.nombre }}</h6>
+                    {% endfor %}
+                {% else %}
+                    <h6 class="d-block fw-bold text-danger">Apoderado sin asignar</h6>
+                {% endif %}
+
+                <div class="mt-3">
+                    {% if perms.fichas_alumnos.can_view_ficha_completa %}
+                    
+                        {% if alumno.estado == 'lista_espera' %} <h6 class="d-block text-primary">Lista de espera</h6> {% endif %}
+                        {% if alumno.estado == 'documentos_pendientes' %} <h6 class="d-block text-warning">Documentos pendientes</h6> {% endif %}
+                        {% if alumno.estado == 'curso_asignado' %} <h6 class="d-block text-success">Curso asignado</h6> {% endif %}
+                        {% if alumno.estado == 'retirado' %} <h6 class="d-block text-danger">Alumno retirado</h6> {% endif %}
+
+                        <h6 class="d-block fsr-bold">Curso:</h6>
+
+                    {% endif %}
+                </div>
 
             {% endfor %}
         </div>
@@ -39,11 +56,15 @@
                             <p class="d-block m-0 p-2">{{ avance.comentario }}</p>
                             <div class="row align-items-center justify-content-between py-2 gx-2">
                                 <div class="col">
-                                    <p class="d-flex mb-0 ps-2 text-muted">{{ avance.geteditor }} - {{ avance.fecha_edicion }}</p>
+                                    <p class="d-flex mb-0 ps-2 text-muted fst-italic">{{ avance.geteditor }} - {{ avance.fecha_edicion }}</p>
                                 </div>
-                                <div class="col-md-2 my-3 my-md-0 text-center mx-2">
-                                    <button type="button" class="btn btn-secondary">Modificar</button>
-                                </div>
+                                {% if perms.fichas_alumnos.change_avancealumno %}
+                                
+                                    <div class="col-md-2 my-3 my-md-0 text-center mx-2">
+                                        <button type="button" class="btn btn-secondary">Modificar</button>
+                                    </div>
+                                
+                                {% endif %}
                             </div>
         
                         </div>
@@ -64,7 +85,8 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Trabajos</th>
-                                    <th></th>
+                                    {% if perms.fichas_alumnos.delete_bancotrabajo %}<th></th>{% endif %}
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +94,11 @@
                 
                                     <tr>
                                         <td class="col-11 text-wrap">{{ trabajo.filename }}</td>
-                                        <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                        {% if perms.fichas_alumnos.delete_bancotrabajo %}
+
+                                            <td class="col-1 text-center align-middle"><a href="">X</a></td>
+
+                                        {% endif %}
                                     </tr>
                 
                                 {% endfor %}
@@ -82,37 +108,41 @@
 
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                        Banco de documentos
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            {% if perms.fichas_alumnos.view_bancodocumento %}
+            
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            Banco de documentos
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
 
-                    <div class="table-responsive-md">
-                        <table class="table table-hover fs-5">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Documentos</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for doc in documentos %}
-                
+                        <div class="table-responsive-md">
+                            <table class="table table-hover fs-5">
+                                <thead class="table-dark">
                                     <tr>
-                                        <td class="col-11 text-wrap">{{ doc.filename }}</td>
-                                        <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                        <th scope="col">Documentos</th>
+                                        <th></th>
                                     </tr>
-                
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {% for doc in documentos %}
+                    
+                                        <tr>
+                                            <td class="col-11 text-wrap">{{ doc.filename }}</td>
+                                            <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                        </tr>
+                    
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
+            
+            {% endif %}
         </div>
     
         

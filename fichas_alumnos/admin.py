@@ -1,7 +1,14 @@
+from pyexpat import model
 from django.contrib import admin
-from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno
+from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
+
+class ApoderadoInline(admin.TabularInline):
+    model = DetalleApoderado
+    max_num = 1
 
 class FichaAlumnoConfig(admin.ModelAdmin):
+    inlines = [ApoderadoInline]
+
     search_fields = ('rut', 'nombre',)
     ordering = ('rut',)
     list_display = ('rut', 'nombre', 'estado',)
@@ -74,8 +81,22 @@ class AvanceConfig(admin.ModelAdmin):
     geteditor.short_description = 'Editor'
     geteditor.admin_order_field = 'editor'
 
+
+class DetalleApoderadoConfig(admin.ModelAdmin):
+    search_fields = ('alumno_id__rut', 'apoderado',)
+    ordering = ('alumno_id',)
+    list_display = ('id', 'alumno_id', 'getapoderado',)
+    list_filter = ('alumno_id', 'apoderado',)
+
+    def getapoderado(self, obj):
+        return obj.getapoderado()
+
+    getapoderado.short_description = 'Apoderado'
+    getapoderado.admin_order_field = 'apoderado'
+
     
 admin.site.register(FichaAlumno, FichaAlumnoConfig)
 admin.site.register(BancoDocumento, BancoDocumentoConfig)
 admin.site.register(BancoTrabajo, BancoTrabajoConfig)
 admin.site.register(AvanceAlumno, AvanceConfig)
+admin.site.register(DetalleApoderado, DetalleApoderadoConfig)

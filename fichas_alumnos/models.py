@@ -112,3 +112,17 @@ class AvanceAlumno(models.Model):
 
     def geteditor(self):
         return self.editor.nombre
+
+
+class DetalleApoderado(models.Model):
+    id = models.AutoField(primary_key=True)
+    alumno = models.ForeignKey(FichaAlumno, on_delete=models.CASCADE)
+    apoderado = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Detalle Apoderado'
+        verbose_name_plural = 'Detalle Apoderados'
+        ordering = ['id']
+
+    def getapoderado(self):
+        return self.apoderado.nombre

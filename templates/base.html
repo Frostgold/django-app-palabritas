@@ -38,7 +38,7 @@
                 Inicio
               </a>
             </li>
-            {% if perms.foo %}
+            {% if perms.fichas_alumnos.view_fichaalumno %}
               <li class="nav-item">
                 <a href="{% url 'listado_fichas_alumnos' as url_fichas %} {{ url_fichas }} " class="nav-link {% if request.path == url_fichas %} active {% endif %}" {% if request.path == url_fichas %} aria-class="active" {% endif %}>
                   <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -50,6 +50,8 @@
                   Ficha alumnos
                 </a>
               </li>
+            {% endif %}
+            {% if perms.foo %}
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -124,7 +126,7 @@
             Inicio
           </a>
         </li>
-        {% if perms.foo %}
+        {% if perms.fichas_alumnos.view_fichaalumno %}
           <li>
             <a href="{% url 'listado_fichas_alumnos' as url_fichas %} {{ url_fichas }} " class="nav-link text-white {% if request.path == url_fichas %} active {% endif %}" {% if request.path == url_fichas %} aria-class="active" {% endif %}>
               <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -136,6 +138,8 @@
               Ficha alumnos
             </a>
           </li>
+        {% endif %}
+        {% if perms.foo %}
           <li>
             <a href="#" class="nav-link text-white">
               <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
