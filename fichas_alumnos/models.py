@@ -104,6 +104,7 @@ class AvanceAlumno(models.Model):
     comentario = models.CharField(max_length=1000, null=False, blank=False)
     editor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_edicion = models.DateField(auto_now=True)
+    modificado = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Avance'

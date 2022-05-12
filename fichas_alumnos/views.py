@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 
-from .forms import AgregarFichaAlumno, AgregarAvanceAlumno, AgregarTrabajoAlumno, AgregarDocumentoAlumno
+from .forms import FormFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno
 
 
 @login_required
@@ -70,15 +70,20 @@ def ficha_alumno_view(request, rut):
 
         return redirect('listado_fichas_alumnos')
 
+    context['avance_form'] = FormAvanceAlumno
+    context['trabajo_form'] = FormTrabajoAlumno
+    context['documento_form'] = FormDocumentoAlumno
+    context['apoderado'] = DetalleApoderado.objects.filter(alumno=rut)
+    context['ficha'] = FichaAlumno.objects.filter(rut=rut)
+    context['avances'] = AvanceAlumno.objects.filter(alumno=rut).order_by('-id')
+    context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut).order_by('-id')
+    context['documentos'] = BancoDocumento.objects.filter(alumno=rut).order_by('-id')
+
     if request.method == 'POST':
-        print(request.FILES)
 
         if request.POST.get('comentario'):
             # create a form instance and populate it with data from the request:
-            form = AgregarAvanceAlumno(request.POST)
-            print(request.POST)
-            print(form)
-            print(form.is_valid())
+            form = FormAvanceAlumno(request.POST)
 
             # check whether it's valid:
             if form.is_valid():
@@ -86,10 +91,12 @@ def ficha_alumno_view(request, rut):
                 nuevo_avance.editor = request.user
                 nuevo_avance.alumno = FichaAlumno(rut)
                 nuevo_avance.save()
+            else:
+                context['avance_form'] = form
 
         if request.FILES.get('trabajo'):
             # create a form instance and populate it with data from the request:
-            form = AgregarTrabajoAlumno(request.POST, request.FILES)
+            form = FormTrabajoAlumno(request.POST, request.FILES)
 
             # check whether it's valid:
             if form.is_valid():
@@ -99,7 +106,7 @@ def ficha_alumno_view(request, rut):
 
         if request.FILES.get('documento'):
             # create a form instance and populate it with data from the request:
-            form = AgregarDocumentoAlumno(request.POST, request.FILES)
+            form = FormDocumentoAlumno(request.POST, request.FILES)
 
             # check whether it's valid:
             if form.is_valid():
@@ -107,14 +114,7 @@ def ficha_alumno_view(request, rut):
                 nuevo_documento.alumno = FichaAlumno(rut)
                 nuevo_documento.save()
 
-    context['avance_form'] = AgregarAvanceAlumno
-    context['trabajo_form'] = AgregarTrabajoAlumno
-    context['documento_form'] = AgregarDocumentoAlumno
-    context['apoderado'] = DetalleApoderado.objects.filter(alumno=rut)
-    context['ficha'] = FichaAlumno.objects.filter(rut=rut)
-    context['avances'] = AvanceAlumno.objects.filter(alumno=rut).order_by('-id')
-    context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut).order_by('-id')
-    context['documentos'] = BancoDocumento.objects.filter(alumno=rut).order_by('-id')
+    
 
     return render(request, 'ficha_alumno.html', context)
 
@@ -124,7 +124,7 @@ def ficha_alumno_view(request, rut):
 def form_agregar_ficha_alumno(request):
 
     context = {}
-    context['form'] = AgregarFichaAlumno
+    context['form'] = FormFichaAlumno
 
     ApoderadoFormSet = inlineformset_factory(FichaAlumno, DetalleApoderado, fields=('apoderado',), can_delete=False, max_num=1)
 
@@ -134,7 +134,7 @@ def form_agregar_ficha_alumno(request):
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = AgregarFichaAlumno(request.POST)
+        form = FormFichaAlumno(request.POST)
 
         # check whether it's valid:
         if form.is_valid():         
@@ -153,6 +153,44 @@ def form_agregar_ficha_alumno(request):
 
 
     return render(request, 'formularios/ficha_alumno_agregar_formulario.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.change_avancealumno', raise_exception=True)
+def change_avance_alumno(request, id):
+    context = {}
+    instance = AvanceAlumno.objects.get(id=id)
+    context['avance'] = instance
+    context['form'] = FormAvanceAlumno(instance=instance)
+    
+    if request.method == 'POST':
+
+        # create a form instance and populate it with data from the request:
+        form = FormAvanceAlumno(request.POST, instance=instance)
+
+        # check whether it's valid:
+        if form.is_valid():
+            avance_modificado = form.save(commit=False)
+            avance_modificado.editor = request.user
+            avance_modificado.modificado = True
+            avance_modificado.save()
+            return redirect('ficha_alumno', instance.alumno.rut)
+
+        else:
+            context['form'] = form
+
+
+    return render(request, 'formularios/avance_modificar_formulario.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.delete_avancealumno', raise_exception=True)
+def delete_avance_alumno(request, id):
+    instance = AvanceAlumno.objects.get(id=id)
+    rut = instance.alumno.rut
+    instance.delete()
+
+    return redirect('ficha_alumno', rut)
 
 
 @login_required

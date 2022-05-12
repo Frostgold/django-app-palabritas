@@ -3,7 +3,7 @@ import datetime
 
 from .models import FichaAlumno, AvanceAlumno, BancoTrabajo, BancoDocumento, DetalleApoderado
 
-class AgregarFichaAlumno(ModelForm):
+class FormFichaAlumno(ModelForm):
     
     class Meta:
         model = FichaAlumno
@@ -28,7 +28,7 @@ class AgregarFichaAlumno(ModelForm):
             },
         }
 
-class AgregarAvanceAlumno(ModelForm):
+class FormAvanceAlumno(ModelForm):
     
     class Meta:
         model = AvanceAlumno
@@ -36,8 +36,16 @@ class AgregarAvanceAlumno(ModelForm):
         widgets = {
             'comentario': Textarea(attrs={'rows': 3, 'class': "form-control"}),
         }
+        labels = {
+            'comentario': (''),
+        }
+        error_messages = {
+            'comentario': {
+                'required': ("Este campo no se puede ingresar vacío."),
+            },
+        }
 
-class AgregarTrabajoAlumno(ModelForm):
+class FormTrabajoAlumno(ModelForm):
     
     class Meta:
         model = BancoTrabajo
@@ -46,7 +54,7 @@ class AgregarTrabajoAlumno(ModelForm):
             'trabajo': FileInput(attrs={'class': "form-control"}),
         }
 
-class AgregarDocumentoAlumno(ModelForm):
+class FormDocumentoAlumno(ModelForm):
     
     class Meta:
         model = BancoDocumento
