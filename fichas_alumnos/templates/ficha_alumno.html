@@ -50,6 +50,19 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     
+                    {% if perms.fichas_alumnos.add_avancealumno %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir avance</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <p>{{ avance_form.comentario }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+
                     {% for avance in avances %}
                         <div class="container-fluid border">
                 
@@ -79,6 +92,19 @@
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+
+                    {% if perms.fichas_alumnos.add_bancotrabajo %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir trabajo</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ trabajo_form.trabajo }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
                     
                     <div class="table-responsive-md">
                         <table class="table table-hover fs-5">
@@ -95,9 +121,7 @@
                                     <tr>
                                         <td class="col-11 text-wrap">{{ trabajo.filename }}</td>
                                         {% if perms.fichas_alumnos.delete_bancotrabajo %}
-
                                             <td class="col-1 text-center align-middle"><a href="">X</a></td>
-
                                         {% endif %}
                                     </tr>
                 
@@ -118,12 +142,25 @@
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
 
+                        {% if perms.fichas_alumnos.add_bancodocumento %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir documento</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ documento_form.documento }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+
                         <div class="table-responsive-md">
                             <table class="table table-hover fs-5">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Documentos</th>
-                                        <th></th>
+                                        {% if perms.fichas_alumnos.delete_bancodocumento %}<th></th>{% endif %}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -131,7 +168,9 @@
                     
                                         <tr>
                                             <td class="col-11 text-wrap">{{ doc.filename }}</td>
-                                            <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                            {% if perms.fichas_alumnos.delete_bancodocumento %}
+                                                <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                            {% endif %}
                                         </tr>
                     
                                     {% endfor %}

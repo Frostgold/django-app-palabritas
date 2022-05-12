@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateInput
+from django.forms import ModelForm, DateInput, Textarea, FileInput
 import datetime
 
 from .models import FichaAlumno, AvanceAlumno, BancoTrabajo, BancoDocumento, DetalleApoderado
@@ -29,10 +29,29 @@ class AgregarFichaAlumno(ModelForm):
         }
 
 class AgregarAvanceAlumno(ModelForm):
-    pass
+    
+    class Meta:
+        model = AvanceAlumno
+        fields = ['comentario',]
+        widgets = {
+            'comentario': Textarea(attrs={'rows': 3, 'class': "form-control"}),
+        }
 
 class AgregarTrabajoAlumno(ModelForm):
-    pass
+    
+    class Meta:
+        model = BancoTrabajo
+        fields = ['trabajo',]
+        widgets = {
+            'trabajo': FileInput(attrs={'class': "form-control"}),
+        }
 
 class AgregarDocumentoAlumno(ModelForm):
-    pass
+    
+    class Meta:
+        model = BancoDocumento
+        fields = ['documento',]
+        widgets = {
+            'documento': FileInput(attrs={'class': "form-control"}),
+        }
+

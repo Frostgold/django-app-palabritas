@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 
-from .forms import AgregarFichaAlumno
+from .forms import AgregarFichaAlumno, AgregarAvanceAlumno, AgregarTrabajoAlumno, AgregarDocumentoAlumno
 
 
 @login_required
@@ -70,11 +70,51 @@ def ficha_alumno_view(request, rut):
 
         return redirect('listado_fichas_alumnos')
 
+    if request.method == 'POST':
+        print(request.FILES)
+
+        if request.POST.get('comentario'):
+            # create a form instance and populate it with data from the request:
+            form = AgregarAvanceAlumno(request.POST)
+            print(request.POST)
+            print(form)
+            print(form.is_valid())
+
+            # check whether it's valid:
+            if form.is_valid():
+                nuevo_avance = form.save(commit=False)
+                nuevo_avance.editor = request.user
+                nuevo_avance.alumno = FichaAlumno(rut)
+                nuevo_avance.save()
+
+        if request.FILES.get('trabajo'):
+            # create a form instance and populate it with data from the request:
+            form = AgregarTrabajoAlumno(request.POST, request.FILES)
+
+            # check whether it's valid:
+            if form.is_valid():
+                nuevo_trabajo = form.save(commit=False)
+                nuevo_trabajo.alumno = FichaAlumno(rut)
+                nuevo_trabajo.save()
+
+        if request.FILES.get('documento'):
+            # create a form instance and populate it with data from the request:
+            form = AgregarDocumentoAlumno(request.POST, request.FILES)
+
+            # check whether it's valid:
+            if form.is_valid():
+                nuevo_documento = form.save(commit=False)
+                nuevo_documento.alumno = FichaAlumno(rut)
+                nuevo_documento.save()
+
+    context['avance_form'] = AgregarAvanceAlumno
+    context['trabajo_form'] = AgregarTrabajoAlumno
+    context['documento_form'] = AgregarDocumentoAlumno
     context['apoderado'] = DetalleApoderado.objects.filter(alumno=rut)
     context['ficha'] = FichaAlumno.objects.filter(rut=rut)
-    context['avances'] = AvanceAlumno.objects.filter(alumno=rut)
-    context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut)
-    context['documentos'] = BancoDocumento.objects.filter(alumno=rut)
+    context['avances'] = AvanceAlumno.objects.filter(alumno=rut).order_by('-id')
+    context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut).order_by('-id')
+    context['documentos'] = BancoDocumento.objects.filter(alumno=rut).order_by('-id')
 
     return render(request, 'ficha_alumno.html', context)
 
