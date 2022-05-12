@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'autenticacion',
     'fichas_alumnos',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 # During development only

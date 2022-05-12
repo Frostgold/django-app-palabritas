@@ -118,6 +118,7 @@ def ficha_alumno_view(request, rut):
 
     return render(request, 'ficha_alumno.html', context)
 
+
 @login_required
 @permission_required('fichas_alumnos.add_fichaalumno', raise_exception=True)
 def form_agregar_ficha_alumno(request):
@@ -152,3 +153,23 @@ def form_agregar_ficha_alumno(request):
 
 
     return render(request, 'formularios/ficha_alumno_agregar_formulario.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.delete_bancotrabajo', raise_exception=True)
+def delete_banco_trabajo(request, id):
+    instance = BancoTrabajo.objects.get(id=id)
+    rut = instance.alumno.rut
+    instance.delete()
+
+    return redirect('ficha_alumno', rut)
+
+
+@login_required
+@permission_required('fichas_alumnos.delete_bancotrabajo', raise_exception=True)
+def delete_banco_documento(request, id):
+    instance = BancoDocumento.objects.get(id=id)
+    rut = instance.alumno.rut
+    instance.delete()
+
+    return redirect('ficha_alumno', rut)

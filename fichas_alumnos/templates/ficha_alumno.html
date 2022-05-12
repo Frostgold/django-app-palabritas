@@ -119,9 +119,37 @@
                                 {% for trabajo in trabajos %}
                 
                                     <tr>
-                                        <td class="col-11 text-wrap">{{ trabajo.filename }}</td>
+                                        <td class="col-11 text-wrap fs-6 align-middle">{{ trabajo.filename }}</td>
                                         {% if perms.fichas_alumnos.delete_bancotrabajo %}
-                                            <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                            <td class="col-1 text-center align-middle">
+                                                
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo">
+                                                    X
+                                                </button>
+                                                
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="confirmDeleteTrabajo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajoLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title fw-bold" id="confirmDeleteTrabajoLabel">Confirmar eliminación de trabajo</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-start">
+                                                                <p>Estás por eliminar el siguiente archivo:</P>
+                                                                <p class="fw-light fst-italic px-3">{{ trabajo.filename }}</P>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                <a type="button" class="btn btn-primary" href="{% url 'eliminar_trabajo_alumno' trabajo.id %}">Confirmar</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </td>
+
                                         {% endif %}
                                     </tr>
                 
@@ -167,9 +195,36 @@
                                     {% for doc in documentos %}
                     
                                         <tr>
-                                            <td class="col-11 text-wrap">{{ doc.filename }}</td>
+                                            <td class="col-11 text-wrap fs-6 align-middle">{{ doc.filename }}</td>
                                             {% if perms.fichas_alumnos.delete_bancodocumento %}
-                                                <td class="col-1 text-center align-middle"><a href="">X</a></td>
+                                                <td class="col-1 text-center align-middle">
+                                                    
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento">
+                                                        X
+                                                    </button>
+                                                    
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="confirmDeleteDocumento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajoLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title fw-bold" id="confirmDeleteDocumentoLabel">Confirmar eliminación de documento</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body text-start">
+                                                                    <p>Estás por eliminar el siguiente archivo:</P>
+                                                                    <p class="fw-light fst-italic px-3">{{ doc.filename }}</P>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                    <a type="button" class="btn btn-primary" href="{% url 'eliminar_documento_alumno' doc.id %}">Confirmar</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
                                             {% endif %}
                                         </tr>
                     
