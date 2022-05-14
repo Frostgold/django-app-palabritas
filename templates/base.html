@@ -53,7 +53,7 @@
             {% endif %}
             {% if perms.foo %}
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a href="{% url 'listado_cursos' as url_cursos %} {{ url_cursos }} " class="nav-link {% if request.path == url_cursos %} active {% endif %}" {% if request.path == url_cursos %} aria-class="active" {% endif %}>
                   <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -139,9 +139,9 @@
             </a>
           </li>
         {% endif %}
-        {% if perms.foo %}
+        {% if perms.cursos.view_curso %}
           <li>
-            <a href="#" class="nav-link text-white">
+            <a href="{% url 'listado_cursos' as url_cursos %} {{ url_cursos }} " class="nav-link text-white {% if request.path == url_cursos %} active {% endif %}" {% if request.path == url_cursos %} aria-class="active" {% endif %}>
               <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -151,6 +151,8 @@
               Cursos
             </a>
           </li>
+        {% endif %}
+        {% if perms.foo %}
           <li>
             <a href="#" class="nav-link text-white">
               <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"

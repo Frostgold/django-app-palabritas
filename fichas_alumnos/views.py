@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponse
 from django.forms import inlineformset_factory
 
 from .forms import FormFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno

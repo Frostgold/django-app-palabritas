@@ -4,6 +4,7 @@ Django==3.2.5
 django-cleanup==6.0.0
 django-crispy-forms==1.14.0
 mysqlclient==2.1.0
+Pillow==9.1.0
 pip==21.2.2
 psycopg2==2.8.6
 pytz==2021.3
