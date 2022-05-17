@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
+from cursos.models import Curso
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import inlineformset_factory
 
-from .forms import FormFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno
+from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno
 
 
 @login_required
@@ -13,32 +14,31 @@ def listado_fichas_alumnos_view(request):
 
     context = {}
 
+    # Consigue la lista de cursos
+    context['curso'] = Curso.objects.order_by().values('nombre').distinct()
+
     # Revisa si el usuario es apoderado y si es que tiene pupilos asginados
     if not request.user.has_perm('fichas_alumnos.can_view_listado_fichas'):
-        lista_alumnos = []
 
-        alumno = DetalleApoderado.objects.filter(apoderado=request.user)
-        if alumno:
-            for a in alumno:
-                lista_alumnos.append(a.alumno.rut)
-            
-            listado = FichaAlumno.objects.filter(rut__in=lista_alumnos)
-
-            try:
-                if listado:
-                    context['listado'] = listado
-            except:
-                pass
+        alumnos = DetalleApoderado.objects.filter(apoderado=request.user).order_by().values('alumno_id').distinct()
+        context['listado'] = FichaAlumno.objects.filter(rut__in=alumnos)
 
     else:
         context['listado'] = FichaAlumno.objects.all()
 
         if request.method == 'GET':
 
-            if request.GET.get('curso') == "0" and request.GET.get('nomrut') != "":
+            if request.GET.get('nomrut') and request.GET.get('nomrut') != "":
                 query = request.GET.get('nomrut')
-                object_list = FichaAlumno.objects.filter(
+                object_list = context['listado'].filter(
                     Q(nombre__icontains=query) | Q(rut__icontains=query)
+                )
+                context['listado'] = object_list
+            if request.GET.get('curso') and request.GET.get('curso') != "":
+                query = request.GET.get('curso')
+                query_curso = Curso.objects.filter(nombre=query).order_by().values('id')
+                object_list = context['listado'].filter(
+                    Q(curso__in=query_curso)
                 )
                 context['listado'] = object_list
 
@@ -152,6 +152,41 @@ def form_agregar_ficha_alumno(request):
 
 
     return render(request, 'formularios/ficha_alumno_agregar_formulario.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.change_fichaalumno', raise_exception=True)
+def change_ficha_alumno(request, rut):
+    context = {}
+    instance = FichaAlumno.objects.get(rut=rut)
+    context['alumno'] = instance
+    context['form'] = FormChangeFichaAlumno(instance=instance)
+
+    ApoderadoFormSet = inlineformset_factory(FichaAlumno, DetalleApoderado, fields=('apoderado',), can_delete=False, max_num=1)
+    context['apoderado'] = ApoderadoFormSet(instance=instance)
+    
+    if request.method == 'POST':
+
+        # create a form instance and populate it with data from the request:
+        form = FormChangeFichaAlumno(request.POST, instance=instance)
+
+        # check whether it's valid:
+        if form.is_valid():
+            rut = instance.rut
+            ficha_modificada = form.save(commit=False)
+            print(ficha_modificada)
+            formset = ApoderadoFormSet(request.POST, instance=ficha_modificada)
+            if formset.is_valid():
+                ficha_modificada.save()
+                formset.save()
+
+                return redirect('ficha_alumno', rut)
+
+        else:
+            context['form'] = form
+
+
+    return render(request, 'formularios/ficha_alumno_modificar_formulario.html', context)
 
 
 @login_required

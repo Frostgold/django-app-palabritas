@@ -14,10 +14,10 @@
 
             <input name="nomrut" class="form-control me-2" type="search" placeholder="RUT o Nombre" aria-label="Search">
             <select name="curso" class="form-select" aria-label="Default select example">
-                <option value="0" selected hidden>Seleccione un curso</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="" selected hidden>Seleccione un curso</option>
+                {% for c in curso %}
+                    <option value="{{ c.nombre}}">{{ c.nombre }}</option>
+                {% endfor %}
             </select>
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
@@ -40,6 +40,7 @@
                     <tr>
                         <th scope="col">RUT</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Curso</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,11 @@
                         <tr onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
                             <td>{{ alumno.rut_formatted }}</td>
                             <td>{{ alumno.nombre }}</td>
+                            {% if alumno.curso %}
+                                <td>{{ alumno.curso.nombre }}</td>
+                            {% else %}
+                                <td>No asignado</td>
+                            {% endif %}
                         </tr>
 
                     {% endfor %}
@@ -56,7 +62,7 @@
         </div>
     {% else %}
 
-        <h3 class="p-5">Aún no se le ha asignado alumno</h3>
+        <h3 class="p-5">No hay alumnos que mostrar...</h3>
 
     {% endif %}
 

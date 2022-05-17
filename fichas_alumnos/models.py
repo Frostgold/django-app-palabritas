@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.core.validators import RegexValidator
 from autenticacion.models import Usuario
+from cursos.models import Curso
 
 class FichaAlumno(models.Model):
     LISTAESPERA = 'lista_espera'
@@ -31,7 +32,7 @@ class FichaAlumno(models.Model):
        choices=ESTADO,
        default=LISTAESPERA,
     )
-    #curso = models.CharField()
+    curso = models.ForeignKey(Curso, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Ficha Alumno'

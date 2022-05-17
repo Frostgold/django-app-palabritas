@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block titulo %}Agregar ficha de alumno{% endblock titulo %}
+{% block titulo %}Modificar ficha de alumno{% endblock titulo %}
 
 {% block content %}
 
@@ -10,11 +10,11 @@
         <div class="col col-md-8 col-lg-6 mx-auto">
             <form method="post">
                 {% csrf_token %}
-                {{ form.rut|as_crispy_field }}
                 {{ form.nombre|as_crispy_field }}
                 {{ form.fecha_nacimiento|as_crispy_field }}
                 {{ apoderado|crispy }}
-                <button type="submit">Agregar</button>
+                <a href="{% url 'ficha_alumno' alumno.rut %}" class="btn btn-secondary">Cancelar</a>
+                <button class="btn btn-primary" type="submit">Modificar</button>
             </form>
         </div>
     </div>

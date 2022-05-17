@@ -10,8 +10,8 @@ class FichaAlumnoConfig(admin.ModelAdmin):
 
     search_fields = ('rut', 'nombre',)
     ordering = ('rut',)
-    list_display = ('rut', 'nombre', 'estado',)
-    list_filter = ('estado',)
+    list_display = ('rut', 'nombre', 'estado', 'curso')
+    list_filter = ('estado', 'curso')
 
     fieldsets = (
         (None, {
@@ -24,22 +24,27 @@ class FichaAlumnoConfig(admin.ModelAdmin):
         ('Situación académica', {
             "fields": (
                 'estado',
+                'curso',
             ),
         }),
     )
-    add_fieldsets = (
-        (None, {
-            "classes": (
-                'wide',
-            ),
+
+    def change_view(self, request, object_id, extra_content=None):
+        self.fieldsets = (
+            (None, {
             "fields": (
-                'rut',
                 'nombre',
                 'fecha_nacimiento',
-                'estado',
             ),
-        }),
-    )
+            }),
+            ('Situación académica', {
+                "fields": (
+                    'estado',
+                    'curso',
+                ),
+            }),
+        )
+        return super(FichaAlumnoConfig, self).change_view(request, object_id)
 
 
 class BancoDocumentoConfig(admin.ModelAdmin):
