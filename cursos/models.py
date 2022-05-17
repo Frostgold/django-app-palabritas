@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import os
+from django.core.validators import RegexValidator
 from autenticacion.models import Usuario
 
 class Nivel(models.Model):
@@ -17,9 +18,16 @@ class Nivel(models.Model):
 
 
 class Curso(models.Model):
+    REGEX_LETRA = r"([a-zA-Z])"
+
     id = models.CharField(primary_key=True, max_length=20)
     nivel = models.ForeignKey(Nivel, on_delete=models.CASCADE)
-    letra = models.CharField(max_length=1, blank=False, null=False)
+    letra = models.CharField(
+            max_length=1,
+            blank=False, 
+            null=False,
+            validators=[RegexValidator(REGEX_LETRA)],
+            )
     nombre = models.CharField(max_length=100, blank=False, null=False)
     periodo = models.CharField(max_length=4, default=datetime.datetime.now().year, blank=False, null=False)
     cupos = models.PositiveIntegerField(null=False)
@@ -33,7 +41,7 @@ class Curso(models.Model):
         )
 
     def __str__(self):
-        return self.nombre
+        return self.id
 
 
 def actividad_directory_path(instance, filename):

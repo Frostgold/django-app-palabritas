@@ -15,7 +15,7 @@ class CursoConfig(admin.ModelAdmin):
     inlines = [DocenteInline]
 
     search_fields = ('nivel_id__descripcion', 'nombre',)
-    ordering = ('periodo', 'nivel', 'letra',)
+    ordering = ('-periodo', 'nivel', 'letra',)
     list_display = ('id', 'nombre', 'cupos', 'periodo',)
     list_filter = ('nivel', 'periodo',)
 
