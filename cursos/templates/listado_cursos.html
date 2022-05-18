@@ -51,7 +51,7 @@
                 <tbody>
                     {% for curso in listado %}
 
-                        <tr onclick="window.location='';">
+                        <tr onclick="window.location='{% url 'detalle_curso' curso.id %}';">
                             <td>{{ curso.nombre }}</td>
                             <td>{{ curso.periodo }}</td>
                         </tr>

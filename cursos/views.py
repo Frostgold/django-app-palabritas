@@ -1,11 +1,11 @@
+import datetime
 from django.shortcuts import redirect, render
 from django.db.models import Q
-import datetime
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Curso, DetalleDocente
-from .forms import FormAgregarCurso, FormModificarCurso
+from .forms import FormAgregarCurso, FormDetalleDocente, FormModificarCurso, FormCronActividades, FormModificarDetalleDocente
 from autenticacion.models import Usuario
 from fichas_alumnos.models import FichaAlumno
-from django.contrib.auth.decorators import login_required, permission_required
 
 @login_required
 @permission_required('cursos.view_curso', raise_exception=True)
@@ -92,16 +92,18 @@ def modificar_curso_view(request, id):
 
     instance = Curso.objects.get(id=id)
     context['form'] = FormModificarCurso(instance=instance)
-
+    context['id'] = id
+    
     if request.POST:
         form = FormModificarCurso(request.POST, instance=instance)
         if form.is_valid():
 
             alumnos = FichaAlumno.objects.filter(curso=id).count()
             cupos = form.cleaned_data['cupos']
-
+            curso_modificado = form.save(commit=False)
             if cupos >= alumnos:
-                form.save()
+                curso_modificado.save()
+                return redirect('detalle_curso', id)
             else:
                 form.add_error('cupos', "No pueden haber menos cupos que alumnos inscritos.")
                 context['form'] = form
@@ -110,3 +112,60 @@ def modificar_curso_view(request, id):
             context['form'] = form
 
     return render(request, 'formularios/curso_modificar_formulario.html', context)
+
+
+@login_required
+@permission_required('cursos.view_curso', raise_exception=True)
+def detalle_curso_view(request, id):
+    context = {}
+    context['curso'] = Curso.objects.get(id=id)
+    context['docente'] = DetalleDocente.objects.filter(curso_id=id)
+    context['docente_form'] = FormDetalleDocente
+    context['avance_form'] = FormCronActividades
+
+    if request.method == 'POST':
+
+        if request.POST.get('docente') and request.POST.get('asignatura'):
+            # create a form instance and populate it with data from the request:
+            form = FormDetalleDocente(request.POST)
+
+            # check whether it's valid:
+            if form.is_valid():
+                nuevo_docente = form.save(commit=False)
+                nuevo_docente.curso = Curso.objects.get(id=id)
+                nuevo_docente.save()
+            else:
+                context['docente_form'] = form
+
+    return render(request, 'detalle_curso.html', context)
+
+
+@login_required
+@permission_required('cursos.change_detalledocente', raise_exception=True)
+def modificar_detalle_docente_view(request, id):
+    context = {}
+
+    instance = DetalleDocente.objects.get(id=id)
+    context['form'] = FormModificarDetalleDocente(instance=instance)
+    context['id'] = id
+    
+    if request.POST:
+        form = FormModificarDetalleDocente(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_curso', instance.curso.id)
+
+        else:
+            context['form'] = form
+
+    return render(request, 'formularios/detalle_docente_modificar_formulario.html', context)
+
+
+@login_required
+@permission_required('cursos.delete_detalledocente', raise_exception=True)
+def delete_detalle_docente_view(request, id):
+    instance = DetalleDocente.objects.get(id=id)
+    curso = instance.curso.id
+    instance.delete()
+
+    return redirect('detalle_curso', curso)
