@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('autenticacion.urls')),
     path('alumnos/', include('fichas_alumnos.urls')),
     path('cursos/', include('cursos.urls')),
+    path('lista_espera/', include('lista_espera.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

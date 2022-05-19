@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'autenticacion',
     'fichas_alumnos',
     'cursos',
+    'lista_espera',
     'django_cleanup.apps.CleanupConfig',
 ]
 

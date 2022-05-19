@@ -51,7 +51,7 @@
                 </a>
               </li>
             {% endif %}
-            {% if perms.foo %}
+            {% if perms.cursos.view_curso %}
               <li class="nav-item">
                 <a href="{% url 'listado_cursos' as url_cursos %} {{ url_cursos }} " class="nav-link {% if request.path == url_cursos %} active {% endif %}" {% if request.path == url_cursos %} aria-class="active" {% endif %}>
                   <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -63,6 +63,8 @@
                   Cursos
                 </a>
               </li>
+            {% endif %}
+            {% if perms.lista_espera.view_listaespera %}
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -152,7 +154,7 @@
             </a>
           </li>
         {% endif %}
-        {% if perms.foo %}
+        {% if perms.lista_espera.view_listaespera %}
           <li>
             <a href="#" class="nav-link text-white">
               <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"

@@ -252,10 +252,35 @@
         </div>
 
         {% if c_alumnos < curso.cupos %}
-        <div class="text-center">
-            <h6 class="fw-bold">Hay cupos disponibles en el curso</h6>
-            <a class="btn btn-outline-primary">Avanzar lista de espera</a>
-        </div>
+            <div class="text-center">
+                <h6 class="fw-bold">Hay cupos disponibles en el curso</h6>
+                {% if perms.lista_espera.can_avanzar_lista_espera %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAvanzarListaEspera">
+                        Avanzar lista de espera
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmAvanzarListaEspera" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmAvanzarListaEsperaLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="confirmAvanzarListaEsperaLabel">Confirmar avance de lista de espera</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <p>Estás por avanzar la lista de espera del curso:</P>
+                                    <p class="fw-light fst-italic px-3"></P>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <a type="button" class="btn btn-primary" href="">Confirmar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         {% endif %}
         
     </div>
