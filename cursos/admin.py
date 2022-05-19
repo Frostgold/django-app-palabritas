@@ -31,6 +31,7 @@ class CursoConfig(admin.ModelAdmin):
                 'nombre',
                 'periodo',
                 'cupos',
+                'docente_jefe',
             ),
         }),
     )
@@ -43,6 +44,7 @@ class CursoConfig(admin.ModelAdmin):
             ),
             "fields": (
                 'cupos',
+                'docente_jefe',
             ),
         }),
         )

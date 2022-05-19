@@ -119,7 +119,7 @@ class AvanceAlumno(models.Model):
 class DetalleApoderado(models.Model):
     id = models.AutoField(primary_key=True)
     alumno = models.ForeignKey(FichaAlumno, on_delete=models.CASCADE)
-    apoderado = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    apoderado = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Apoderado"})
 
     class Meta:
         verbose_name = 'Detalle Apoderado'

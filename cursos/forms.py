@@ -5,14 +5,14 @@ class FormAgregarCurso(ModelForm):
 
     class Meta:
         model = Curso
-        fields = ['nivel', 'letra', 'cupos']
+        fields = ['nivel', 'letra', 'cupos', 'docente_jefe',]
 
 
 class FormModificarCurso(ModelForm):
 
     class Meta:
         model = Curso
-        fields = ['cupos']
+        fields = ['cupos', 'docente_jefe',]
 
 class FormCronActividades(ModelForm):
 

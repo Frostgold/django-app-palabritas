@@ -13,14 +13,17 @@
         <form method="get" action="" class="d-flex">
 
             <input name="nombre" class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search">
-            <select name="periodo" class="form-select" aria-label="Default select periodo">
-                <option value="" selected hidden>Periodo</option>
-                {% for p in periodo %}
-                    <option value="{{ p.periodo }}">{{ p.periodo }}</option>
-                {% endfor %}
-            </select>
+            {% if perms.cursos.can_view_listado_cursos %}
+                <select name="periodo" class="form-select" aria-label="Default select periodo">
+                    <option value="" selected hidden>Periodo</option>
+                    {% for p in periodo %}
+                        <option value="{{ p.periodo }}">{{ p.periodo }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
             <select name="docente" class="form-select" aria-label="Default select curso">
-                <option value="" selected hidden>Seleccione un docente</option>
+                <option value="" selected hidden>Seleccione docente jefe</option>
+                <option value="No asignado">No asignado</option>
                 {% for d in docente %}
                     <option value="{{ d.id }}">{{ d.nombre }}</option>
                 {% endfor %}
@@ -46,6 +49,7 @@
                     <tr>
                         <th scope="col">Curso</th>
                         <th scope="col">Periodo</th>
+                        <th scope="col">Docente jefe</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +58,7 @@
                         <tr onclick="window.location='{% url 'detalle_curso' curso.id %}';">
                             <td>{{ curso.nombre }}</td>
                             <td>{{ curso.periodo }}</td>
+                            <td>{% if curso.docente_jefe %}{{ curso.docente_jefe }}{% else %}No asignado{% endif %}</td>
                         </tr>
 
                     {% endfor %}

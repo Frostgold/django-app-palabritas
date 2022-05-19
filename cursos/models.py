@@ -31,6 +31,7 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=100, blank=False, null=False)
     periodo = models.CharField(max_length=4, default=datetime.datetime.now().year, blank=False, null=False)
     cupos = models.PositiveIntegerField(null=False)
+    docente_jefe = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, blank=True, null=True, limit_choices_to={'groups__name': "Docente"})
 
     class Meta:
         verbose_name = 'Curso'
@@ -52,7 +53,7 @@ class CronogramaActividad(models.Model):
     id = models.AutoField(primary_key=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     comentario = models.CharField(max_length=1000, null=False, blank=False)
-    imagen = models.ImageField(max_length=500, upload_to=actividad_directory_path)
+    imagen = models.ImageField(max_length=500, upload_to=actividad_directory_path, null=True, blank=True)
     editor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_edicion = models.DateField(auto_now=True)
     modificado = models.BooleanField(default=False)
@@ -75,7 +76,7 @@ class CronogramaActividad(models.Model):
 class DetalleDocente(models.Model):
     id = models.AutoField(primary_key=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    docente = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    docente = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Docente"})
     asignatura = models.CharField(max_length=250, blank=False, null=False)
 
     class Meta:

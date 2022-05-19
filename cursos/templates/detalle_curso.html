@@ -15,10 +15,8 @@
                 <h4 class="d-block">{{ curso.periodo }}</h4>
                 <h6 class="d-block fw-light">Cupos: {{ curso.cupos }}</h6>
 
-                {% if docente %}
-                    {% for d in docente %}
-                        <h6 class="d-block fw-light"></h6>
-                    {% endfor %}
+                {% if curso.docente_jefe%}
+                    <h6 class="d-block fw-light">{{ curso.docente_jefe }}</h6>
                 {% else %}
                     <h6 class="d-block fw-bold text-danger">Docente jefe sin asignar</h6>
                 {% endif %}
@@ -30,7 +28,7 @@
     </div>
 
     <div class="col col-md-10 col-lg-8 mx-auto my-5">
-        <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion mb-4" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -133,57 +131,61 @@
 
                         <div class="container my-3">
                             <p class="fs-5">Subir actividad</p>
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <p>{{ avance_form|crispy }}</p>
+                                <p>{{ actividad_form|crispy }}</p>
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
                     
                     {% endif %}
 
-                    {% if avances %}
+                    {% if cron_actividad %}
 
-                        {% for avance in avances %}
+                        {% for actividad in cron_actividad %}
                             <div class="container-fluid border">
                     
-                                <p class="d-block m-0 p-2">{{ avance.comentario }}</p>
+                                <p class="d-block m-0 p-2">{{ actividad.comentario }}</p>
+                                {% if actividad.imagen %}
+                                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.imagen }}" alt="Imagen registro de actividad">
+                                {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
                                     <div class="col">
                                         <p class="d-flex mb-0 ps-2 text-muted fst-italic">
-                                            {{ avance.geteditor }} - 
-                                            {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
+                                            {{ actividad.geteditor }} - 
+                                            {% if actividad.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ actividad.fecha_edicion }}
                                         </p>
                                     </div>
-                                    {% if perms.fichas_alumnos.change_avancealumno %}
+
+                                    {% if perms.cursos.change_cronogramaactividad %}
                                     
                                         <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
-                                            <a href="{% url 'modificar_avance_alumno' avance.id %}" type="button" class="btn btn-secondary">Modificar</a>
-                                            {% if perms.fichas_alumnos.delete_avancealumno %}
+                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            {% if perms.cursos.delete_cronogramaactividad %}
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ avance.id }}">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
                                                 X
                                             </button>
                                             
                                             <!-- Modal -->
-                                            <div class="modal fade" id="confirmDeleteAvance{{ avance.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteAvance{{ avance.id }}Label" aria-hidden="true">
+                                            <div class="modal fade" id="confirmDeleteAvance{{ actividad.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteAvance{{ actividad.id }}Label" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title fw-bold" id="confirmDeleteAvance{{ avance.id }}Label">Confirmar eliminación de avance</h5>
+                                                            <h5 class="modal-title fw-bold" id="confirmDeleteAvance{{ actividad.id }}Label">Confirmar eliminación de actividad</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body text-start">
-                                                            <p>Estás por eliminar el siguiente avance:</P>
-                                                            <p class="fw-light fst-italic px-3">{{ avance.comentario }}</P>
+                                                            <p>Estás por eliminar la siguiente actividad:</P>
+                                                            <p class="fw-light fst-italic px-3">{{ actividad.comentario }}</P>
                                                             <p class="fw-lighter fst-italic px-3 text-muted">
-                                                                {{ avance.geteditor }} - 
-                                                                {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
+                                                                {{ actividad.geteditor }} - 
+                                                                {% if actividad.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ actividad.fecha_edicion }}
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                            <a type="button" class="btn btn-danger" href="{% url 'eliminar_avance_alumno' avance.id %}">Confirmar</a>
+                                                            <a type="button" class="btn btn-danger" href="{% url 'eliminar_cronograma_actividad' actividad.id %}">Confirmar</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -192,6 +194,7 @@
                                         </div>
                                     
                                     {% endif %}
+                                    
                                 </div>
             
                             </div>
@@ -199,7 +202,7 @@
 
                     {% else %}
 
-                        <h6 class="d-block fw-bold p-3">No existen publicaciones de avances</h6>
+                        <h6 class="d-block fw-bold p-3">No existen publicaciones de actividades</h6>
 
                     {% endif %}
 
@@ -209,6 +212,7 @@
                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                         Alumnos
+                        <text class="text-center text-muted w-100 me-5">{{ c_alumnos }}/{{ curso.cupos }}</text>
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
@@ -219,22 +223,22 @@
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">RUT</th>
-                                    <th scope="col">Curso</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if documentos %}
-                                    {% for doc in documentos %}
+                                {% if alumnos %}
+                                    {% for alumno in alumnos %}
                     
-                                        <tr>
-                                            <td></td>
+                                        <tr onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
+                                            <td>{{ alumno.nombre }}</td>
+                                            <td>{{ alumno.rut_formatted }}</td>
                                         </tr>
                     
                                     {% endfor %}
                                 {% else %}
                                     <tr>
                                         <td>
-                                            <h6 class="d-block fw-bold p-3">No existen publicaciones de documentos</h6>
+                                            <h6 class="d-block fw-bold p-3">No existen alumnos que mostrar</h6>
                                         </td>
                                         <td></td>
                                     </tr>
@@ -246,7 +250,13 @@
                 </div>
             </div>
         </div>
-    
+
+        {% if c_alumnos < curso.cupos %}
+        <div class="text-center">
+            <h6 class="fw-bold">Hay cupos disponibles en el curso</h6>
+            <a class="btn btn-outline-primary">Avanzar lista de espera</a>
+        </div>
+        {% endif %}
         
     </div>
 

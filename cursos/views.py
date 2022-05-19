@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Curso, DetalleDocente
+from .models import CronogramaActividad, Curso, DetalleDocente
 from .forms import FormAgregarCurso, FormDetalleDocente, FormModificarCurso, FormCronActividades, FormModificarDetalleDocente
 from autenticacion.models import Usuario
 from fichas_alumnos.models import FichaAlumno
@@ -17,14 +17,14 @@ def listado_cursos_view(request):
     context['periodo'] = Curso.objects.order_by().values('periodo').distinct()
 
     # Consigue la lista de docentes
-    docentes = DetalleDocente.objects.order_by().values('docente_id').distinct()
+    docentes = Curso.objects.order_by().values('docente_jefe').distinct()
     context['docente'] = Usuario.objects.filter(id__in=docentes)
 
     # Revisa si el usuario es docente y si es que tiene cursos asginados
     if not request.user.has_perm('cursos.can_view_listado_cursos'):
 
         cursos = DetalleDocente.objects.filter(docente=request.user).order_by().values('curso_id').distinct()
-        listado = Curso.objects.filter(id__in=cursos).order_by('-periodo')
+        listado = Curso.objects.filter(Q(id__in=cursos) | Q(docente_jefe=request.user)).order_by('-periodo')
         context['listado'] = listado
 
     else:
@@ -39,18 +39,23 @@ def listado_cursos_view(request):
                 Q(nombre__icontains=query)
             )
             context['listado'] = object_list
-        if request.GET.get('periodo') and request.GET.get('periodo') != "":
-            query = request.GET.get('periodo')
-            object_list =  context['listado'].filter(
-                Q(periodo=query)
-            )
-            context['listado'] = object_list
+        if request.user.has_perm('cursoscan_view_listado_cursos'):
+            if request.GET.get('periodo') and request.GET.get('periodo') != "":
+                query = request.GET.get('periodo')
+                object_list =  context['listado'].filter(
+                    Q(periodo=query)
+                )
+                context['listado'] = object_list
         if request.GET.get('docente') and request.GET.get('docente') != "":
             query = request.GET.get('docente')
-            query_cursos = DetalleDocente.objects.filter(docente_id=query).order_by().values('curso_id').distinct()
-            object_list =  context['listado'].filter(
-                Q(id__in=query_cursos)
-            )
+            if query == 'No asignado':
+                object_list =  context['listado'].filter(
+                    Q(docente_jefe=None)
+                )
+            else:
+                object_list =  context['listado'].filter(
+                    Q(docente_jefe=query)
+                )
             context['listado'] = object_list
 
     return render(request, 'listado_cursos.html', context)
@@ -120,10 +125,15 @@ def detalle_curso_view(request, id):
     context = {}
     context['curso'] = Curso.objects.get(id=id)
     context['docente'] = DetalleDocente.objects.filter(curso_id=id)
+    context['cron_actividad'] = CronogramaActividad.objects.filter(curso_id=id).order_by('-id')
+    context['alumnos'] = FichaAlumno.objects.filter(curso_id=id)
+    context['c_alumnos'] = FichaAlumno.objects.filter(curso_id=id).count()
     context['docente_form'] = FormDetalleDocente
-    context['avance_form'] = FormCronActividades
+    context['actividad_form'] = FormCronActividades
 
     if request.method == 'POST':
+
+        print(request.POST)
 
         if request.POST.get('docente') and request.POST.get('asignatura'):
             # create a form instance and populate it with data from the request:
@@ -136,6 +146,19 @@ def detalle_curso_view(request, id):
                 nuevo_docente.save()
             else:
                 context['docente_form'] = form
+
+        if request.POST.get('comentario'):
+            # create a form instance and populate it with data from the request:
+            form = FormCronActividades(request.POST, request.FILES)
+
+            # check whether it's valid:
+            if form.is_valid():
+                nueva_actividad = form.save(commit=False)
+                nueva_actividad.curso = Curso.objects.get(id=id)
+                nueva_actividad.editor = request.user
+                nueva_actividad.save()
+            else:
+                context['actividad_form'] = form
 
     return render(request, 'detalle_curso.html', context)
 
@@ -165,6 +188,46 @@ def modificar_detalle_docente_view(request, id):
 @permission_required('cursos.delete_detalledocente', raise_exception=True)
 def delete_detalle_docente_view(request, id):
     instance = DetalleDocente.objects.get(id=id)
+    curso = instance.curso.id
+    instance.delete()
+
+    return redirect('detalle_curso', curso)
+
+
+@login_required
+@permission_required('cursos.change_cronogramaactividad', raise_exception=True)
+def modificar_cronograma_actividad_view(request, id):
+    context = {}
+
+    instance = CronogramaActividad.objects.get(id=id)
+    context['form'] = FormCronActividades(instance=instance)
+    context['instance'] = instance
+    
+
+    if request.POST:
+        print(request.POST)
+        print(request.FILES)
+
+        form = FormCronActividades(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            actividad_modificada = form.save(commit=False)
+            actividad_modificada.modificado = True
+            if request.POST.get('chkEliminarImg') == "on":
+                actividad_modificada.imagen = None
+            actividad_modificada.save()
+            
+            return redirect('detalle_curso', instance.curso.id)
+
+        else:
+            context['form'] = form
+
+    return render(request, 'formularios/cronograma_actividad_modificar_formulario.html', context)
+
+
+@login_required
+@permission_required('cursos.delete_cronogramaactividad', raise_exception=True)
+def delete_cronograma_actividad_view(request, id):
+    instance = CronogramaActividad.objects.get(id=id)
     curso = instance.curso.id
     instance.delete()
 
