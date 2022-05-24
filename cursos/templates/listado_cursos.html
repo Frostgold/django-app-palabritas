@@ -9,33 +9,35 @@
 
     {% if perms.fichas_alumnos.can_view_listado_fichas %}
 
-        <h3 class="mt-4 mb-3">Buscar curso</h3>
-        <form method="get" action="" class="d-flex">
+        <div class="container">
+            <h3 class="fw-bold mt-4 mb-3">Buscar curso</h3>
+            <form method="get" action="" class="d-md-flex">
 
-            <input name="nombre" class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search">
-            {% if perms.cursos.can_view_listado_cursos %}
-                <select name="periodo" class="form-select" aria-label="Default select periodo">
-                    <option value="" selected hidden>Periodo</option>
-                    {% for p in periodo %}
-                        <option value="{{ p.periodo }}">{{ p.periodo }}</option>
+                <input name="nombre" class="form-control mb-3 me-md-3 mb-md-0" type="search" placeholder="Nombre" aria-label="Search">
+                {% if perms.cursos.can_view_listado_cursos %}
+                    <select name="periodo" class="form-select mb-3 me-md-3 mb-md-0" aria-label="Default select periodo">
+                        <option value="" selected hidden>Periodo</option>
+                        {% for p in periodo %}
+                            <option value="{{ p.periodo }}">{{ p.periodo }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                <select name="docente" class="form-select mb-3 me-md-3 mb-md-0" aria-label="Default select curso">
+                    <option value="" selected hidden>Seleccione docente jefe</option>
+                    <option value="No asignado">No asignado</option>
+                    {% for d in docente %}
+                        <option value="{{ d.id }}">{{ d.nombre }}</option>
                     {% endfor %}
                 </select>
-            {% endif %}
-            <select name="docente" class="form-select" aria-label="Default select curso">
-                <option value="" selected hidden>Seleccione docente jefe</option>
-                <option value="No asignado">No asignado</option>
-                {% for d in docente %}
-                    <option value="{{ d.id }}">{{ d.nombre }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
 
     {% endif %}
 
     
     <div class="d-flex justify-content-between mx-2 mt-5">
-        <h3>Cursos</h3>
+        <h3 class="fw-bold">Cursos</h3>
         {% if perms.cursos.add_curso %}
             <a class="py-2" href="{% url 'agregar_curso' %}">Agregar curso</a> 
         {% endif %}

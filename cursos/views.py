@@ -126,10 +126,23 @@ def detalle_curso_view(request, id):
     context['curso'] = Curso.objects.get(id=id)
     context['docente'] = DetalleDocente.objects.filter(curso_id=id)
     context['cron_actividad'] = CronogramaActividad.objects.filter(curso_id=id).order_by('-id')
-    context['alumnos'] = FichaAlumno.objects.filter(curso_id=id)
-    context['c_alumnos'] = FichaAlumno.objects.filter(curso_id=id).count()
+    context['alumnos'] = FichaAlumno.objects.filter(curso_id=id).order_by('nombre')
     context['docente_form'] = FormDetalleDocente
     context['actividad_form'] = FormCronActividades
+
+    if 'error' in request.session:
+        context['error'] = request.session['error']
+        del request.session['error']
+    if 'success' in request.session:
+        context['success'] = request.session['success']
+        del request.session['success']
+
+    context['inscritos'] = FichaAlumno.objects.filter(curso_id=id).count()
+    if context['curso'].cupos > context['inscritos']:
+        context['cupos'] = context['curso'].cupos - context['inscritos']
+
+    if not context['curso']:
+        return redirect('listado_cursos')
 
     if request.method == 'POST':
 

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateInput, Textarea, FileInput
+from django.forms import ModelForm, DateInput, Textarea, FileInput, BaseInlineFormSet, ValidationError
 import datetime
 
 from .models import FichaAlumno, AvanceAlumno, BancoTrabajo, BancoDocumento, DetalleApoderado
@@ -7,7 +7,7 @@ class FormFichaAlumno(ModelForm):
     
     class Meta:
         model = FichaAlumno
-        fields = ['rut', 'nombre', 'fecha_nacimiento', 'estado',]
+        fields = ['rut', 'nombre', 'fecha_nacimiento',]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
         }
@@ -84,3 +84,13 @@ class FormDocumentoAlumno(ModelForm):
             'documento': FileInput(attrs={'class': "form-control"}),
         }
 
+class ApoderadoBaseFormSet(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self:
+            form.fields['apoderado'].required = False
+
+class ListaEsperaBaseFormSet(BaseInlineFormSet):
+    def clean(self):
+        if self.has_changed() == False:
+            raise ValidationError('Debe seleccionar el nivel.') 

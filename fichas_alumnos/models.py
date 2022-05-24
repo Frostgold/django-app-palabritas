@@ -63,6 +63,13 @@ class FichaAlumno(models.Model):
 
         return rut.upper()
 
+    def asignar_curso(self, curso:Curso):
+        if curso:
+            self.curso = curso
+            self.estado = 'curso_asignado'
+            self.save()
+
+
 
 def documento_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/alumno_<rut>/<filename>

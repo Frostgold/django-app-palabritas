@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css_estilos %}
+    <link href="{% static 'css/style-inicio.css' %}" rel="stylesheet">
+{% endblock css_estilos %}
+
 {% block titulo %}Inicio{% endblock titulo %}
 
 {% block content %}
 
-
-    <h1>Hola mundo!</h1>
-
+    <div class="col d-flex fondo" style="background-image: url({% static 'img/bg.jpg' %});">
+        <div class="w-100 h-100 m-0 bg-dark bg-opacity-50 text-white d-flex align-items-center text-center">
+            <h1 class="mt-5 fw-bold mx-auto fs-grande fs-md-grande">Escuela especial de lenguaje Palabritas</br>Bienvenido!</h1>
+        </div>
+    </div>
     
 {% endblock content %}

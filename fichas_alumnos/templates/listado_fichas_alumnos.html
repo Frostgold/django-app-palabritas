@@ -9,24 +9,26 @@
 
     {% if perms.fichas_alumnos.can_view_listado_fichas %}
 
-        <h3 class="mt-4 mb-3">Buscar alumno</h3>
-        <form method="get" action="{% url 'listado_fichas_alumnos' %}" class="d-flex">
+        <div class="container">
+            <h3 class="fw-bold mt-4 mb-3">Buscar alumno</h3>
+            <form method="get" action="{% url 'listado_fichas_alumnos' %}" class="d-md-flex">
 
-            <input name="nomrut" class="form-control me-2" type="search" placeholder="RUT o Nombre" aria-label="Search">
-            <select name="curso" class="form-select" aria-label="Default select example">
-                <option value="" selected hidden>Seleccione un curso</option>
-                {% for c in curso %}
-                    <option value="{{ c.nombre}}">{{ c.nombre }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+                <input name="nomrut" class="form-control mb-3 mb-md-0 me-md-3" type="search" placeholder="RUT o Nombre" aria-label="Search">
+                <select name="curso" class="form-select mb-3 mb-md-0 me-md-3" aria-label="Default select example">
+                    <option value="" selected hidden>Seleccione un curso</option>
+                    {% for c in curso %}
+                        <option value="{{ c.nombre}}">{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
 
     {% endif %}
 
     
-    <div class="d-flex justify-content-between mx-2 mt-5">
-        <h3>Alumnos</h3>
+    <div class="d-flex justify-content-between mt-5 px-2">
+        <h3 class="fw-bold">Alumnos</h3>
         {% if perms.fichas_alumnos.add_fichaalumno %}
             <a class="py-2" href="{% url 'agregar_ficha_alumno' %}">Agregar ficha</a> 
         {% endif %}

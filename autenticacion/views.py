@@ -21,7 +21,8 @@ def registration_view(request):
             # check whether it's valid:
             if form.is_valid():
                 
-                form.save()
+                usuario_nuevo = form.save(commit=False)
+                usuario_nuevo.nombre = usuario_nuevo.nombre.title()
 
                 return HttpResponse("<h1>Gracias por registrarte</h1>")
 
