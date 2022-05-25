@@ -4,13 +4,12 @@
 {% block estilos %} .invalid-feedback {display: inline !important;} {% endblock estilos %}
 {% block titulo %}Inicio{% endblock titulo %}
 
-{% block h1 %}Registro{% endblock h1 %}
+{% block h1 %}Registro de usuario{% endblock h1 %}
 {% block content %}
 
 
     <div class="container">
         <div class="col col-md-8 col-lg-6 mx-auto">
-            <h2>Registro de usuario</h2>
             <form method="post">
                 {% csrf_token %}
 
@@ -28,7 +27,7 @@
                     {% endif %}
                 {% endfor %}
 
-                <button type="submit">Registrar</button>
+                <button class="mb-5 btn btn-primary" type="submit">Registrar</button>
 
             </form>
         </div>

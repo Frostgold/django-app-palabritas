@@ -8,21 +8,21 @@
 
 <div class="col">
 
-    <div class="container-fluid bg-secondary bg-opacity-75 py-5">
-        <div class="container">
+    <div class="container-fluid bg-success bg-gradient bg-opacity-75 pt-5 pb-4">
+        <div class="container text-center text-md-start ms-md-3">
             
                 <h1 class="d-block fw-bold">{{ curso.nombre }}</h1>
-                <h4 class="d-block">{{ curso.periodo }}</h4>
+                <h4 class="d-block">Periodo {{ curso.periodo }}</h4>
                 <h6 class="d-block fw-light">Cupos: {{ curso.cupos }}</h6>
 
                 {% if curso.docente_jefe%}
-                    <h6 class="d-block fw-light">{{ curso.docente_jefe }}</h6>
+                    <h6 class="d-block fw-light">Docente jefe: {{ curso.docente_jefe }}</h6>
                 {% else %}
-                    <h6 class="d-block fw-bold text-danger">Docente jefe sin asignar</h6>
+                    <h6 class="d-block fw-light">Docente jefe: <text class="fw-bold text-danger">Sin asignar</text></h6>
                 {% endif %}
 
                 {% if perms.cursos.change_curso %}
-                    <a class="btn btn-light mt-3" href="{% url 'modificar_curso' curso.id %}">Modificar curso</a>
+                    <a class="btn btn-light mt-4" href="{% url 'modificar_curso' curso.id %}">Modificar curso</a>
                 {% endif %}
         </div>
     </div>
@@ -55,7 +55,8 @@
                             <p class="fs-5">Agregar docente</p>
                             <form method="post">
                                 {% csrf_token %}
-                                <p>{{ docente_form|crispy }}</p>
+                                <p>{{ docente_form.docente|as_crispy_field }}</p>
+                                <p>{{ docente_form.asignatura|as_crispy_field }}</p>
                                 <button class="btn btn-primary" type="submit">Agregar</button>
                             </form>
                         </div>
@@ -63,7 +64,7 @@
                     {% endif %}
                     
                     <div class="table-responsive-md">
-                        <table class="table table-hover fs-5">
+                        <table class="table table-hover fs-5 mb-0">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Nombre</th>
@@ -120,7 +121,7 @@
                                     {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td>
+                                        <td colspan="3">
                                             <h6 class="d-block fw-bold p-3">No existen docentes asignados</h6>
                                         </td>
                                     </tr>
@@ -145,7 +146,8 @@
                             <p class="fs-5">Subir actividad</p>
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <p>{{ actividad_form|crispy }}</p>
+                                <p>{{ actividad_form.comentario|as_crispy_field }}</p>
+                                <p>{{ actividad_form.imagen|as_crispy_field }}</p>
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
@@ -230,7 +232,7 @@
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
 
                     <div class="table-responsive-md">
-                        <table class="table table-hover fs-5">
+                        <table class="table table-hover fs-5 mb-0">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Nombre</th>
@@ -249,10 +251,9 @@
                                     {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <h6 class="d-block fw-bold p-3">No existen alumnos que mostrar</h6>
                                         </td>
-                                        <td></td>
                                     </tr>
                                 {% endif %}
                             </tbody>

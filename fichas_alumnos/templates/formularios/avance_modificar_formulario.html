@@ -7,10 +7,11 @@
 {% block content %}
 
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto">
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
+            <p class="fs-5 fw-bold text-center">Modificar avance alumno</p>
             <form method="post">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ form.comentario|as_crispy_field }}
                 <p class="fw-lighter fst-italic px-3 text-center text-muted">
                     {{ avance.geteditor }} - 
                     {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}

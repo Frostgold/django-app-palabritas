@@ -7,12 +7,13 @@
 {% block content %}
 
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto">
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
+            <p class="fs-5 fw-bold text-center">Modificar ficha alumno</p>
             <form method="post">
                 {% csrf_token %}
-                {{ form.nombre|as_crispy_field }}
-                {{ form.fecha_nacimiento|as_crispy_field }}
-                {{ apoderado|crispy }}
+                <p>{{ form.nombre|as_crispy_field }}</p>
+                <p>{{ form.fecha_nacimiento|as_crispy_field }}</p>
+                <p>{{ apoderado|crispy }}</p>
                 <a href="{% url 'ficha_alumno' alumno.rut %}" class="btn btn-secondary">Cancelar</a>
                 <button class="btn btn-primary" type="submit">Modificar</button>
             </form>

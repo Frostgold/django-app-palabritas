@@ -7,12 +7,17 @@
 {% block content %}
 
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto">
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
+            <p class="fs-5 fw-bold text-center">Modificar detalle docente</p>
             <form method="post">
                 {% csrf_token %}
-                {{ form|crispy }}
+                <p>
+                    <label for="id_docente">Docente</label>
+                    <input id="id_docente" class="form-control" type="text" value="{{ instance.docente }}" disabled readonly>
+                </p>
+                <p>{{ form|crispy }}</p>
 
-                <a href="{% url 'detalle_curso' id %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'detalle_curso' instance.curso.id %}" class="btn btn-secondary">Cancelar</a>
                 <button class="btn btn-primary" type="submit">Modificar</button>
             </form>
         </div>

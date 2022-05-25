@@ -9,12 +9,12 @@
 
 
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto">
+        <div class="col col-md-8 col-lg-6 mx-auto mb-5">
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
 
                 {% for field in form %}
-                    {{ field|as_crispy_field }}
+                    <p>{{ field|as_crispy_field }}</p>
                     {% if field.errors %}
                         <div class="invalid-feedback">
                             {{ field.errors }}
@@ -25,10 +25,10 @@
                     {% endif %}
                 {% endfor %}
                 
-                <input type="submit" value="login">
+                <input class="mb-3 btn btn-primary" type="submit" value="login">
                 <input type="hidden" name="next" value="{{ next }}">
             </form>
-            <p><a href="{% url 'reset_password' %}">Olvidaste tu contraseña?</a></p>
+            <p class="mb-0"><a href="{% url 'reset_password' %}">Olvidaste tu contraseña?</a></p>
             <p><a href="{% url 'registro' %}">Registrarse</a></p>
         </div>
     </div>

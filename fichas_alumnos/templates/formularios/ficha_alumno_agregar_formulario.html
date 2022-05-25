@@ -7,16 +7,17 @@
 {% block content %}
 
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto">
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
+            <p class="fs-5 fw-bold text-center">Agregar ficha alumno</p>
             <form method="post">
                 {% csrf_token %}
-                {{ form.rut|as_crispy_field }}
-                {{ form.nombre|as_crispy_field }}
-                {{ form.fecha_nacimiento|as_crispy_field }}
+                <p>{{ form.rut|as_crispy_field }}</p>
+                <p>{{ form.nombre|as_crispy_field }}</p>
+                <p>{{ form.fecha_nacimiento|as_crispy_field }}</p>
                 {{ apoderado|crispy }}
                 <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>
                 {{ lista_espera|crispy }}
-                <button type="submit">Agregar</button>
+                <button class="btn btn-primary my-4" type="submit">Agregar</button>
             </form>
         </div>
     </div>

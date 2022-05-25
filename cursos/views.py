@@ -156,6 +156,7 @@ def detalle_curso_view(request, id):
             if form.is_valid():
                 nuevo_docente = form.save(commit=False)
                 nuevo_docente.curso = Curso.objects.get(id=id)
+                nuevo_docente.asignatura = nuevo_docente.asignatura.title()
                 nuevo_docente.save()
             else:
                 context['docente_form'] = form
@@ -183,7 +184,7 @@ def modificar_detalle_docente_view(request, id):
 
     instance = DetalleDocente.objects.get(id=id)
     context['form'] = FormModificarDetalleDocente(instance=instance)
-    context['id'] = id
+    context['instance'] = instance
     
     if request.POST:
         form = FormModificarDetalleDocente(request.POST, instance=instance)
