@@ -21,5 +21,5 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         ordering = ['usuario']
 
     def __str__(self):
-        return self.usuario
+        return self.nombre
         

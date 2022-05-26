@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="col col-md-10 col-lg-8 mx-auto">
+<div class="col col-md-10 col-lg-8 mx-auto mb-5">
 
     {% if perms.fichas_alumnos.can_view_listado_fichas %}
 
@@ -23,7 +23,7 @@
                     </select>
                 {% endif %}
                 <select name="docente" class="form-select mb-3 me-md-3 mb-md-0" aria-label="Default select curso">
-                    <option value="" selected hidden>Seleccione docente jefe</option>
+                    <option value="" selected hidden>Docente jefe</option>
                     <option value="No asignado">No asignado</option>
                     {% for d in docente %}
                         <option value="{{ d.id }}">{{ d.nombre }}</option>
@@ -46,21 +46,21 @@
 
     {% if listado %}
         <div class="table-responsive-md">
-            <table class="table table-hover fs-5">
+            <table class="table table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Periodo</th>
-                        <th scope="col">Docente jefe</th>
+                        <th class="fs-5" scope="col">Curso</th>
+                        <th class="fs-5" scope="col">Periodo</th>
+                        <th class="fs-5 text-center text-sm-start" scope="col">Docente jefe</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for curso in listado %}
 
                         <tr onclick="window.location='{% url 'detalle_curso' curso.id %}';">
-                            <td>{{ curso.nombre }}</td>
-                            <td>{{ curso.periodo }}</td>
-                            <td>{% if curso.docente_jefe %}{{ curso.docente_jefe }}{% else %}No asignado{% endif %}</td>
+                            <td class="align-middle">{{ curso.nombre }}</td>
+                            <td class="align-middle">{{ curso.periodo }}</td>
+                            <td class="align-middle">{% if curso.docente_jefe %}{{ curso.docente_jefe.nombre }}{% else %}No asignado{% endif %}</td>
                         </tr>
 
                     {% endfor %}

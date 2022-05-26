@@ -57,15 +57,15 @@
                                             </div>
                                             <div class="modal-body text-start">
                                                 <p>Estás por avanzar la lista de espera del nivel {{ query.descripcion }}:</P>
-                                                {% if avanzan > 1 %}
-                                                <p class="fw-light fst-italic px-3">Serán {{ avanzan }} alumnos los que avanzarán en la lista de espera.</P>
+                                                {% if avanzan != 1 %}
+                                                    <p class="fw-light fst-italic px-3">Serán {{ avanzan }} alumnos los que avanzarán en la lista de espera.</P>
                                                 {% else %}
                                                     <p class="fw-light fst-italic px-3">{{ avanzan }} alumno avanzará en la lista de espera.</P>
                                                 {% endif %}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                <a type="button" class="btn btn-primary" href="{% url 'avanzar_lista_espera' query.id %}">Confirmar</a>
+                                                <a type="button" class="btn btn-primary {% if avanzan == 0 %}disabled{% endif %}" href="{% url 'avanzar_lista_espera' query.id %}">Confirmar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -98,9 +98,9 @@
                         {% for ficha in listado %}
 
                             <tr onclick="window.location='{% url 'ficha_alumno' ficha.alumno.rut %}';">
-                                <td>{{ ficha.alumno.nombre }}</td>
-                                <td>{{ ficha.alumno.rut_formatted }}</td>
-                                <td>{{ ficha.nivel.descripcion }}</td>
+                                <td class="align-middle">{{ ficha.alumno.nombre }}</td>
+                                <td class="align-middle">{{ ficha.alumno.rut_formatted }}</td>
+                                <td class="align-middle">{{ ficha.nivel.descripcion }}</td>
                             </tr>
 
                         {% endfor %}

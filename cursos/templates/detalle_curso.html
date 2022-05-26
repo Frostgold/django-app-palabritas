@@ -9,14 +9,14 @@
 <div class="col">
 
     <div class="container-fluid bg-success bg-gradient bg-opacity-75 pt-5 pb-4">
-        <div class="container text-center text-md-start ms-md-3">
+        <div class="text-center text-md-start ms-md-5">
             
                 <h1 class="d-block fw-bold">{{ curso.nombre }}</h1>
                 <h4 class="d-block">Periodo {{ curso.periodo }}</h4>
                 <h6 class="d-block fw-light">Cupos: {{ curso.cupos }}</h6>
 
                 {% if curso.docente_jefe%}
-                    <h6 class="d-block fw-light">Docente jefe: {{ curso.docente_jefe }}</h6>
+                    <h6 class="d-block fw-light">Docente jefe: {{ curso.docente_jefe.nombre }}</h6>
                 {% else %}
                     <h6 class="d-block fw-light">Docente jefe: <text class="fw-bold text-danger">Sin asignar</text></h6>
                 {% endif %}
@@ -64,11 +64,11 @@
                     {% endif %}
                     
                     <div class="table-responsive-md">
-                        <table class="table table-hover fs-5 mb-0">
+                        <table class="table table-hover mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Asignatura</th>
+                                    <th class="fs-5" scope="col">Nombre</th>
+                                    <th class="fs-5" scope="col">Asignatura</th>
                                     {% if perms.cursos.change_detalledocente %}<th></th>{% endif %}
                                 </tr>
                             </thead>
@@ -77,8 +77,8 @@
                                     {% for d in docente %}
                     
                                         <tr>
-                                            <td class="col-6 col-md-5">{{ d.docente }}</td>
-                                            <td class="col-5 col-md-4">{{ d.asignatura }}</td>
+                                            <td class="align-middle col-6 col-md-5">{{ d.docente.nombre }}</td>
+                                            <td class="align-middle col-5 col-md-4">{{ d.asignatura }}</td>
 
                                             {% if perms.cursos.change_detalledocente %}
                                                 <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end mx-2">
@@ -232,11 +232,11 @@
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
 
                     <div class="table-responsive-md">
-                        <table class="table table-hover fs-5 mb-0">
+                        <table class="table table-hover mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">RUT</th>
+                                    <th class="fs-5" scope="col">Nombre</th>
+                                    <th class="fs-5" scope="col">RUT</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -244,8 +244,8 @@
                                     {% for alumno in alumnos %}
                     
                                         <tr onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
-                                            <td>{{ alumno.nombre }}</td>
-                                            <td>{{ alumno.rut_formatted }}</td>
+                                            <td class="align-middle">{{ alumno.nombre }}</td>
+                                            <td class="align-middle">{{ alumno.rut_formatted }}</td>
                                         </tr>
                     
                                     {% endfor %}
@@ -282,12 +282,16 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-start">
-                                    <p>Estás por avanzar la lista de espera del curso:</P>
-                                    <p class="fw-light fst-italic px-3"></P>
+                                    <p>Estás por avanzar la lista de espera en el curso {{ curso.nombre }}:</P>
+                                    {% if avanzan != 1 %}
+                                        <p class="fw-light fst-italic px-3">Serán {{ avanzan }} alumnos los que avanzarán en la lista de espera.</P>
+                                    {% else %}
+                                        <p class="fw-light fst-italic px-3">{{ avanzan }} alumno avanzará en la lista de espera.</P>
+                                    {% endif %}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <a type="button" class="btn btn-primary" href="{% url 'avanzar_lista_espera' curso.id %}">Confirmar</a>
+                                    <a type="button" class="btn btn-primary {% if avanzan == 0 %}disabled{% endif %}" href="{% url 'avanzar_lista_espera' curso.id %}">Confirmar</a>
                                 </div>
                             </div>
                         </div>
