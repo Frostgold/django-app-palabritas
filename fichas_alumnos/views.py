@@ -22,10 +22,10 @@ def listado_fichas_alumnos_view(request):
     if not request.user.has_perm('fichas_alumnos.can_view_listado_fichas'):
 
         alumnos = DetalleApoderado.objects.filter(apoderado=request.user).order_by().values('alumno_id').distinct()
-        context['listado'] = FichaAlumno.objects.filter(rut__in=alumnos).order_by('nombre').order_by('-curso')
+        context['listado'] = FichaAlumno.objects.filter(rut__in=alumnos).order_by('-curso', 'nombre')
 
     else:
-        context['listado'] = FichaAlumno.objects.all().order_by('nombre').order_by('-curso')
+        context['listado'] = FichaAlumno.objects.all().order_by('-curso', 'nombre')
 
         if request.method == 'GET':
 
@@ -155,9 +155,10 @@ def form_agregar_ficha_alumno(request):
                 formset_lista_espera.save()
 
                 return redirect('ficha_alumno', rut)
+            else:
+                form.add_error(None, 'Debe seleccionar el nivel.')
 
-        else:
-            context['form'] = form
+        context['form'] = form
 
 
     return render(request, 'formularios/ficha_alumno_agregar_formulario.html', context)

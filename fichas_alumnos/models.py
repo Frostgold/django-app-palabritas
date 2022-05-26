@@ -67,7 +67,8 @@ class FichaAlumno(models.Model):
     def asignar_curso(self, curso:Curso):
         if curso:
             self.curso = curso
-            self.estado = 'curso_asignado'
+            if self.estado == 'lista_espera':
+                self.estado = 'curso_asignado'
             self.save()
 
 

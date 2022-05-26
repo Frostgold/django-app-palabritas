@@ -17,9 +17,11 @@
                 {{ apoderado|crispy }}
                 <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>
                 {{ lista_espera|crispy }}
+                <text class="text-danger">{{ form.non_field_errors }}</text>
                 <button class="btn btn-primary my-4" type="submit">Agregar</button>
             </form>
         </div>
+
     </div>
     
 {% endblock content %}

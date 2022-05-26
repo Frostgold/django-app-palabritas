@@ -143,9 +143,9 @@ def detalle_curso_view(request, id):
     if context['curso'].cupos > context['inscritos']:
         context['cupos'] = context['curso'].cupos - context['inscritos']
 
-    context['avanzan'] = ListaEspera.objects.filter(nivel=context['curso'].nivel).count()
-    if context['avanzan'] > context['cupos']:
-        context['avanzan'] = context['cupos']
+        context['avanzan'] = ListaEspera.objects.filter(nivel=context['curso'].nivel).count()
+        if context['avanzan'] > context['cupos']:
+            context['avanzan'] = context['cupos']
 
     if not context['curso']:
         return redirect('listado_cursos')
