@@ -13,7 +13,12 @@
                 {% csrf_token %}
                 <p>{{ form.nombre|as_crispy_field }}</p>
                 <p>{{ form.fecha_nacimiento|as_crispy_field }}</p>
+                <p>{{ form.estado|as_crispy_field }}</p>
                 <p>{{ apoderado|crispy }}</p>
+                {% if lista_espera %}
+                    <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>
+                    <p>{{ lista_espera|crispy }}</p>
+                {% endif %}
                 <a href="{% url 'ficha_alumno' alumno.rut %}" class="btn btn-secondary">Cancelar</a>
                 <button class="btn btn-primary" type="submit">Modificar</button>
             </form>

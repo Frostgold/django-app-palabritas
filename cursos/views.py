@@ -2,6 +2,8 @@ import datetime
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
+
+from lista_espera.models import ListaEspera
 from .models import CronogramaActividad, Curso, DetalleDocente
 from .forms import FormAgregarCurso, FormDetalleDocente, FormModificarCurso, FormCronActividades, FormModificarDetalleDocente
 from autenticacion.models import Usuario
@@ -140,6 +142,10 @@ def detalle_curso_view(request, id):
     context['inscritos'] = FichaAlumno.objects.filter(curso_id=id).count()
     if context['curso'].cupos > context['inscritos']:
         context['cupos'] = context['curso'].cupos - context['inscritos']
+
+    context['avanzan'] = ListaEspera.objects.filter(nivel=context['curso'].nivel).count()
+    if context['avanzan'] > context['cupos']:
+        context['avanzan'] = context['cupos']
 
     if not context['curso']:
         return redirect('listado_cursos')

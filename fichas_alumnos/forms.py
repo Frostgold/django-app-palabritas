@@ -28,11 +28,38 @@ class FormFichaAlumno(ModelForm):
             },
         }
 
+
+# Opciones cambio estado ficha alumno
+LISTAESPERA = 'lista_espera'
+DOCUMENTOSPENDIENTE = 'documentos_pendientes'
+CURSOASIGNADO = 'curso_asignado'
+RETIRADO = 'retirado'
+HAS_CURSO_CHOICES = [
+    (DOCUMENTOSPENDIENTE, ('Documentos pendientes')),
+    (CURSOASIGNADO, ('Curso asignado')),
+]
+HASNT_CURSO_CHOICES = [
+    (LISTAESPERA, ('En lista de espera')),
+    (DOCUMENTOSPENDIENTE, ('Documentos pendientes')),
+]
+
 class FormChangeFichaAlumno(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+            has_curso = kwargs.pop('has_curso')
+            is_retirado = kwargs.pop('is_retirado')
+            super(FormChangeFichaAlumno, self).__init__(*args, **kwargs)
+            if has_curso:
+                self.fields['estado'].choices = HAS_CURSO_CHOICES
+            else:
+                self.fields['estado'].choices = HASNT_CURSO_CHOICES
+            if is_retirado:
+                self.fields['estado'].choices = [(RETIRADO, ('Alumno retirado'))]
+                self.fields['estado'].disabled = True
     
     class Meta:
         model = FichaAlumno
-        fields = ['nombre', 'fecha_nacimiento',]
+        fields = ['nombre', 'fecha_nacimiento', 'estado']
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
         }

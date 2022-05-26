@@ -39,8 +39,9 @@ class FichaAlumno(models.Model):
         verbose_name_plural = 'Fichas Alumnos'
         ordering = ['rut']
         permissions = (
-            ('can_view_listado_fichas', 'Can view listado fichas alumnos'),
-            ('can_view_ficha_completa', 'Can view ficha alumno completa'),
+            ('can_view_listado_fichas', 'Puede ver listado fichas alumnos'),
+            ('can_view_ficha_completa', 'Puede ver ficha alumno completa'),
+            ('can_retirar_ficha_alumno', 'Puede retirar ficha alumno'),
         )
 
     def __str__(self):

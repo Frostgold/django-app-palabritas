@@ -169,27 +169,55 @@ def change_ficha_alumno(request, rut):
     context = {}
     instance = FichaAlumno.objects.get(rut=rut)
     context['alumno'] = instance
-    context['form'] = FormChangeFichaAlumno(instance=instance)
+    if instance.curso:
+        context['form'] = FormChangeFichaAlumno(instance=instance, has_curso=True, is_retirado=False)
+    elif instance.estado == 'retirado':
+        context['form'] = FormChangeFichaAlumno(instance=instance, has_curso=False, is_retirado=True)
+    else:
+        context['form'] = FormChangeFichaAlumno(instance=instance, has_curso=False, is_retirado=False)
 
     ApoderadoFormSet = inlineformset_factory(FichaAlumno, DetalleApoderado, fields=('apoderado',), can_delete=False, max_num=1)
     context['apoderado'] = ApoderadoFormSet(instance=instance)
+
+    if instance.estado == 'retirado':
+        ListaEsperaFormSet = inlineformset_factory(FichaAlumno, ListaEspera, formset=ListaEsperaBaseFormSet, fields=('nivel',), can_delete=False, max_num=1)
+        context['lista_espera'] = ListaEsperaFormSet(instance=instance)
     
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = FormChangeFichaAlumno(request.POST, instance=instance)
+        if instance.curso:
+            form = FormChangeFichaAlumno(request.POST, instance=instance, has_curso=True, is_retirado=False)
+        elif instance.estado == 'retirado':
+            form = FormChangeFichaAlumno(request.POST, instance=instance, has_curso=False, is_retirado=True)
+        else:
+            form = FormChangeFichaAlumno(request.POST, instance=instance, has_curso=False, is_retirado=False)
 
         # check whether it's valid:
         if form.is_valid():
             rut = instance.rut
             ficha_modificada = form.save(commit=False)
-            print(ficha_modificada)
+            ficha_modificada.nombre = ficha_modificada.nombre.title()
+            
+            # Elimina la asignación de apoderado
             formset = ApoderadoFormSet(request.POST, instance=ficha_modificada)
-            if formset.is_valid():
-                ficha_modificada.save()
+            if not formset.is_valid():
+                apoderado = DetalleApoderado.objects.filter(alumno=rut)
+                if apoderado:
+                    apoderado.delete()
+            else:
                 formset.save()
 
-                return redirect('ficha_alumno', rut)
+            # Reintrega al alumno retirado a una lista de espera según nivel seleccionado
+            if instance.estado == 'retirado':
+                formset_lista_espera = ListaEsperaFormSet(request.POST, instance=ficha_modificada)
+                if formset_lista_espera.is_valid():
+                    ficha_modificada.estado = 'lista_espera'
+                    formset_lista_espera.save()
+
+            ficha_modificada.save()
+
+            return redirect('ficha_alumno', rut)
 
         else:
             context['form'] = form
@@ -252,5 +280,19 @@ def delete_banco_documento(request, id):
     instance = BancoDocumento.objects.get(id=id)
     rut = instance.alumno.rut
     instance.delete()
+
+    return redirect('ficha_alumno', rut)
+
+
+@login_required
+@permission_required('fichas_alumnos.can_retirar_ficha_alumno', raise_exception=True)
+def retirar_ficha_alumno(request, rut):
+    instance = FichaAlumno.objects.get(rut=rut)
+    lista_espera_instance = ListaEspera.objects.filter(alumno=rut)
+    instance.estado = 'retirado'
+    instance.curso = None
+    instance.save()
+    if lista_espera_instance:
+        lista_espera_instance.delete()
 
     return redirect('ficha_alumno', rut)
