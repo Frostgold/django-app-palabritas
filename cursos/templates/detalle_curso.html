@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %} {{ curso.nombre }} - Detalle curso{% endblock titulo %}
+
+{% block content %}
+
+<div class="col">
+
+    <div class="container-fluid bg-success bg-gradient bg-opacity-75 pt-5 pb-4">
+        <div class="text-center text-md-start ms-md-5">
+            
+                <h1 class="d-block fw-bold">{{ curso.nombre }}</h1>
+                <h4 class="d-block">Periodo {{ curso.periodo }}</h4>
+                <h6 class="d-block fw-light">Cupos: {{ curso.cupos }}</h6>
+
+                {% if curso.docente_jefe%}
+                    <h6 class="d-block fw-light">Docente jefe: {{ curso.docente_jefe.nombre }}</h6>
+                {% else %}
+                    <h6 class="d-block fw-light">Docente jefe: <text class="fw-bold text-danger">Sin asignar</text></h6>
+                {% endif %}
+
+                {% if perms.cursos.change_curso %}
+                    <a class="btn btn-light mt-4" href="{% url 'modificar_curso' curso.id %}">Modificar curso</a>
+                {% endif %}
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show mt-2">
+            <strong>Error!</strong> {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% elif success %}
+        <div class="alert alert-success alert-dismissible fade show mt-2">
+            <strong>Éxito!</strong> {{ success }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endif %}
+
+    <div class="col col-md-10 col-lg-8 mx-auto my-5">
+        <div class="accordion mb-4" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Docentes
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+
+                    {% if perms.cursos.add_detalledocente %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Agregar docente</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <p>{{ docente_form.docente|as_crispy_field }}</p>
+                                <p>{{ docente_form.asignatura|as_crispy_field }}</p>
+                                <button class="btn btn-primary" type="submit">Agregar</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+                    
+                    <div class="table-responsive-md">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="fs-5" scope="col">Nombre</th>
+                                    <th class="fs-5" scope="col">Asignatura</th>
+                                    {% if perms.cursos.change_detalledocente %}<th></th>{% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if docente %}
+                                    {% for d in docente %}
+                    
+                                        <tr>
+                                            <td class="align-middle col-6 col-md-5">{{ d.docente.nombre }}</td>
+                                            <td class="align-middle col-5 col-md-4">{{ d.asignatura }}</td>
+
+                                            {% if perms.cursos.change_detalledocente %}
+                                                <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end mx-2">
+
+                                                    <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                                    
+                                                    {% if perms.cursos.delete_detalledocente %}
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ d.id }}">
+                                                            X
+                                                        </button>
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="confirmDeleteTrabajo{{ d.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ d.id }}Label" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title fw-bold" id="confirmDeleteTrabajo{{ d.id }}Label">Confirmar eliminación de docente</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body text-start">
+                                                                        <p>Estás por eliminar el siguiente docente:</P>
+                                                                        <p class="fw-light fst-italic px-3">{{ d.docente }} - {{ d.asignatura }}</P>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                        <a type="button" class="btn btn-danger" href="{% url 'eliminar_detalle_docente' d.id %}">Confirmar</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    
+                                                </td>
+
+                                            {% endif %}
+
+                                        </tr>
+                    
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3">
+                                            <h6 class="d-block fw-bold p-3">No existen docentes asignados</h6>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        Cronograma de actividades
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+
+                    {% if perms.cursos.add_cronogramaactividad %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir actividad</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ actividad_form.comentario|as_crispy_field }}</p>
+                                <p>{{ actividad_form.imagen|as_crispy_field }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+
+                    {% if cron_actividad %}
+
+                        {% for actividad in cron_actividad %}
+                            <div class="container-fluid border">
+                    
+                                <p class="d-block m-0 p-2">{{ actividad.comentario }}</p>
+                                {% if actividad.imagen %}
+                                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.imagen }}" alt="Imagen registro de actividad">
+                                {% endif %}
+                                <div class="row align-items-center justify-content-between py-2 gx-2">
+                                    <div class="col">
+                                        <p class="d-flex mb-0 ps-2 text-muted fst-italic">
+                                            {{ actividad.geteditor }} - 
+                                            {% if actividad.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ actividad.fecha_edicion }}
+                                        </p>
+                                    </div>
+
+                                    {% if perms.cursos.change_cronogramaactividad %}
+                                    
+                                        <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
+                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            {% if perms.cursos.delete_cronogramaactividad %}
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
+                                                X
+                                            </button>
+                                            
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmDeleteAvance{{ actividad.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteAvance{{ actividad.id }}Label" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title fw-bold" id="confirmDeleteAvance{{ actividad.id }}Label">Confirmar eliminación de actividad</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <p>Estás por eliminar la siguiente actividad:</P>
+                                                            <p class="fw-light fst-italic px-3">{{ actividad.comentario }}</P>
+                                                            <p class="fw-lighter fst-italic px-3 text-muted">
+                                                                {{ actividad.geteditor }} - 
+                                                                {% if actividad.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ actividad.fecha_edicion }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <a type="button" class="btn btn-danger" href="{% url 'eliminar_cronograma_actividad' actividad.id %}">Confirmar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    
+                                    {% endif %}
+                                    
+                                </div>
+            
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+
+                        <h6 class="d-block fw-bold p-3">No existen publicaciones de actividades</h6>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        Alumnos
+                        <text class="text-center text-muted w-100 me-5">{{ inscritos }}/{{ curso.cupos }}</text>
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+
+                    <div class="table-responsive-md">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="fs-5" scope="col">Nombre</th>
+                                    <th class="fs-5" scope="col">RUT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if alumnos %}
+                                    {% for alumno in alumnos %}
+                    
+                                        <tr role="button" onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
+                                            <td class="align-middle">{{ alumno.nombre }}</td>
+                                            <td class="align-middle">{{ alumno.rut_formatted }}</td>
+                                        </tr>
+                    
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h6 class="d-block fw-bold p-3">No existen alumnos que mostrar</h6>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% if cupos %}
+            <div class="text-center">
+                <h6 class="fw-bold">Hay {{ cupos }} cupos disponibles en el curso</h6>
+                {% if perms.lista_espera.can_avanzar_lista_espera %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAvanzarListaEspera">
+                        Avanzar lista de espera
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmAvanzarListaEspera" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmAvanzarListaEsperaLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="confirmAvanzarListaEsperaLabel">Confirmar avance de lista de espera</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <p>Estás por avanzar la lista de espera en el curso {{ curso.nombre }}:</P>
+                                    {% if avanzan != 1 %}
+                                        <p class="fw-light fst-italic px-3">Serán {{ avanzan }} alumnos los que avanzarán en la lista de espera.</P>
+                                    {% else %}
+                                        <p class="fw-light fst-italic px-3">{{ avanzan }} alumno avanzará en la lista de espera.</P>
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <a type="button" class="btn btn-primary {% if avanzan == 0 %}disabled{% endif %}" href="{% url 'avanzar_lista_espera' curso.id %}">Confirmar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+    </div>
+
+</div>
+
+
+
+{% endblock content %}

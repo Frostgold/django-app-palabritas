@@ -5,8 +5,8 @@ from .models import Usuario
 class UserAdminConfig(UserAdmin):
     search_fields = ('usuario', 'email', 'nombre',)
     ordering = ('usuario',)
-    list_display = ('usuario', 'email', 'nombre', 'is_active',)
-    list_filter = ('is_active',)
+    list_display = ('usuario', 'email', 'nombre', 'group', 'is_active',)
+    list_filter = ('is_active', 'groups')
 
     fieldsets = (
         (None, {
@@ -38,6 +38,13 @@ class UserAdminConfig(UserAdmin):
             ),
         }),
     )
+
+    def group(self, user):
+        groups = []
+        for group in user.groups.all():
+            groups.append(group.name)
+        return ' '.join(groups)
+    group.short_description = 'Grupo'
     
 
 admin.site.register(Usuario, UserAdminConfig)

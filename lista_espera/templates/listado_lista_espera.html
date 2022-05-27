@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Lista de espera{% endblock titulo %}
+
+{% block content %}
+
+<div class="col">
+
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show mt-2">
+            <strong>Error!</strong> {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% elif success %}
+        <div class="alert alert-success alert-dismissible fade show mt-2">
+            <strong>Éxito!</strong> {{ success }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endif %}
+
+    <div class="col col-md-10 col-lg-8 mx-auto">
+
+        {% if perms.lista_espera.view_listaespera %}
+
+            <div class="container">
+                <h3 class="fw-bold mt-4 mb-3">Lista de espera</h3>
+                <form method="get" action="" class="d-flex mx-2 mx-md-0">
+
+                    <select name="nivel" class="form-select me-3" aria-label="Default select nivel">
+                        <option value="" selected hidden>Nivel</option>
+                        <option value="">Todos</option>
+                        {% for n in nivel %}
+                            <option value="{{ n.id }}">{{ n.descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+
+                {% if cupos != "No" %}
+                    {% if cupos > 0 %}
+                        <div class="text-start mt-3">
+                            <h6 class="fw-bold">Hay {{ cupos }} cupos disponibles en este nivel</h6>
+                            {% if perms.lista_espera.can_avanzar_lista_espera %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAvanzarListaEspera">
+                                    Avanzar lista de espera
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmAvanzarListaEspera" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmAvanzarListaEsperaLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fw-bold" id="confirmAvanzarListaEsperaLabel">Confirmar avance de lista de espera</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-start">
+                                                <p>Estás por avanzar la lista de espera del nivel {{ query.descripcion }}:</P>
+                                                {% if avanzan != 1 %}
+                                                    <p class="fw-light fst-italic px-3">Serán {{ avanzan }} alumnos los que avanzarán en la lista de espera.</P>
+                                                {% else %}
+                                                    <p class="fw-light fst-italic px-3">{{ avanzan }} alumno avanzará en la lista de espera.</P>
+                                                {% endif %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <a type="button" class="btn btn-primary {% if avanzan == 0 %}disabled{% endif %}" href="{% url 'avanzar_lista_espera' query.id %}">Confirmar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="text-start mt-3">
+                            <h6 class="fw-bold">Aún no existen cupos disponibles en este nivel</h6>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+        {% endif %}
+
+        <h3 class="fw-bold mt-5 container">Cursos</h3>
+
+        {% if listado %}
+            <div class="table-responsive-md">
+                <table class="table table-hover fs-5">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">RUT</th>
+                            <th scope="col">Nivel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ficha in listado %}
+
+                            <tr role="button" onclick="window.location='{% url 'ficha_alumno' ficha.alumno.rut %}';">
+                                <td class="align-middle">{{ ficha.alumno.nombre }}</td>
+                                <td class="align-middle">{{ ficha.alumno.rut_formatted }}</td>
+                                <td class="align-middle">{{ ficha.nivel.descripcion }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+
+            <h3 class="p-3 p-md-5">No hay fichas que mostrar...</h3>
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,4 +1,3 @@
-from email.message import EmailMessage
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import CustomUserManager
@@ -22,4 +21,5 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         ordering = ['usuario']
 
     def __str__(self):
-        return self.usuario
+        return self.nombre
+        

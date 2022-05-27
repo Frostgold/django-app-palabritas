@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+
+
+.fondo {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fs-grande {
+    font-size: 2.55rem;
+    font-family: 'Kanit', sans-serif;
+}
+
+@media (min-width: 768px) { 
+    .fs-md-grande {
+        font-size: 3.25rem;
+    }
+ }

@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}{% for alumno in ficha %}{{ alumno.nombre }}{% endfor %} - Ficha alumno{% endblock titulo %}
+
+{% block content %}
+
+<div class="col">
+
+    <div class="container-fluid bg-primary bg-gradient bg-opacity-75 pt-5 pb-4">
+        <div class="text-center text-md-start ms-md-5">
+            {% for alumno in ficha %}
+            
+                <h1 class="d-block fw-bold">{{ alumno.nombre }}</h1>
+                <h4 class="d-block">{{ alumno.rut_formatted }}</h4>
+                <h6 class="d-block fw-light">{{ alumno.fecha_nacimiento }}</h6>
+
+                {% if apoderado %}
+                    {% for a in apoderado %}
+                        <h6 class="d-block fw-light">{{ a.apoderado.nombre }}</h6>
+                    {% endfor %}
+                {% else %}
+                    <h6 class="d-block fw-bold text-danger">Apoderado sin asignar</h6>
+                {% endif %}
+
+                <div class="mt-3">
+                    {% if perms.fichas_alumnos.can_view_ficha_completa %}
+                    
+                        {% if alumno.estado == 'lista_espera' %} <h6 class="d-block fw-bold mb-0 text-light">Lista de espera</h6> {% endif %}
+                        {% if alumno.estado == 'documentos_pendientes' %} <h6 class="d-block fw-bold mb-0 text-warning">Documentos pendientes</h6> {% endif %}
+                        {% if alumno.estado == 'curso_asignado' %} <h6 class="d-block fw-bold mb-0 text-success">Curso asignado</h6> {% endif %}
+                        {% if alumno.estado == 'retirado' %} <h6 class="d-block fw-bold mb-0 text-danger">Alumno retirado</h6> {% endif %}
+
+                        <h6 class="d-block mb-4 fw-bold">
+                            {% if alumno.curso %}
+                                {{ alumno.curso.nombre }}
+                            {% else %}
+                                Curso no asignado
+                            {% endif %}
+                        </h6>
+                        
+                        {% if perms.fichas_alumnos.can_changefichaalumno %}
+                            <a href="{% url 'change_ficha_alumno' alumno.rut %}" class="btn btn-light">Modificar ficha</a>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col col-md-10 col-lg-8 mx-auto my-5">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Avances del alumno
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    
+                    {% if perms.fichas_alumnos.add_avancealumno %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir avance</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <p>{{ avance_form|crispy }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+
+                    {% if avances %}
+
+                        {% for avance in avances %}
+                            <div class="container-fluid border">
+                    
+                                <p class="d-block m-0 p-2">{{ avance.comentario }}</p>
+                                <div class="row align-items-center justify-content-between py-2 gx-2">
+                                    <div class="col">
+                                        <p class="d-flex mb-0 ps-2 text-muted fst-italic">
+                                            {{ avance.geteditor }} - 
+                                            {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
+                                        </p>
+                                    </div>
+                                    {% if perms.fichas_alumnos.change_avancealumno %}
+                                    
+                                        <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
+                                            <a href="{% url 'modificar_avance_alumno' avance.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            {% if perms.fichas_alumnos.delete_avancealumno %}
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ avance.id }}">
+                                                X
+                                            </button>
+                                            
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmDeleteAvance{{ avance.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteAvance{{ avance.id }}Label" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title fw-bold" id="confirmDeleteAvance{{ avance.id }}Label">Confirmar eliminación de avance</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <p>Estás por eliminar el siguiente avance:</P>
+                                                            <p class="fw-light fst-italic px-3">{{ avance.comentario }}</P>
+                                                            <p class="fw-lighter fst-italic px-3 text-muted">
+                                                                {{ avance.geteditor }} - 
+                                                                {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <a type="button" class="btn btn-danger" href="{% url 'eliminar_avance_alumno' avance.id %}">Confirmar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    
+                                    {% endif %}
+                                </div>
+            
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+
+                        <h6 class="d-block fw-bold p-3">No existen publicaciones de avances</h6>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        Trabajos
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+
+                    {% if perms.fichas_alumnos.add_bancotrabajo %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir trabajo</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ trabajo_form.trabajo }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+                    
+                    <div class="table-responsive-md">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="fs-5" scope="col">Trabajos</th>
+                                    {% if perms.fichas_alumnos.delete_bancotrabajo %}<th></th>{% endif %}
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if trabajos %}
+                                    {% for trabajo in trabajos %}
+                    
+                                        <tr>
+                                            <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} >{{ trabajo.filename }}</a></td>
+                                            {% if perms.fichas_alumnos.delete_bancotrabajo %}
+                                                <td class="col-1 text-center align-middle">
+                                                    
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
+                                                        X
+                                                    </button>
+                                                    
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="confirmDeleteTrabajo{{ trabrajo.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ trabrajo.id }}Label" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title fw-bold" id="confirmDeleteTrabajo{{ trabrajo.id }}Label">Confirmar eliminación de trabajo</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body text-start">
+                                                                    <p>Estás por eliminar el siguiente archivo:</P>
+                                                                    <p class="fw-light fst-italic px-3">{{ trabajo.filename }}</P>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                    <a type="button" class="btn btn-danger" href="{% url 'eliminar_trabajo_alumno' trabajo.id %}">Confirmar</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+
+                                            {% endif %}
+                                        </tr>
+                    
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td class="col-11 text-wrap fs-6 align-middle">
+                                            <h6 class="d-block fw-bold p-3">No existen publicaciones de trabajos</h6>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            {% if perms.fichas_alumnos.view_bancodocumento %}
+            
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            Banco de documentos
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+
+                        {% if perms.fichas_alumnos.add_bancodocumento %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir documento</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ documento_form.documento }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+                    
+                    {% endif %}
+
+                        <div class="table-responsive-md">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th class="fs-5" scope="col">Documentos</th>
+                                        {% if perms.fichas_alumnos.delete_bancodocumento %}<th></th>{% endif %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if documentos %}
+                                        {% for doc in documentos %}
+                        
+                                            <tr>
+                                                <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %}>{{ doc.filename }}</a></td>
+                                                {% if perms.fichas_alumnos.delete_bancodocumento %}
+                                                    <td class="col-1 text-center align-middle">
+                                                        
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento{{ doc.id }}">
+                                                            X
+                                                        </button>
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="confirmDeleteDocumento{{ doc.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ doc.id }}Label" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title fw-bold" id="confirmDeleteDocumento{{ doc.id }}Label">Confirmar eliminación de documento</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body text-start">
+                                                                        <p>Estás por eliminar el siguiente archivo:</P>
+                                                                        <p class="fw-light fst-italic px-3">{{ doc.filename }}</P>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                        <a type="button" class="btn btn-danger" href="{% url 'eliminar_documento_alumno' doc.id %}">Confirmar</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                        
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td class="col-11 text-wrap fs-6 align-middle">
+                                                <h6 class="d-block fw-bold p-3">No existen publicaciones de documentos</h6>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            
+            {% endif %}
+        </div>
+    
+        {% if perms.fichas_alumnos.can_retirar_ficha_alumno %}
+            <div class="text-center my-5">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmRetiroFichaAlumno">
+                    Retirar alumno
+                </button>
+                
+                <!-- Modal -->
+                {% for alumno in ficha %}
+                    <div class="modal fade" id="confirmRetiroFichaAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmRetiroFichaAlumnoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="confirmRetiroFichaAlumnoLabel">Confirmar retiro ficha de alumno</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <p>Estás por retirar la siguiente ficha de alumno:</P>                              
+                                        <p class="fw-light fst-italic px-3">{{ alumno.nombre }}</P>
+                                        <p class="fw-lighter fst-italic text-muted px-3">{{ alumno.rut_formatted }}</P>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <a type="button" class="btn btn-danger" href="{% url 'retirar_ficha_alumno' alumno.rut %}">Confirmar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+    </div>
+
+</div>
+
+
+
+{% endblock content %}
