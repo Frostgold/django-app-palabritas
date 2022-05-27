@@ -57,7 +57,7 @@
                 <tbody>
                     {% for curso in listado %}
 
-                        <tr onclick="window.location='{% url 'detalle_curso' curso.id %}';">
+                        <tr role="button" onclick="window.location='{% url 'detalle_curso' curso.id %}';">
                             <td class="align-middle">{{ curso.nombre }}</td>
                             <td class="align-middle">{{ curso.periodo }}</td>
                             <td class="align-middle">{% if curso.docente_jefe %}{{ curso.docente_jefe.nombre }}{% else %}No asignado{% endif %}</td>

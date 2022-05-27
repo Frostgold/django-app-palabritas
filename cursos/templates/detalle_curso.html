@@ -243,7 +243,7 @@
                                 {% if alumnos %}
                                     {% for alumno in alumnos %}
                     
-                                        <tr onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
+                                        <tr role="button" onclick="window.location='{% url 'ficha_alumno' alumno.rut %}';">
                                             <td class="align-middle">{{ alumno.nombre }}</td>
                                             <td class="align-middle">{{ alumno.rut_formatted }}</td>
                                         </tr>

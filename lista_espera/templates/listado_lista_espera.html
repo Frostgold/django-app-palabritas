@@ -97,7 +97,7 @@
                     <tbody>
                         {% for ficha in listado %}
 
-                            <tr onclick="window.location='{% url 'ficha_alumno' ficha.alumno.rut %}';">
+                            <tr role="button" onclick="window.location='{% url 'ficha_alumno' ficha.alumno.rut %}';">
                                 <td class="align-middle">{{ ficha.alumno.nombre }}</td>
                                 <td class="align-middle">{{ ficha.alumno.rut_formatted }}</td>
                                 <td class="align-middle">{{ ficha.nivel.descripcion }}</td>

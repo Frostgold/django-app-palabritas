@@ -23,6 +23,7 @@ def registration_view(request):
                 
                 usuario_nuevo = form.save(commit=False)
                 usuario_nuevo.nombre = usuario_nuevo.nombre.title()
+                usuario_nuevo.save()
 
                 return HttpResponse("<h1>Gracias por registrarte</h1>")
 

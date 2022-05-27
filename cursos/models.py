@@ -3,6 +3,7 @@ import datetime
 import os
 from django.core.validators import RegexValidator
 from autenticacion.models import Usuario
+from PIL import Image
 
 class Nivel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -71,6 +72,16 @@ class CronogramaActividad(models.Model):
 
     def filename(self):
         return os.path.basename(self.imagen.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.imagen:
+            img = Image.open(self.imagen.path)
+            if img.height > 720 or img.width > 1280:
+                output_size = (1280, 720)
+                img.thumbnail(output_size)
+                img.save(self.imagen.path)
 
 
 class DetalleDocente(models.Model):
