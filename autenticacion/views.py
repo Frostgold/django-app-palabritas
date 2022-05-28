@@ -25,7 +25,7 @@ def registration_view(request):
                 usuario_nuevo.nombre = usuario_nuevo.nombre.title()
                 usuario_nuevo.save()
 
-                return HttpResponse("<h1>Gracias por registrarte</h1>")
+                return redirect('login')
 
             else:
                 context['form'] = form
@@ -35,6 +35,7 @@ def registration_view(request):
             context['form'] = form
 
     return render(request, 'registration/registration_form.html', context)
+
 
 def logout_view(request):
     logout(request)
