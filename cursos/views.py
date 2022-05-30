@@ -97,7 +97,10 @@ def agregar_curso_view(request):
 def modificar_curso_view(request, id):
     context = {}
 
-    instance = Curso.objects.get(id=id)
+    try:
+        instance = Curso.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     context['form'] = FormModificarCurso(instance=instance)
     context['id'] = id
     
@@ -125,7 +128,10 @@ def modificar_curso_view(request, id):
 @permission_required('cursos.view_curso', raise_exception=True)
 def detalle_curso_view(request, id):
     context = {}
-    context['curso'] = Curso.objects.get(id=id)
+    try:
+        context['curso'] = Curso.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     context['docente'] = DetalleDocente.objects.filter(curso_id=id)
     context['cron_actividad'] = CronogramaActividad.objects.filter(curso_id=id).order_by('-id')
     context['alumnos'] = FichaAlumno.objects.filter(curso_id=id).order_by('nombre')
@@ -146,9 +152,6 @@ def detalle_curso_view(request, id):
         context['avanzan'] = ListaEspera.objects.filter(nivel=context['curso'].nivel).count()
         if context['avanzan'] > context['cupos']:
             context['avanzan'] = context['cupos']
-
-    if not context['curso']:
-        return redirect('listado_cursos')
 
     if request.method == 'POST':
 
@@ -188,7 +191,10 @@ def detalle_curso_view(request, id):
 def modificar_detalle_docente_view(request, id):
     context = {}
 
-    instance = DetalleDocente.objects.get(id=id)
+    try:
+        instance = DetalleDocente.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     context['form'] = FormModificarDetalleDocente(instance=instance)
     context['instance'] = instance
     
@@ -207,7 +213,10 @@ def modificar_detalle_docente_view(request, id):
 @login_required
 @permission_required('cursos.delete_detalledocente', raise_exception=True)
 def delete_detalle_docente_view(request, id):
-    instance = DetalleDocente.objects.get(id=id)
+    try:
+        instance = DetalleDocente.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     curso = instance.curso.id
     instance.delete()
 
@@ -219,7 +228,10 @@ def delete_detalle_docente_view(request, id):
 def modificar_cronograma_actividad_view(request, id):
     context = {}
 
-    instance = CronogramaActividad.objects.get(id=id)
+    try:
+        instance = CronogramaActividad.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     context['form'] = FormCronActividades(instance=instance)
     context['instance'] = instance
     
@@ -247,7 +259,10 @@ def modificar_cronograma_actividad_view(request, id):
 @login_required
 @permission_required('cursos.delete_cronogramaactividad', raise_exception=True)
 def delete_cronograma_actividad_view(request, id):
-    instance = CronogramaActividad.objects.get(id=id)
+    try:
+        instance = CronogramaActividad.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
     curso = instance.curso.id
     instance.delete()
 

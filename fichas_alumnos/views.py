@@ -168,7 +168,10 @@ def form_agregar_ficha_alumno(request):
 @permission_required('fichas_alumnos.change_fichaalumno', raise_exception=True)
 def change_ficha_alumno(request, rut):
     context = {}
-    instance = FichaAlumno.objects.get(rut=rut)
+    try:
+        instance = FichaAlumno.objects.get(rut=rut)
+    except:
+        return redirect('listado_fichas_alumnos')
     context['alumno'] = instance
     if instance.curso:
         context['form'] = FormChangeFichaAlumno(instance=instance, has_curso=True, is_retirado=False)
@@ -231,7 +234,10 @@ def change_ficha_alumno(request, rut):
 @permission_required('fichas_alumnos.change_avancealumno', raise_exception=True)
 def change_avance_alumno(request, id):
     context = {}
-    instance = AvanceAlumno.objects.get(id=id)
+    try:
+        instance = AvanceAlumno.objects.get(id=id)
+    except:
+        return redirect('listado_fichas_alumnos')
     context['avance'] = instance
     context['form'] = FormAvanceAlumno(instance=instance)
     
@@ -258,7 +264,10 @@ def change_avance_alumno(request, id):
 @login_required
 @permission_required('fichas_alumnos.delete_avancealumno', raise_exception=True)
 def delete_avance_alumno(request, id):
-    instance = AvanceAlumno.objects.get(id=id)
+    try:
+        instance = AvanceAlumno.objects.get(id=id)
+    except:
+        return redirect('listado_fichas_alumnos')
     rut = instance.alumno.rut
     instance.delete()
 
@@ -268,7 +277,10 @@ def delete_avance_alumno(request, id):
 @login_required
 @permission_required('fichas_alumnos.delete_bancotrabajo', raise_exception=True)
 def delete_banco_trabajo(request, id):
-    instance = BancoTrabajo.objects.get(id=id)
+    try:
+        instance = BancoTrabajo.objects.get(id=id)
+    except:
+        return redirect('listado_fichas_alumnos')
     rut = instance.alumno.rut
     instance.delete()
 
@@ -278,7 +290,10 @@ def delete_banco_trabajo(request, id):
 @login_required
 @permission_required('fichas_alumnos.delete_bancotrabajo', raise_exception=True)
 def delete_banco_documento(request, id):
-    instance = BancoDocumento.objects.get(id=id)
+    try:
+        instance = BancoDocumento.objects.get(id=id)
+    except:
+        return redirect('listado_fichas_alumnos')
     rut = instance.alumno.rut
     instance.delete()
 
@@ -288,7 +303,10 @@ def delete_banco_documento(request, id):
 @login_required
 @permission_required('fichas_alumnos.can_retirar_ficha_alumno', raise_exception=True)
 def retirar_ficha_alumno(request, rut):
-    instance = FichaAlumno.objects.get(rut=rut)
+    try:
+        instance = FichaAlumno.objects.get(rut=rut)
+    except:
+        return redirect('listado_fichas_alumnos')
     lista_espera_instance = ListaEspera.objects.filter(alumno=rut)
     instance.estado = 'retirado'
     instance.curso = None
