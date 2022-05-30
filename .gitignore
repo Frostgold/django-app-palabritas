@@ -6,6 +6,7 @@
 *.pot
 *.py[co]
 .tox/
+.env
 __pycache__
 MANIFEST
 dist/
@@ -16,3 +17,5 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/ 
+media/
+sent_emails/

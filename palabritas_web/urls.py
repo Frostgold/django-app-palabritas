@@ -16,7 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
-    path('', include('autenticacion.urls')),
     path('admin/', admin.site.urls),
+    path('', include('autenticacion.urls')),
+    path('alumnos/', include('fichas_alumnos.urls')),
+    path('cursos/', include('cursos.urls')),
+    path('lista_espera/', include('lista_espera.urls')),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

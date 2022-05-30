@@ -1,0 +1,37 @@
+{% extends 'base_autenticacion.html' %}
+{% load static %}
+
+{% block estilos %} .invalid-feedback {display: inline !important;} {% endblock estilos %}
+{% block titulo %}Inicio{% endblock titulo %}
+
+{% block h1 %}Registro de usuario{% endblock h1 %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="col col-md-8 col-lg-6 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                {% endfor %}
+
+                <button class="mb-5 btn btn-primary" type="submit">Registrar</button>
+
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock content %}

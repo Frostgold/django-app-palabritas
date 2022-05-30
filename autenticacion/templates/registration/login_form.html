@@ -1,0 +1,44 @@
+{% extends 'base_autenticacion.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Inicio de sesión{% endblock titulo %}
+
+{% block h1 %}Acceso usuario{% endblock h1 %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="col col-md-8 col-lg-6 mx-auto mb-5">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <p>{{ field|as_crispy_field }}</p>
+                    {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                {% endfor %}
+                
+                <input class="mb-3 btn btn-primary" type="submit" value="login">
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+            <p class="mb-0"><a href="{% url 'reset_password' %}">Olvidaste tu contraseña?</a></p>
+            <p><a href="{% url 'registro' %}">Registrarse</a></p>
+        </div>
+    </div>
+
+
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show mt-2">
+            <strong>Error!</strong> Credenciales ingresadas incorrectas. Por favor inténtelo de nuevo.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endif %}
+
+{% endblock content %}

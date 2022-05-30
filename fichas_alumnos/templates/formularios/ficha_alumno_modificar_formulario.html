@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Modificar ficha de alumno{% endblock titulo %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
+            <p class="fs-5 fw-bold text-center">Modificar ficha alumno</p>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <p>{{ field|as_crispy_field }}</p>
+                {% endfor %}
+                <p>{{ apoderado|crispy }}</p>
+                {% if lista_espera %}
+                    <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>
+                    <p>{{ lista_espera|crispy }}</p>
+                {% endif %}
+                <a href="{% url 'ficha_alumno' alumno.rut %}" class="btn btn-secondary">Cancelar</a>
+                <button class="btn btn-primary" type="submit">Modificar</button>
+            </form>
+        </div>
+    </div>
+    
+{% endblock content %}

@@ -1,9 +1,16 @@
-asgiref @ file:///tmp/build/80754af9/asgiref_1625643473416/work
+asgiref==3.4.1
 certifi==2021.10.8
-Django @ file:///tmp/build/80754af9/django_1625585912945/work
+Django==3.2.5
+django-cleanup==6.0.0
+django-crispy-forms==1.14.0
+django-environ==0.8.1
 mysqlclient==2.1.0
-psycopg2 @ file:///C:/ci/psycopg2_1612298803839/work
+Pillow==9.1.0
+pip==21.2.2
+psycopg2==2.8.6
 pytz==2021.3
-sqlparse @ file:///tmp/build/80754af9/sqlparse_1602184451250/work
-typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
+setuptools==58.0.4
+sqlparse==0.4.1
+typing_extensions==4.1.1
+wheel==0.37.1
 wincertstore==0.2

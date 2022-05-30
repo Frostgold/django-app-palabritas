@@ -1,0 +1,23 @@
+{% extends 'base_autenticacion.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Cambiar contraseña{% endblock titulo %}
+
+{% block h1 %}Cambiar contraseña{% endblock h1 %}
+{% block content %}
+
+    <div class="container">
+        <div class="col col-md-8 col-lg-6 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+                <p>{{ form.old_password|as_crispy_field }}</p>
+                <p>{{ form.new_password1|as_crispy_field }}</p>
+                <p>{{ form.new_password2|as_crispy_field }}</p>
+                <button class="mb-5 btn btn-primary" type="submit">Cambiar</button>
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock content %}
