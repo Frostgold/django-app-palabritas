@@ -11,9 +11,9 @@
             <p class="fs-5 fw-bold text-center">Modificar ficha alumno</p>
             <form method="post">
                 {% csrf_token %}
-                <p>{{ form.nombre|as_crispy_field }}</p>
-                <p>{{ form.fecha_nacimiento|as_crispy_field }}</p>
-                <p>{{ form.estado|as_crispy_field }}</p>
+                {% for field in form %}
+                    <p>{{ field|as_crispy_field }}</p>
+                {% endfor %}
                 <p>{{ apoderado|crispy }}</p>
                 {% if lista_espera %}
                     <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>

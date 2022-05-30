@@ -7,13 +7,35 @@ class FormFichaAlumno(ModelForm):
     
     class Meta:
         model = FichaAlumno
-        fields = ['rut', 'nombre', 'fecha_nacimiento',]
+        fields = [
+            'rut', 
+            'nombre', 
+            'fecha_nacimiento', 
+            'direccion',
+            'nombre_padre',
+            'nombre_madre',
+            'telefono',
+            'ficha_social',
+            'formulario_salud',
+            'certif_nacimiento',
+            'consent_fonoaudiologia',
+            'consent_vidasana',
+        ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
         }
         labels = {
             'nombre': ('Nombre completo'),
             'fecha_nacimiento': ('Fecha de nacimiento'),
+            'direccion': ('Dirección del domicilio'),
+            'nombre_padre': ('Nombre del padre'),
+            'nombre_madre': ('Nombre de la madre'),
+            'telefono': ('Teléfono'),
+            'ficha_social': ('Ficha social'),
+            'formulario_salud': ('Formulario de salud'),
+            'certif_nacimiento': ('Certificado de nacimiento'),
+            'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
+            'consent_vidasana': ('Consentimiento Vida Sana'),
         }
         error_messages = {
             'rut': {
@@ -59,13 +81,35 @@ class FormChangeFichaAlumno(ModelForm):
     
     class Meta:
         model = FichaAlumno
-        fields = ['nombre', 'fecha_nacimiento', 'estado']
+        fields = [
+            'nombre', 
+            'fecha_nacimiento', 
+            'estado',
+            'direccion',
+            'nombre_padre',
+            'nombre_madre',
+            'telefono',
+            'ficha_social',
+            'formulario_salud',
+            'certif_nacimiento',
+            'consent_fonoaudiologia',
+            'consent_vidasana',
+            ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
         }
         labels = {
             'nombre': ('Nombre completo'),
             'fecha_nacimiento': ('Fecha de nacimiento'),
+            'direccion': ('Dirección del domicilio'),
+            'nombre_padre': ('Nombre del padre'),
+            'nombre_madre': ('Nombre de la madre'),
+            'telefono': ('Teléfono'),
+            'ficha_social': ('Ficha social'),
+            'formulario_salud': ('Formulario de salud'),
+            'certif_nacimiento': ('Certificado de nacimiento'),
+            'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
+            'consent_vidasana': ('Consentimiento Vida Sana'),
         }
         error_messages = {
             'nombre': {

@@ -25,8 +25,17 @@ class FichaAlumno(models.Model):
             verbose_name="Rut alumno",
             help_text="El rut debe ser ingresado sin puntos y con guión."
             )
-    nombre = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255, null=False, blank=False)
     fecha_nacimiento = models.DateField()
+    direccion = models.CharField(max_length=255, null=False, blank=False)
+    nombre_padre = models.CharField(max_length=255, null=False, blank=False)
+    nombre_madre = models.CharField(max_length=255, null=False, blank=False)
+    telefono = models.CharField(max_length=255, null=False, blank=False)
+    ficha_social = models.BooleanField(default=False)
+    formulario_salud = models.BooleanField(default=False)
+    certif_nacimiento = models.BooleanField(default=False)
+    consent_fonoaudiologia = models.BooleanField(default=False)
+    consent_vidasana = models.BooleanField(default=False)
     estado = models.CharField(
        max_length=32,
        choices=ESTADO,

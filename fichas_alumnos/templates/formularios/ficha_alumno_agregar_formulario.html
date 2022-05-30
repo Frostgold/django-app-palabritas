@@ -11,9 +11,10 @@
             <p class="fs-5 fw-bold text-center">Agregar ficha alumno</p>
             <form method="post">
                 {% csrf_token %}
-                <p>{{ form.rut|as_crispy_field }}</p>
-                <p>{{ form.nombre|as_crispy_field }}</p>
-                <p>{{ form.fecha_nacimiento|as_crispy_field }}</p>
+                {% for field in form %}
+                    <p>{{ field|as_crispy_field }}</p>
+                {% endfor %}
+                <h6 class="mb-0 mt-3 fw-bold">Asignar usuario apoderado</h6>
                 {{ apoderado|crispy }}
                 <h6 class="mb-0 mt-3 fw-bold">Lista de espera</h6>
                 {{ lista_espera|crispy }}
