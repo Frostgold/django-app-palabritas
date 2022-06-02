@@ -39,3 +39,4 @@ Ventana de detalle curso
 
 ## Notas
 Proyecto realizado como trabajo de práctica laboral.
+Creación mía.
