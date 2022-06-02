@@ -17,15 +17,15 @@ pip install -r requirements.txt
 ```
 
 Se debe crear un archivo **.env** en la misma carpeta que **settings.py**. Setear variables.
-*SECRET_KEY
-*DJANGO_DEBUG
-*DATABASE_NAME
-*DATABASE_USER
-*DATABASE_PASS
-*DATABASE_HOST
-*DATABASE_PORT
-*EMAIL_USER
-*EMAIL_PASSWORD
+* SECRET_KEY
+* DJANGO_DEBUG
+* DATABASE_NAME
+* DATABASE_USER
+* DATABASE_PASS
+* DATABASE_HOST
+* DATABASE_PORT
+* EMAIL_USER
+* EMAIL_PASSWORD
 
 ## Vista previa
 Ventana principal con menú de navegación
