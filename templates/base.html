@@ -81,6 +81,37 @@
                 </a>
               </li>
             {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuInformativo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Informativos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuInformativo">
+                <li>
+                  <a href="{% get_media_prefix %}informativos/PROYECTO EDUCATIVO ISTITUCIONAL PALABRITAS.pdf" target="_blank" class="dropdown-item text-wrap">
+                    Proyecto Educativo Institucional
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a href="{% get_media_prefix %}informativos/reglamento interno corporación educacional 2021.pdf" target="_blank" class="dropdown-item text-wrap">
+                    Reglamento Interno
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a href="{% get_media_prefix %}informativos/ESC-PAL-06 PLAN DE GESTION CONVIVENCIA ESCOLAR listo 2021.pdf" target="_blank" class="dropdown-item text-wrap">
+                    Plan de Gestión de Convivencia Escolar
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a href="{% get_media_prefix %}informativos/PROTOCOLO DE MEDIDAS DE PREVENCIÓN DE COVID 2022.pdf" target="_blank" class="dropdown-item text-wrap">
+                    Nuevo Protocolo Covid-19 2022
+                  </a>
+                </li>
+              </ul>
+            </li>
             {% if user.is_authenticated %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -171,6 +202,28 @@
             </a>
           </li>
         {% endif %}
+        <div class="my-3 border-top border-bottom border-1 border-secondary">
+          <li>
+            <a href="{% get_media_prefix %}informativos/PROYECTO EDUCATIVO ISTITUCIONAL PALABRITAS.pdf" target="_blank" class="nav-link text-white">
+              Proyecto Educativo Institucional
+            </a>
+          </li>
+          <li>
+            <a href="{% get_media_prefix %}informativos/reglamento interno corporación educacional 2021.pdf" target="_blank" class="nav-link text-white">
+              Reglamento Interno
+            </a>
+          </li>
+          <li>
+            <a href="{% get_media_prefix %}informativos/ESC-PAL-06 PLAN DE GESTION CONVIVENCIA ESCOLAR listo 2021.pdf" target="_blank" class="nav-link text-white">
+              Plan de Gestión de Convivencia Escolar
+            </a>
+          </li>
+          <li>
+            <a href="{% get_media_prefix %}informativos/PROTOCOLO DE MEDIDAS DE PREVENCIÓN DE COVID 2022.pdf" target="_blank" class="nav-link text-white">
+              Nuevo Protocolo Covid-19 2022
+            </a>
+          </li>
+        </div>
       </ul>
       <hr>
       {% if user.is_authenticated %}

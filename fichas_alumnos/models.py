@@ -33,6 +33,7 @@ class FichaAlumno(models.Model):
     telefono = models.CharField(max_length=255, null=False, blank=False)
     ficha_social = models.BooleanField(default=False)
     formulario_salud = models.BooleanField(default=False)
+    anamnesis = models.BooleanField(default=False)
     certif_nacimiento = models.BooleanField(default=False)
     consent_fonoaudiologia = models.BooleanField(default=False)
     consent_vidasana = models.BooleanField(default=False)

@@ -37,6 +37,9 @@
                             <div class="fw-light">Formulario de salud: {% if alumno.formulario_salud %}Sí{% else %}No{% endif %}</div>
                         </div>
                         <div class="col mt-0 mt-md-2">
+                            <div class="fw-light">Anamnesis: {% if alumno.anamnesis %}Sí{% else %}No{% endif %}</div>
+                        </div>
+                        <div class="col mt-0 mt-md-2">
                             <div class="fw-light">Certificado de nacimiento: {% if alumno.certif_nacimiento %}Sí{% else %}No{% endif %}</div>
                         </div>
                         <div class="col mt-0 mt-md-2">
@@ -203,7 +206,7 @@
                                     {% for trabajo in trabajos %}
                     
                                         <tr>
-                                            <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} >{{ trabajo.filename }}</a></td>
+                                            <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}</a></td>
                                             {% if perms.fichas_alumnos.delete_bancotrabajo %}
                                                 <td class="col-1 text-center align-middle">
                                                     
@@ -286,7 +289,7 @@
                                         {% for doc in documentos %}
                         
                                             <tr>
-                                                <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %}>{{ doc.filename }}</a></td>
+                                                <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %} target="_blank">{{ doc.filename }}</a></td>
                                                 {% if perms.fichas_alumnos.delete_bancodocumento %}
                                                     <td class="col-1 text-center align-middle">
                                                         
