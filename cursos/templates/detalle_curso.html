@@ -147,7 +147,7 @@
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <p>{{ actividad_form.comentario|as_crispy_field }}</p>
-                                <p>{{ actividad_form.imagen|as_crispy_field }}</p>
+                                <p>{{ actividad_form.archivo|as_crispy_field }}</p>
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
@@ -160,8 +160,8 @@
                             <div class="container-fluid border">
                     
                                 <p class="d-block m-0 p-2">{{ actividad.comentario }}</p>
-                                {% if actividad.imagen %}
-                                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.imagen }}" alt="Imagen registro de actividad">
+                                {% if actividad.archivo %}
+                                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.archivo }}" alt="Imagen registro de actividad">
                                 {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
                                     <div class="col">
