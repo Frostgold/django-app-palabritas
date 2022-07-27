@@ -16,11 +16,11 @@ class FichaAlumno(models.Model):
         (RETIRADO, ('Retirado')),
     ]
 
-    REGEX_RUT_VALIDATOR = r"^(\d{1,2}(?:\d{3}){2}-[\dkK])$"
+    REGEX_RUT_VALIDATOR = r"^(\d{1,3}(?:\d{3}){2}-[\dkK])$"
 
     rut = models.CharField(
-            max_length=10, 
-            primary_key=True, 
+            max_length=11,
+            primary_key=True,
             validators=[RegexValidator(REGEX_RUT_VALIDATOR)],
             verbose_name="Rut alumno",
             help_text="El rut debe ser ingresado sin puntos y con guión."
@@ -61,6 +61,11 @@ class FichaAlumno(models.Model):
 
         rut = ""
 
+        if len(self.rut) == 11:
+            rut_1 = self.rut[:3]
+            rut_2 = self.rut[3:6]
+            rut_3 = self.rut[-5:]
+            rut = (rut_1+"."+rut_2+"."+rut_3)
         if len(self.rut) == 10:
             rut_1 = self.rut[:2]
             rut_2 = self.rut[2:5]

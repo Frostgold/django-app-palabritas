@@ -61,7 +61,7 @@
                     {% endif %}
 
                     {% if perms.fichas_alumnos.can_view_ficha_completa %}
-                    
+
                         {% if alumno.estado == 'lista_espera' %} <h6 class="d-block fw-bold mb-0 text-light">Lista de espera</h6> {% endif %}
                         {% if alumno.estado == 'documentos_pendientes' %} <h6 class="d-block fw-bold mb-0 text-warning">Documentos pendientes</h6> {% endif %}
                         {% if alumno.estado == 'curso_asignado' %} <h6 class="d-block fw-bold mb-0 text-success">Curso asignado</h6> {% endif %}
@@ -76,7 +76,7 @@
                                 Curso no asignado
                             {% endif %}
                         </h6>
-                        
+
                         {% if perms.fichas_alumnos.can_changefichaalumno %}
                             <a href="{% url 'change_ficha_alumno' alumno.rut %}" class="btn btn-light mt-4">Modificar ficha</a>
                         {% endif %}
@@ -96,7 +96,7 @@
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                    
+
                     {% if perms.fichas_alumnos.add_avancealumno %}
 
                         <div class="container my-3">
@@ -107,24 +107,24 @@
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
-                    
+
                     {% endif %}
 
                     {% if avances %}
 
                         {% for avance in avances %}
                             <div class="container-fluid border">
-                    
+
                                 <p class="d-block m-0 p-2">{{ avance.comentario }}</p>
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
                                     <div class="col">
                                         <p class="d-flex mb-0 ps-2 text-muted fst-italic">
-                                            {{ avance.geteditor }} - 
+                                            {{ avance.geteditor }} -
                                             {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
                                         </p>
                                     </div>
                                     {% if perms.fichas_alumnos.change_avancealumno %}
-                                    
+
                                         <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
                                             <a href="{% url 'modificar_avance_alumno' avance.id %}" type="button" class="btn btn-secondary">Modificar</a>
                                             {% if perms.fichas_alumnos.delete_avancealumno %}
@@ -132,7 +132,7 @@
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ avance.id }}">
                                                 X
                                             </button>
-                                            
+
                                             <!-- Modal -->
                                             <div class="modal fade" id="confirmDeleteAvance{{ avance.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteAvance{{ avance.id }}Label" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -145,7 +145,7 @@
                                                             <p>Estás por eliminar el siguiente avance:</P>
                                                             <p class="fw-light fst-italic px-3">{{ avance.comentario }}</P>
                                                             <p class="fw-lighter fst-italic px-3 text-muted">
-                                                                {{ avance.geteditor }} - 
+                                                                {{ avance.geteditor }} -
                                                                 {% if avance.modificado == False %}Publicado el{% else %}Modificado el{% endif %} {{ avance.fecha_edicion }}
                                                             </p>
                                                         </div>
@@ -158,10 +158,10 @@
                                             </div>
                                             {% endif %}
                                         </div>
-                                    
+
                                     {% endif %}
                                 </div>
-            
+
                             </div>
                         {% endfor %}
 
@@ -191,9 +191,9 @@
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
-                    
+
                     {% endif %}
-                    
+
                     <div class="table-responsive-md">
                         <table class="table table-hover mb-0">
                             <thead class="table-dark">
@@ -204,17 +204,17 @@
                             <tbody>
                                 {% if trabajos %}
                                     {% for trabajo in trabajos %}
-                    
+
                                         <tr>
                                             <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}</a></td>
                                             {% if perms.fichas_alumnos.delete_bancotrabajo %}
                                                 <td class="col-1 text-center align-middle">
-                                                    
+
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
                                                         X
                                                     </button>
-                                                    
+
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="confirmDeleteTrabajo{{ trabrajo.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ trabrajo.id }}Label" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -234,12 +234,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </td>
 
                                             {% endif %}
                                         </tr>
-                    
+
                                     {% endfor %}
                                 {% else %}
                                     <tr>
@@ -255,7 +255,7 @@
                 </div>
             </div>
             {% if perms.fichas_alumnos.view_bancodocumento %}
-            
+
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
@@ -274,7 +274,7 @@
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
-                    
+
                     {% endif %}
 
                         <div class="table-responsive-md">
@@ -287,17 +287,17 @@
                                 <tbody>
                                     {% if documentos %}
                                         {% for doc in documentos %}
-                        
+
                                             <tr>
                                                 <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %} target="_blank">{{ doc.filename }}</a></td>
                                                 {% if perms.fichas_alumnos.delete_bancodocumento %}
                                                     <td class="col-1 text-center align-middle">
-                                                        
+
                                                         <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento{{ doc.id }}">
                                                             X
                                                         </button>
-                                                        
+
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="confirmDeleteDocumento{{ doc.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ doc.id }}Label" aria-hidden="true">
                                                             <div class="modal-dialog">
@@ -321,7 +321,7 @@
                                                     </td>
                                                 {% endif %}
                                             </tr>
-                        
+
                                         {% endfor %}
                                     {% else %}
                                         <tr>
@@ -336,17 +336,17 @@
 
                     </div>
                 </div>
-            
+
             {% endif %}
         </div>
-    
+
         {% if perms.fichas_alumnos.can_retirar_ficha_alumno %}
             <div class="text-center my-5">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmRetiroFichaAlumno">
                     Retirar alumno
                 </button>
-                
+
                 <!-- Modal -->
                 {% for alumno in ficha %}
                     <div class="modal fade" id="confirmRetiroFichaAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmRetiroFichaAlumnoLabel" aria-hidden="true">
@@ -357,7 +357,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-start">
-                                    <p>Estás por retirar la siguiente ficha de alumno:</P>                              
+                                    <p>Estás por retirar la siguiente ficha de alumno:</P>
                                         <p class="fw-light fst-italic px-3">{{ alumno.nombre }}</P>
                                         <p class="fw-lighter fst-italic text-muted px-3">{{ alumno.rut_formatted }}</P>
                                 </div>
@@ -371,7 +371,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        
+
     </div>
 
 </div>
