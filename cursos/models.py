@@ -4,6 +4,7 @@ import os
 from django.core.validators import RegexValidator
 from autenticacion.models import Usuario
 from PIL import Image
+import filetype
 
 class Nivel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -73,15 +74,19 @@ class CronogramaActividad(models.Model):
     def filename(self):
         return os.path.basename(self.archivo.name)
 
+    def is_image(self):
+        return filetype.is_image(self.archivo.path)
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        """ if self.imagen:
-            img = Image.open(self.imagen.path)
+        if self.archivo and self.is_image == True:
+            print(self.is_image)
+            img = Image.open(self.archivo.path)
             if img.height > 720 or img.width > 1280:
                 output_size = (1280, 720)
                 img.thumbnail(output_size)
-                img.save(self.imagen.path) """
+                img.save(self.archivo.path)
 
 
 class DetalleDocente(models.Model):
