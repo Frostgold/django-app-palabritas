@@ -83,11 +83,11 @@
                                             {% if perms.cursos.change_detalledocente %}
                                                 <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end mx-2">
 
-                                                    <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                                    <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                                     
                                                     {% if perms.cursos.delete_detalledocente %}
                                                         <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ d.id }}">
+                                                        <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ d.id }}">
                                                             X
                                                         </button>
                                                         
@@ -178,10 +178,10 @@
                                     {% if perms.cursos.change_cronogramaactividad %}
                                     
                                         <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
-                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                             {% if perms.cursos.delete_cronogramaactividad %}
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
+                                            <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
                                                 X
                                             </button>
                                             
