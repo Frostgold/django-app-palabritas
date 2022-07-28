@@ -81,7 +81,6 @@ class CronogramaActividad(models.Model):
         super().save(*args, **kwargs)
 
         if self.archivo and self.is_image == True:
-            print(self.is_image)
             img = Image.open(self.archivo.path)
             if img.height > 720 or img.width > 1280:
                 output_size = (1280, 720)

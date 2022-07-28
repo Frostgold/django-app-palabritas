@@ -164,7 +164,7 @@
                                     {% if actividad.is_image %}
                                         <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.archivo }}" alt="Imagen registro de actividad">
                                     {% else %}
-                                        <a href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}</a>
+                                        <a class="btn btn-outline-primary ms-2" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}</a>
                                     {% endif %}
                                 {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">

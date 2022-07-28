@@ -12,16 +12,20 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <p>{{ form.comentario|as_crispy_field }}</p>
-                {% if instance.imagen %}
-                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ instance.imagen }}" alt="Imagen registro de actividad">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="chkEliminarImg" id="deleteImagen">
-                            <label class="form-check-label" for="deleteImagen">
-                                ¿Eliminar imagen?
-                            </label>
-                        </div>
+                {% if instance.archivo %}
+                    {% if instance.is_image %}
+                        <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ instance.archivo }}" alt="Imagen registro de actividad">
+                    {% else %}
+                        <a class="btn btn-outline-primary" href="{% get_media_prefix %}{{ instance.archivo }}" target="_blank">{{ instance.filename }}</a>
+                    {% endif %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="chkEliminarArchivo" id="deleteArchivo">
+                        <label class="form-check-label" for="deleteArchivo">
+                            ¿Eliminar archivo?
+                        </label>
+                    </div>
                 {% endif %}
-                <p>{{ form.imagen|as_crispy_field }}</p>
+                <p>{{ form.archivo|as_crispy_field }}</p>
 
                 <a href="{% url 'detalle_curso' instance.curso.id %}" class="btn btn-secondary">Cancelar</a>
                 <button class="btn btn-primary" type="submit">Modificar</button>
