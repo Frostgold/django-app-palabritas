@@ -83,11 +83,11 @@
                                             {% if perms.cursos.change_detalledocente %}
                                                 <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end mx-2">
 
-                                                    <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                                    <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                                     
                                                     {% if perms.cursos.delete_detalledocente %}
                                                         <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ d.id }}">
+                                                        <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ d.id }}">
                                                             X
                                                         </button>
                                                         
@@ -147,7 +147,7 @@
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <p>{{ actividad_form.comentario|as_crispy_field }}</p>
-                                <p>{{ actividad_form.imagen|as_crispy_field }}</p>
+                                <p>{{ actividad_form.archivo|as_crispy_field }}</p>
                                 <button class="btn btn-primary" type="submit">Subir</button>
                             </form>
                         </div>
@@ -160,8 +160,12 @@
                             <div class="container-fluid border">
                     
                                 <p class="d-block m-0 p-2">{{ actividad.comentario }}</p>
-                                {% if actividad.imagen %}
-                                    <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.imagen }}" alt="Imagen registro de actividad">
+                                {% if actividad.archivo %}
+                                    {% if actividad.is_image %}
+                                        <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.archivo }}" alt="Imagen registro de actividad">
+                                    {% else %}
+                                        <a class="btn btn-outline-primary ms-2" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}</a>
+                                    {% endif %}
                                 {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
                                     <div class="col">
@@ -174,10 +178,10 @@
                                     {% if perms.cursos.change_cronogramaactividad %}
                                     
                                         <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
-                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            <a href="{% url 'modificar_cronograma_actividad' actividad.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                             {% if perms.cursos.delete_cronogramaactividad %}
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
+                                            <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ actividad.id }}">
                                                 X
                                             </button>
                                             

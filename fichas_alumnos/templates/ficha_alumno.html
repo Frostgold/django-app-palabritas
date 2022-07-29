@@ -78,7 +78,7 @@
                         </h6>
 
                         {% if perms.fichas_alumnos.can_changefichaalumno %}
-                            <a href="{% url 'change_ficha_alumno' alumno.rut %}" class="btn btn-light mt-4">Modificar ficha</a>
+                            <a href="{% url 'change_ficha_alumno' alumno.rut %}" class="btn btn-outline-light mt-4 fw-bold">Modificar ficha</a>
                         {% endif %}
 
                 </div>
@@ -126,10 +126,10 @@
                                     {% if perms.fichas_alumnos.change_avancealumno %}
 
                                         <div class="col-md-4 my-3 my-md-0 text-center text-md-end mx-2">
-                                            <a href="{% url 'modificar_avance_alumno' avance.id %}" type="button" class="btn btn-secondary">Modificar</a>
+                                            <a href="{% url 'modificar_avance_alumno' avance.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                             {% if perms.fichas_alumnos.delete_avancealumno %}
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ avance.id }}">
+                                            <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteAvance{{ avance.id }}">
                                                 X
                                             </button>
 
@@ -211,7 +211,7 @@
                                                 <td class="col-1 text-center align-middle">
 
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
+                                                    <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
                                                         X
                                                     </button>
 
@@ -294,7 +294,7 @@
                                                     <td class="col-1 text-center align-middle">
 
                                                         <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento{{ doc.id }}">
+                                                        <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento{{ doc.id }}">
                                                             X
                                                         </button>
 

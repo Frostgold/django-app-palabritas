@@ -18,10 +18,10 @@ class FormCronActividades(ModelForm):
 
     class Meta:
         model = CronogramaActividad
-        fields = ['comentario', 'imagen']
+        fields = ['comentario', 'archivo']
         widgets = {
             'comentario': Textarea(attrs={'rows': 3, 'class': "form-control"}),
-            'imagen': FileInput(attrs={'class': "form-control"}),
+            'archivo': FileInput(attrs={'class': "form-control"}),
         }
 
 class FormDetalleDocente(ModelForm):

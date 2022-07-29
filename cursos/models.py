@@ -4,6 +4,7 @@ import os
 from django.core.validators import RegexValidator
 from autenticacion.models import Usuario
 from PIL import Image
+import filetype
 
 class Nivel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,7 +55,7 @@ class CronogramaActividad(models.Model):
     id = models.AutoField(primary_key=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     comentario = models.CharField(max_length=1000, null=False, blank=False)
-    imagen = models.ImageField(max_length=500, upload_to=actividad_directory_path, null=True, blank=True)
+    archivo = models.FileField(max_length=500, upload_to=actividad_directory_path, null=True, blank=True)
     editor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_edicion = models.DateField(auto_now=True)
     modificado = models.BooleanField(default=False)
@@ -71,17 +72,20 @@ class CronogramaActividad(models.Model):
         return self.curso.nombre
 
     def filename(self):
-        return os.path.basename(self.imagen.name)
+        return os.path.basename(self.archivo.name)
+
+    def is_image(self):
+        return filetype.is_image(self.archivo.path)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if self.imagen:
-            img = Image.open(self.imagen.path)
+        if self.archivo and filetype.is_image(self.archivo.path):
+            img = Image.open(self.archivo.path)
             if img.height > 720 or img.width > 1280:
                 output_size = (1280, 720)
                 img.thumbnail(output_size)
-                img.save(self.imagen.path)
+                img.save(self.archivo.path)
 
 
 class DetalleDocente(models.Model):

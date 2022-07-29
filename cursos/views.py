@@ -244,8 +244,8 @@ def modificar_cronograma_actividad_view(request, id):
         if form.is_valid():
             actividad_modificada = form.save(commit=False)
             actividad_modificada.modificado = True
-            if request.POST.get('chkEliminarImg') == "on":
-                actividad_modificada.imagen = None
+            if request.POST.get('chkEliminarArchivo') == "on":
+                actividad_modificada.archivo = None
             actividad_modificada.save()
             
             return redirect('detalle_curso', instance.curso.id)
