@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea, FileInput
-from .models import CronogramaActividad, Curso, DetalleDocente
+from .models import CronogramaActividad, Curso, DetalleDocente, BancoTrabajo
 
 class FormAgregarCurso(ModelForm):
 
@@ -35,3 +35,12 @@ class FormModificarDetalleDocente(ModelForm):
     class Meta:
         model = DetalleDocente
         fields = ['asignatura']
+
+class FormTrabajoCurso(ModelForm):
+    
+    class Meta:
+        model = BancoTrabajo
+        fields = ['trabajo',]
+        widgets = {
+            'trabajo': FileInput(attrs={'class': "form-control"}),
+        }
