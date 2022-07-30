@@ -164,7 +164,7 @@
                                     {% if actividad.is_image %}
                                         <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.archivo }}" alt="Imagen registro de actividad">
                                     {% else %}
-                                        <a class="btn btn-outline-primary ms-2" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}</a>
+                                        <a class="btn btn-outline-success ms-2" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a>
                                     {% endif %}
                                 {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
@@ -260,7 +260,7 @@
                                     {% for trabajo in trabajos %}
 
                                         <tr>
-                                            <td class="col-11 text-wrap align-middle"><a {% if perms.cursos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}</a></td>
+                                            <td class="col-11 text-wrap align-middle"><a {% if perms.cursos.view_bancotrabajo %} class="btn btn-outline-success ms-2" href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
                                             {% if perms.cursos.delete_bancotrabajo %}
                                                 <td class="col-1 text-center align-middle">
 
