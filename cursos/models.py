@@ -105,6 +105,9 @@ class BancoTrabajo(models.Model):
     def filename(self):
         return os.path.basename(self.trabajo.name)
 
+    def getcurso(self):
+        return self.curso.nombre
+
 
 class DetalleDocente(models.Model):
     id = models.AutoField(primary_key=True)

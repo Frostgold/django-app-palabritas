@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Nivel, Curso, DetalleDocente, CronogramaActividad
+from .models import Nivel, Curso, DetalleDocente, CronogramaActividad, BancoTrabajo
 
 class NivelConfig(admin.ModelAdmin):
     search_fields = ('id', 'descripcion',)
@@ -90,6 +90,25 @@ class CronogramaActividadConfig(admin.ModelAdmin):
     getcurso.admin_order_field = 'curso'
 
 
+class BancoTrabajoConfig(admin.ModelAdmin):
+    search_fields = ('curso_id__nombre',)
+    ordering = ('id',)
+    list_display = ('id', 'getcurso', 'filename',)
+    list_filter = ('curso_id__nombre',)
+
+    def filename(self, obj):
+        return obj.filename()
+
+    def getcurso(self, obj):
+        return obj.getcurso()
+
+    filename.short_description = 'Trabajo'
+    filename.admin_order_field = 'trabajo'
+
+    getcurso.short_description = 'Curso'
+    getcurso.admin_order_field = 'curso'
+
+
 admin.site.site_header  =  "Administración Palabritas"  
 admin.site.site_title  =  "Sitio administrativo Palabritas"
 admin.site.index_title  =  "Administración Palabritas - Modelos"
@@ -98,3 +117,4 @@ admin.site.register(Nivel, NivelConfig)
 admin.site.register(Curso, CursoConfig)
 admin.site.register(DetalleDocente, DetalleDocenteConfig)
 admin.site.register(CronogramaActividad, CronogramaActividadConfig)
+admin.site.register(BancoTrabajo, BancoTrabajoConfig)
