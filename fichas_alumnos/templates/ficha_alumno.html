@@ -198,7 +198,7 @@
                         <table class="table table-hover mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th class="fs-5" {% if perms.fichas_alumnos.delete_bancotrabajo %}colspan="2"{% endif %}>Trabajos</th>
+                                    <th class="fs-5" {% if perms.fichas_alumnos.delete_bancotrabajo %}colspan="2"{% endif %}>Trabajos alumno</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -249,6 +249,33 @@
                                     </tr>
                                 {% endif %}
                             </tbody>
+                            <!-- Seccion trabajos cursos -->
+                            {% for alumno in ficha %}
+                                {% if alumno.curso %}
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="fs-5" {% if perms.fichas_alumnos.delete_bancotrabajo %}colspan="2"{% endif %}>Trabajos curso</th>
+                                        </tr>
+                                        <tbody>
+                                            {% if trabajoscurso %}
+                                            {% for trabajo in trabajoscurso %}
+
+                                                <tr>
+                                                    <td class="col-11 text-wrap align-middle"><a {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}</a></td>
+                                                </tr>
+
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td class="col-11 text-wrap fs-6 align-middle">
+                                                    <h6 class="d-block fw-bold p-3">No existen publicaciones de trabajos en el curso</h6>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </thead>
+                                {% endif %}
+                            {% endfor %}
                         </table>
                     </div>
 
