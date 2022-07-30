@@ -10,4 +10,5 @@ urlpatterns = [
     path('eliminar_detalle_docente/<int:id>', views.delete_detalle_docente_view, name='eliminar_detalle_docente'),
     path('modificar_cronograma_actividad/<int:id>', views.modificar_cronograma_actividad_view, name='modificar_cronograma_actividad'),
     path('eliminar_cronograma_actividad/<int:id>', views.delete_cronograma_actividad_view, name='eliminar_cronograma_actividad'),
+    path('eliminar_trabajo/<int:id>', views.delete_banco_trabajo_view, name='eliminar_trabajo'),
 ]

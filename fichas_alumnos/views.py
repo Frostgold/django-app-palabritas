@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
-from cursos.models import Curso
+from cursos.models import Curso, BancoTrabajo as BancoTrabajoCurso
 from lista_espera.models import ListaEspera
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import inlineformset_factory
@@ -53,6 +53,8 @@ def ficha_alumno_view(request, rut):
 
     context = {}
 
+    alumno = FichaAlumno.objects.filter(rut=rut).first()
+
     # Revisa si el usuario es apoderado. Si el alumno le corresponde puede entrar.
     if not request.user.has_perm('fichas_alumnos.can_view_listado_fichas'):
 
@@ -65,6 +67,7 @@ def ficha_alumno_view(request, rut):
                 context['avances'] = AvanceAlumno.objects.filter(alumno=rut)
                 context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut)
                 context['documentos'] = BancoDocumento.objects.filter(alumno=rut)
+                context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.curso)
 
                 return render(request, 'ficha_alumno.html', context)
 
@@ -78,6 +81,7 @@ def ficha_alumno_view(request, rut):
     context['avances'] = AvanceAlumno.objects.filter(alumno=rut).order_by('-id')
     context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut).order_by('-id')
     context['documentos'] = BancoDocumento.objects.filter(alumno=rut).order_by('-id')
+    context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.curso)
 
     if not context['ficha']:
         return redirect('listado_fichas_alumnos')

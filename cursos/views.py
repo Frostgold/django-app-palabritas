@@ -4,8 +4,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
 
 from lista_espera.models import ListaEspera
-from .models import CronogramaActividad, Curso, DetalleDocente
-from .forms import FormAgregarCurso, FormDetalleDocente, FormModificarCurso, FormCronActividades, FormModificarDetalleDocente
+from .models import CronogramaActividad, Curso, DetalleDocente, BancoTrabajo
+from .forms import FormAgregarCurso, FormDetalleDocente, FormModificarCurso, FormCronActividades, FormModificarDetalleDocente, FormTrabajoCurso
 from autenticacion.models import Usuario
 from fichas_alumnos.models import FichaAlumno
 
@@ -134,9 +134,12 @@ def detalle_curso_view(request, id):
         return redirect('listado_cursos')
     context['docente'] = DetalleDocente.objects.filter(curso_id=id)
     context['cron_actividad'] = CronogramaActividad.objects.filter(curso_id=id).order_by('-id')
+    context['trabajos'] = BancoTrabajo.objects.filter(curso_id=id).order_by('-id')
     context['alumnos'] = FichaAlumno.objects.filter(curso_id=id).order_by('nombre')
+
     context['docente_form'] = FormDetalleDocente
     context['actividad_form'] = FormCronActividades
+    context['trabajo_form'] = FormTrabajoCurso
 
     if 'error' in request.session:
         context['error'] = request.session['error']
@@ -154,8 +157,6 @@ def detalle_curso_view(request, id):
             context['avanzan'] = context['cupos']
 
     if request.method == 'POST':
-
-        print(request.POST)
 
         if request.POST.get('docente') and request.POST.get('asignatura'):
             # create a form instance and populate it with data from the request:
@@ -182,6 +183,16 @@ def detalle_curso_view(request, id):
                 nueva_actividad.save()
             else:
                 context['actividad_form'] = form
+
+        if request.FILES.get('trabajo'):
+            # create a form instance and populate it with data from the request:
+            form = FormTrabajoCurso(request.POST, request.FILES)
+
+            # check whether it's valid:
+            if form.is_valid():
+                nuevo_trabajo = form.save(commit=False)
+                nuevo_trabajo.curso = Curso(id)
+                nuevo_trabajo.save()
 
     return render(request, 'detalle_curso.html', context)
 
@@ -267,3 +278,16 @@ def delete_cronograma_actividad_view(request, id):
     instance.delete()
 
     return redirect('detalle_curso', curso)
+
+
+@login_required
+@permission_required('cursos.delete_bancotrabajo', raise_exception=True)
+def delete_banco_trabajo_view(request, id):
+    try:
+        instance = BancoTrabajo.objects.get(id=id)
+    except:
+        return redirect('listado_cursos')
+    curso = instance.curso.id
+    instance.delete()
+
+    return redirect('detalle_curso', curso)    

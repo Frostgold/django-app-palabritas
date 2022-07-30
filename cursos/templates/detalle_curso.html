@@ -77,11 +77,11 @@
                                     {% for d in docente %}
                     
                                         <tr>
-                                            <td class="align-middle col-6 col-md-5">{{ d.docente.nombre }}</td>
-                                            <td class="align-middle col-5 col-md-4">{{ d.asignatura }}</td>
+                                            <td class="align-middle col-6 col-md-5 ps-1 ps-md-2">{{ d.docente.nombre }}</td>
+                                            <td class="align-middle col-5 col-md-4 px-0">{{ d.asignatura }}</td>
 
                                             {% if perms.cursos.change_detalledocente %}
-                                                <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end mx-2">
+                                                <td class="col-1 col-md-3 my-3 my-md-0 text-center text-md-end px-0 px-md-2">
 
                                                     <a href="{% url 'modificar_detalle_docente' d.id %}" type="button" class="btn btn-outline-warning fw-bold">Modificar</a>
                                                     
@@ -164,7 +164,7 @@
                                     {% if actividad.is_image %}
                                         <img class="img-fluid img-thumbnail mx-auto d-block" src="{% get_media_prefix %}{{ actividad.archivo }}" alt="Imagen registro de actividad">
                                     {% else %}
-                                        <a class="btn btn-outline-primary ms-2" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}</a>
+                                        <a class="btn btn-outline-success ms-md-2 overflow-hidden btn-vw-90" style="" href="{% get_media_prefix %}{{ actividad.archivo }}" target="_blank">{{ actividad.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a>
                                     {% endif %}
                                 {% endif %}
                                 <div class="row align-items-center justify-content-between py-2 gx-2">
@@ -226,6 +226,89 @@
 
                 </div>
             </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                        Trabajos
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+
+                    {% if perms.cursos.add_bancotrabajo %}
+
+                        <div class="container my-3">
+                            <p class="fs-5">Subir trabajo</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p>{{ trabajo_form.trabajo }}</p>
+                                <button class="btn btn-primary" type="submit">Subir</button>
+                            </form>
+                        </div>
+
+                    {% endif %}
+
+                    <div class="table-responsive-md">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="fs-5" {% if perms.cursos.delete_bancotrabajo %}colspan="2"{% endif %}>Trabajos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if trabajos %}
+                                    {% for trabajo in trabajos %}
+
+                                        <tr>
+                                            <td class="col-11 text-wrap align-middle pe-0 ps-1"><a class="btn btn-outline-success ms-md-2 overflow-hidden btn-vw-75" style="text-overflow: ellipsis;" {% if perms.cursos.view_bancotrabajo %} class="btn btn-outline-success ms-2" href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
+                                            {% if perms.cursos.delete_bancotrabajo %}
+                                                <td class="col-1 text-center align-middle pe-1">
+
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
+                                                        X
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="confirmDeleteTrabajo{{ trabrajo.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteTrabajo{{ trabrajo.id }}Label" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title fw-bold" id="confirmDeleteTrabajo{{ trabrajo.id }}Label">Confirmar eliminación de trabajo</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body text-start">
+                                                                    <p>Estás por eliminar el siguiente archivo:</P>
+                                                                    <p class="fw-light fst-italic px-3">{{ trabajo.filename }}</P>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                    <a type="button" class="btn btn-danger" href="{% url 'eliminar_trabajo' trabajo.id %}">Confirmar</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+
+                                            {% endif %}
+                                        </tr>
+
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td class="col-11 text-wrap fs-6 align-middle">
+                                            <h6 class="d-block fw-bold p-3">No existen publicaciones de trabajos</h6>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">

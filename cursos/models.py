@@ -88,6 +88,27 @@ class CronogramaActividad(models.Model):
                 img.save(self.archivo.path)
 
 
+def trabajo_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/alumno_<rut>/<filename>
+    return 'trabajo/curso_{0}/{1}'.format(instance.curso.id, filename)
+
+class BancoTrabajo(models.Model):
+    id = models.AutoField(primary_key=True)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    trabajo = models.FileField(max_length=500, upload_to=trabajo_directory_path)
+
+    class Meta:
+        verbose_name = 'Trabajo curso'
+        verbose_name_plural = 'Trabajos curso'
+        ordering = ['id']
+
+    def filename(self):
+        return os.path.basename(self.trabajo.name)
+
+    def getcurso(self):
+        return self.curso.nombre
+
+
 class DetalleDocente(models.Model):
     id = models.AutoField(primary_key=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
