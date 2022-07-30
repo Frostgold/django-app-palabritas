@@ -206,9 +206,9 @@
                                     {% for trabajo in trabajos %}
 
                                         <tr>
-                                            <td class="col-11 text-wrap align-middle"><a class="btn btn-outline-success ms-2" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
+                                            <td class="col-11 text-wrap align-middle pe-0 ps-1"><a class="btn btn-outline-success ms-md-2 overflow-hidden btn-vw-75" style="text-overflow: ellipsis;" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
                                             {% if perms.fichas_alumnos.delete_bancotrabajo %}
-                                                <td class="col-1 text-center align-middle">
+                                                <td class="col-1 text-center align-middle pe-1">
 
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteTrabajo{{ trabrajo.id }}">
@@ -249,7 +249,10 @@
                                     </tr>
                                 {% endif %}
                             </tbody>
-                            <!-- Seccion trabajos cursos -->
+                            
+                        </table>
+                        <!-- Seccion trabajos cursos -->
+                        <table class="table table-hover mb-0">
                             {% for alumno in ficha %}
                                 {% if alumno.curso %}
                                     <thead class="table-dark">
@@ -261,7 +264,7 @@
                                             {% for trabajo in trabajoscurso %}
 
                                                 <tr>
-                                                    <td class="col-11 text-wrap align-middle"{% if perms.fichas_alumnos.delete_bancotrabajo %}colspan="2"{% endif %}><a class="btn btn-outline-success ms-2" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
+                                                    <td class="col-11 text-wrap align-middle pe-0 ps-1"><a class="btn btn-outline-success ms-md-2 overflow-hidden btn-vw-90" style="text-overflow: ellipsis;" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ trabajo.trabajo }}" {% endif %} target="_blank">{{ trabajo.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
                                                 </tr>
 
                                             {% endfor %}
@@ -277,6 +280,7 @@
                                 {% endif %}
                             {% endfor %}
                         </table>
+
                     </div>
 
                 </div>
@@ -316,9 +320,9 @@
                                         {% for doc in documentos %}
 
                                             <tr>
-                                                <td class="col-11 text-wrap align-middle"><a class="btn btn-outline-success ms-2" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %} target="_blank">{{ doc.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
+                                                <td class="col-11 text-wrap align-middle pe-0 ps-1"><a class="btn btn-outline-success ms-md-2 overflow-hidden btn-vw-75" style="text-overflow: ellipsis;" {% if perms.fichas_alumnos.view_bancotrabajo %} href="{% get_media_prefix %}{{ doc.documento }}" {% endif %} target="_blank">{{ doc.filename }}<svg class="ms-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></a></td>
                                                 {% if perms.fichas_alumnos.delete_bancodocumento %}
-                                                    <td class="col-1 text-center align-middle">
+                                                    <td class="col-1 text-center align-middle pe-1">
 
                                                         <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#confirmDeleteDocumento{{ doc.id }}">

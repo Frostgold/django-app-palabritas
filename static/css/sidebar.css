@@ -16,3 +16,12 @@ body {
   }
   
   .dropdown-toggle { outline: 0; }
+
+
+.btn-vw-75 {
+  max-width: 75vw !important;
+}
+
+.btn-vw-90 {
+  max-width: 90vw !important;
+}
