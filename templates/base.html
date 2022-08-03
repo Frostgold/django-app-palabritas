@@ -112,25 +112,27 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuInformativo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Descargar documentos
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item text-wrap" href="#">Registro TECAL</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-wrap" href="#">Habilididades pragmáticas</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-wrap" href="#">STSG Hoja de respuesta</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-wrap" href="#">Pauta fonoaudiológica</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-wrap" href="#">TEPROSIF Hoja de respuesta</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-wrap" href="#">Anamnesis</a></li>
-              </ul>
-            </li>
+            {% if perms.lista_espera.view_listaespera %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuInformativo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                  Descargar documentos
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item text-wrap" href="#">Registro TECAL</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-wrap" href="#">Habilididades pragmáticas</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-wrap" href="#">STSG Hoja de respuesta</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-wrap" href="#">Pauta fonoaudiológica</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-wrap" href="#">TEPROSIF Hoja de respuesta</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-wrap" href="#">Anamnesis</a></li>
+                </ul>
+              </li>
+            {% endif %}
             <hr class="text-white">
             {% if user.is_authenticated %}
               <li class="nav-item dropdown">
@@ -244,27 +246,29 @@
             </a>
           </li>
         </div>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-              <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-              </svg>Descargar documentos</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Registro TECAL</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Habilididades pragmáticas</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">STSG Hoja de respuesta</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Pauta fonoaudiológica</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">TEPROSIF Hoja de respuesta</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Anamnesis</a></li>
-            </ul>
-          </li>
-        </ul>
+        {% if perms.lista_espera.view_listaespera %}
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>Descargar documentos</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Registro TECAL</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Habilididades pragmáticas</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">STSG Hoja de respuesta</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Pauta fonoaudiológica</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">TEPROSIF Hoja de respuesta</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Anamnesis</a></li>
+              </ul>
+            </li>
+          </ul>
+        {% endif %}
         
       </ul>
       <hr>
