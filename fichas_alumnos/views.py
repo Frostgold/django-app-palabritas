@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import inlineformset_factory
 
 from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet
-
+from .utils import render_to_pdf
+from django.http import HttpResponse
+from django.views.generic import View
 
 @login_required
 @permission_required('fichas_alumnos.view_fichaalumno', raise_exception=True)
@@ -319,3 +321,36 @@ def retirar_ficha_alumno(request, rut):
         lista_espera_instance.delete()
 
     return redirect('ficha_alumno', rut)
+
+
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        template = 'documentos/anamnesis.html'
+        data = {
+                'alumn_nombre': "Ignacio Andrés Muñoz Ortiz",
+                'alumn_edad': "12 años 3 meses",
+                'alumn_nacim': "01/09/2000",
+                'alumn_curso': "Primero básico A",
+                'fecha_exam': "02/08/2022",
+                'cinetica_AV': "X",
+                'proxe_AV': "X",
+                'inten_AV': "X",
+                'contac_AV': "X",
+                'expres_AV': "X",
+                'facult_AV': "X",
+                'varia_AV': "X",
+                'alter_AV': "X",
+                'temat_AV': "X",
+                'petic_AV': "X",
+                'aclar_AV': "X",
+            } 
+        pdf = render_to_pdf(template, data)
+
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %("20472458-K")
+            content = 'attachment; filename="{}"'.format(filename)
+            #response['Content-Disposition'] = content 
+            return response 
+
+        return HttpResponse("No encontrado")
