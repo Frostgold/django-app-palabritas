@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TEPROSIF</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th style="width:10%"><img src="data:image/gif;base64,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"></th>
+            <th style="width:90%"><h1 style="text-align: center; padding-right: 60pt; font-size: 16.0pt;">HOJA DE RESPUESTA TEPROSIF-R</h1></th>
+        </tr>
+    </table>
+
+    </br>
+
+    <table style='font-size: 8.0pt; font-family:Escolar2'>
+        <tr>
+            <th style="width:20%"></th>
+            <th style="width:20%"></th>
+            <th style="width:8%"></th>
+            <th style="width:17%"></th>
+            <th style="width:20%"></th>
+            <th style="width:15%"></th>
+          </tr>
+        <tr>
+            <td>NOMBRE</td>
+            <td colspan=3 style="border-bottom: 1px solid black">:  </td>
+            <td>FECHA DE NACIMIENTO</td>
+            <td style="border-bottom: 1px solid black">:  </td>
+        </tr>
+        <tr>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">EDAD</td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">SEXO</td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">FECHA DE EVALUACIÓN</td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+        </tr>
+        <tr>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">TOTAL PSF BARRIDO</td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt; ">TOTAL PSF TEPROSIF COMPLETO</td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+        </tr>
+        <tr>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">NIVEL DE DESEMPEÑO</td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N    R    D</td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">NIVEL DE DESEMPEÑO</td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N    R    D</td>
+        </tr>
+    </table>
+
+    </br>
+
+    <table>
+        <tr style="height: 22pt;">
+            <th style="width: 5%;"></th>
+            <th style="width: 20%; padding-bottom: -2.5pt;">ITEMES</th>
+            <th style="width: 25%; padding-bottom: -2.5pt;">REGISTRO</th>
+            <th style="width: 10%; padding-bottom: -2.5pt; border: 1px solid black;">EST.<br>SILABICA</th>
+            <th style="width: 10%; padding-bottom: -2.5pt; border: 1px solid black;">ASIMILA-<br>CIÓN</th>
+            <th style="width: 10%; padding-bottom: -2.5pt; border: 1px solid black;">SUSTITU-<br>CIÓN</th>
+            <th style="width: 10%; padding-bottom: -2.5pt; border: 1px solid black;">TOTAL<br>PROC.</th>
+            <th style="width: 10%; padding-bottom: -2.5pt; border: 1px solid black;">OTRAS<br>RESP. (*)</th>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">1</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PLANCHA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">2</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">RUEDA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">3</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">MARIPOSA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">4</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">BICICLETA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">5</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">HELICOPTERO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">6</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">BUFANDA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">7</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CAPERUCITA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">8</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ALFOMBRA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">9</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">REFRIGERADOR</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">10</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">EDIFICIO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">11</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CALCETÍN</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">12</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">DINOSAURIO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">13</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TELEFONO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">14</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">REMEDIO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">15</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PEINETA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding-bottom: -2.5pt; border: 1px solid black;">TOTAL PSF BARRIDO CON 15 ITEMES</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">16</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">AUTO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">17</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">INDIO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">18</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PANTALÓN</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">19</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CAMION</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">20</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CUADERNO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">21</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">MICRO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">22</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TREN</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">23</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PLÁTANO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">24</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JUGO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">25</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ENCHUFE</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">26</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JABÓN</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">27</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TAMBOR</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">28</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">VOLANTÍN</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">29</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JIRAFA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">30</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GORRO</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">31</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ARBOL</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">32</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">DULCE</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">33</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GUITARRA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">34</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GUANTE</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">35</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">RELOJ</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">36</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JAULA</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td style="padding-bottom: -2.5pt; text-align: center;">37</td>
+            <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PUENTE</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+        <tr style="height: 15pt;">
+            <td></td>
+            <td></td>
+            <td style="padding-bottom: -2.5pt; text-align: center;">TOTAL P.S.F.</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
