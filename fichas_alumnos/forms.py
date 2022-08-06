@@ -1,8 +1,11 @@
-from django.forms import ModelForm, DateInput, Textarea, FileInput, BaseInlineFormSet, ValidationError
+from django.forms import Form, ModelForm, DateInput, Textarea, FileInput, BaseInlineFormSet, ValidationError, CharField,  ChoiceField, DateField, ModelChoiceField
 import datetime
+from django.core.validators import RegexValidator
+
+from cursos.models import Curso
 
 from .models import FichaAlumno, AvanceAlumno, BancoTrabajo, BancoDocumento, DetalleApoderado
-
+from cursos.models import Nivel, Curso
 class FormFichaAlumno(ModelForm):
     
     class Meta:
@@ -169,3 +172,49 @@ class ListaEsperaBaseFormSet(BaseInlineFormSet):
     def clean(self):
         if self.has_changed() == False:
             raise ValidationError('Debe seleccionar el nivel.') 
+
+
+SI = 'si'
+NO = 'no'
+A_VECES = 'av'
+COTEJO_CHOICES = [
+    (NO, ('No')),
+    (SI, ('Sí')),
+    (A_VECES, ('A veces')),
+]
+
+SEXO_F = 'F'
+SEXO_M = 'M'
+SEXO_CHOICES = [
+    (SEXO_F, ('Femenino')),
+    (SEXO_M, ('Masculino')),
+]
+
+REGEX_RUT_VALIDATOR = r"^(\d{1,3}(?:\d{3}){2}-[\dkK])$"
+
+class FormDatosPersonalesAlumno(Form):
+    rut = CharField(required=True, max_length= 11, label="RUT Alumno", help_text="El rut debe ser ingresado sin puntos y con guión.", error_messages={'required': ("Campo RUT requerido."),}, validators=[RegexValidator(REGEX_RUT_VALIDATOR)],)
+    nombre = CharField(required=True, max_length= 255, label="Nombre alumno", error_messages={'required': ("Campo nombre requerido.")}, )
+    fech_nac = DateField(required=True, label="Fecha Nacimiento", widget=DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}), error_messages={'required': ("Campo fecha de nacimiento requerido."),})
+    sexo = ChoiceField(required=True, label="Sexo", choices=SEXO_CHOICES)
+    curso = ModelChoiceField(required=True, queryset=Curso.objects.all(), label="Curso")
+    nivel = ModelChoiceField(required=True, queryset=Nivel.objects.all(), label="Nivel")
+    domicilio = CharField(required=True, max_length= 255, label="Domicilio", error_messages={'required': ("Campo domicilio requerido."),}, )
+    
+
+
+class DocumentoPautaCotejo(Form):
+    cinetica = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Usa gestos adecuados para comunicarse.", label="Cinética")
+    proxemica = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Mantiene distancias y posturas.", label="Proxémica")
+    intencion = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Comunica sus deseos y/o necesidades.", label="Intención")
+    cont_visual = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Mantiene contacto visual adecuado.", label="Contacto Visual")
+    exp_facial = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Corresponde al mensaje e interpreta expresiones.", label="Expresión Facial")
+    fac_conversacional = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Sabe conversar, iniciar, responder, preguntar, interrumpir, etc.", label="Facultades Conversacional")
+    var_estilisticas = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Adapta su conversación al auditorio y a las circunstancias.", label="Variaciones Estilísticas")
+    alt_reciproca = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Sabe mantener un diálogo.", label="Alternancia Recíproca")
+    tematizacion = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Puede mantenerse en el tema.", label="Tematización")
+    peticiones = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Formula peticiones completas.", label="Peticiones")
+    aclar_rep = ChoiceField(required=True, choices=COTEJO_CHOICES, help_text="Pide y entrega aclaraciones en caso de dudas.", label="Aclaración y Reparación")
+
+    class Meta:
+        fields = ['__all__']
