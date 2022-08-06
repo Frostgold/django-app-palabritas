@@ -11,5 +11,7 @@ urlpatterns = [
     path('eliminar_trabajo/<int:id>', views.delete_banco_trabajo, name='eliminar_trabajo_alumno'),
     path('eliminar_documento/<int:id>', views.delete_banco_documento, name='eliminar_documento_alumno'),
     path('retirar_ficha_alumno/<str:rut>', views.retirar_ficha_alumno, name='retirar_ficha_alumno'),
-    path('pdf/', views.GeneratePdf.as_view()),
+    path('pdf/habilidades_pragmaticas/', views.generate_doc_cotejo_hab_prag, name='generate_hab_prag'),
+    path('pdf/habilidades_pragmaticas/<str:rut>', views.generate_doc_cotejo_hab_prag, name='generate_hab_prag'),
+    path('pdf/anamnesis', views.generate_doc_anamnesis, name='generate_anamnesis'),
 ]

@@ -256,7 +256,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Registro TECAL</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Habilididades pragmáticas</a></li>
+                <li><a class="dropdown-item" href="{% if rut_alumno %}{% url 'generate_hab_prag' rut_alumno %}{% else %}{% url 'generate_hab_prag' %}{% endif %}">Habilididades pragmáticas</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">STSG Hoja de respuesta</a></li>
                 <li><hr class="dropdown-divider"></li>

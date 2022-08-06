@@ -1,15 +1,16 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
-from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
-from cursos.models import Curso, BancoTrabajo as BancoTrabajoCurso
-from lista_espera.models import ListaEspera
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import inlineformset_factory
-
-from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet
-from .utils import render_to_pdf
 from django.http import HttpResponse
 from django.views.generic import View
+import datetime
+
+from cursos.models import Curso, BancoTrabajo as BancoTrabajoCurso
+from lista_espera.models import ListaEspera
+from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
+from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet, DocumentoPautaCotejo, FormDatosPersonalesAlumno, FormDocumentoAnamnesis
+from .utils import render_to_pdf
 
 @login_required
 @permission_required('fichas_alumnos.view_fichaalumno', raise_exception=True)
@@ -87,6 +88,8 @@ def ficha_alumno_view(request, rut):
 
     if not context['ficha']:
         return redirect('listado_fichas_alumnos')
+
+    context['rut_alumno'] = rut
 
     if request.method == 'POST':
 
@@ -323,34 +326,104 @@ def retirar_ficha_alumno(request, rut):
     return redirect('ficha_alumno', rut)
 
 
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        template = 'documentos/anamnesis.html'
-        data = {
-                'alumn_nombre': "Ignacio Andrés Muñoz Ortiz",
-                'alumn_edad': "12 años 3 meses",
-                'alumn_nacim': "01/09/2000",
-                'alumn_curso': "Primero básico A",
-                'fecha_exam': "02/08/2022",
-                'cinetica_AV': "X",
-                'proxe_AV': "X",
-                'inten_AV': "X",
-                'contac_AV': "X",
-                'expres_AV': "X",
-                'facult_AV': "X",
-                'varia_AV': "X",
-                'alter_AV': "X",
-                'temat_AV': "X",
-                'petic_AV': "X",
-                'aclar_AV': "X",
-            } 
-        pdf = render_to_pdf(template, data)
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_cotejo_hab_prag(request, rut=None):
+    context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_hab_prag=False)
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            if alumno.curso:
+                curso = alumno.curso
+            else:
+                curso = ""
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+                'curso': curso,
+            }, datos_hab_prag=True)
+        except:
+            pass
+        
+    context['form'] = DocumentoPautaCotejo
 
-        if pdf:
-            response = HttpResponse(pdf, content_type='application/pdf') 
-            filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %("20472458-K")
-            content = 'attachment; filename="{}"'.format(filename)
-            #response['Content-Disposition'] = content 
-            return response 
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
 
-        return HttpResponse("No encontrado")
+        if form_base.is_valid():
+            form = DocumentoPautaCotejo(request.POST)
+            print(form_base)
+            if form.is_valid():
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+                print(edad_mes)
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_curso': form_base.cleaned_data['curso'] if form_base.cleaned_data['curso'] != None else "No asignado",
+                    'fecha_exam': fecha_hoy,
+                    'cinetica_S': "X" if form.cleaned_data['cinetica'] == "si" else "",
+                    'cinetica_N': "X" if form.cleaned_data['cinetica'] == "no" else "",
+                    'cinetica_AV': "X" if form.cleaned_data['cinetica'] == "av" else "",
+                    'proxe_S': "X" if form.cleaned_data['proxemica'] == "si" else "",
+                    'proxe_N': "X" if form.cleaned_data['proxemica'] == "no" else "",
+                    'proxe_AV': "X" if form.cleaned_data['proxemica'] == "av" else "",
+                    'inten_S': "X" if form.cleaned_data['intencion'] == "si" else "",
+                    'inten_N': "X" if form.cleaned_data['intencion'] == "no" else "",
+                    'inten_AV': "X" if form.cleaned_data['intencion'] == "av" else "",
+                    'contac_S': "X" if form.cleaned_data['cont_visual'] == "si" else "",
+                    'contac_N': "X" if form.cleaned_data['cont_visual'] == "no" else "",
+                    'contac_AV': "X" if form.cleaned_data['cont_visual'] == "av" else "",
+                    'expres_S': "X" if form.cleaned_data['exp_facial'] == "si" else "",
+                    'expres_N': "X" if form.cleaned_data['exp_facial'] == "no" else "",
+                    'expres_AV': "X" if form.cleaned_data['exp_facial'] == "av" else "",
+                    'facult_S': "X" if form.cleaned_data['fac_conversacional'] == "si" else "",
+                    'facult_N': "X" if form.cleaned_data['fac_conversacional'] == "no" else "",
+                    'facult_AV': "X" if form.cleaned_data['fac_conversacional'] == "av" else "",
+                    'varia_S': "X" if form.cleaned_data['var_estilisticas'] == "si" else "",
+                    'varia_N': "X" if form.cleaned_data['var_estilisticas'] == "no" else "",
+                    'varia_AV': "X" if form.cleaned_data['var_estilisticas'] == "av" else "",
+                    'alter_S': "X" if form.cleaned_data['alt_reciproca'] == "si" else "",
+                    'alter_N': "X" if form.cleaned_data['alt_reciproca'] == "no" else "",
+                    'alter_AV': "X" if form.cleaned_data['alt_reciproca'] == "av" else "",
+                    'temat_S': "X" if form.cleaned_data['tematizacion'] == "si" else "",
+                    'temat_N': "X" if form.cleaned_data['tematizacion'] == "no" else "",
+                    'temat_AV': "X" if form.cleaned_data['tematizacion'] == "av" else "",
+                    'petic_S': "X" if form.cleaned_data['peticiones'] == "si" else "",
+                    'petic_N': "X" if form.cleaned_data['peticiones'] == "no" else "",
+                    'petic_AV': "X" if form.cleaned_data['peticiones'] == "av" else "",
+                    'aclar_S': "X" if form.cleaned_data['aclar_rep'] == "si" else "",
+                    'aclar_N': "X" if form.cleaned_data['aclar_rep'] == "no" else "",
+                    'aclar_AV': "X" if form.cleaned_data['aclar_rep'] == "av" else "",
+                }
+                template = 'documentos/PautadeCotejohabilidadespragmticas.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    response['Content-Disposition'] = content 
+                    return response
+        
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+        context['form'] = DocumentoPautaCotejo(request.POST)
+
+    return render(request, 'formularios/docs/form_cotejo_hab_prag.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_anamnesis(request, *rut):
+    context = {}
+    context['form'] = FormDocumentoAnamnesis
+
+    return render(request, 'formularios/docs/form_anamnesis.html', context)
