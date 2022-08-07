@@ -14,4 +14,9 @@ urlpatterns = [
     path('pdf/habilidades_pragmaticas/', views.generate_doc_cotejo_hab_prag, name='generate_hab_prag'),
     path('pdf/habilidades_pragmaticas/<str:rut>', views.generate_doc_cotejo_hab_prag, name='generate_hab_prag'),
     path('pdf/anamnesis', views.generate_doc_anamnesis, name='generate_anamnesis'),
+    path('pdf/anamnesis/<str:rut>', views.generate_doc_anamnesis, name='generate_anamnesis'),
+    path('pdf/tecal', views.generate_doc_tecal, name='generate_tecal'),
+    path('pdf/tecal/<str:rut>', views.generate_doc_tecal, name='generate_tecal'),
+    path('pdf/fonoaudiologica', views.generate_doc_fonoaudiologica, name='generate_fonoaudio'),
+    path('pdf/fonoaudiologica/<str:rut>', views.generate_doc_fonoaudiologica, name='generate_fonoaudio'),
 ]

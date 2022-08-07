@@ -9,7 +9,7 @@ import datetime
 from cursos.models import Curso, BancoTrabajo as BancoTrabajoCurso
 from lista_espera.models import ListaEspera
 from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
-from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet, DocumentoPautaCotejo, FormDatosPersonalesAlumno, FormDocumentoAnamnesis
+from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet, FormDocumentoPautaCotejo, FormDatosPersonalesAlumno, FormDocumentoAnamnesis, FormDocumentoFonoaudiologica, FormDocumentoTecal
 from .utils import render_to_pdf
 
 @login_required
@@ -346,13 +346,13 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
         except:
             pass
         
-    context['form'] = DocumentoPautaCotejo
+    context['form'] = FormDocumentoPautaCotejo
 
     if request.method == 'POST':
         form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
 
         if form_base.is_valid():
-            form = DocumentoPautaCotejo(request.POST)
+            form = FormDocumentoPautaCotejo(request.POST)
             print(form_base)
             if form.is_valid():
                 fecha_hoy = datetime.date.today()
@@ -415,15 +415,223 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
         else:
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
-        context['form'] = DocumentoPautaCotejo(request.POST)
+        context['form'] = FormDocumentoPautaCotejo(request.POST)
 
     return render(request, 'formularios/docs/form_cotejo_hab_prag.html', context)
 
 
 @login_required
 @permission_required('fichas_alumnos.add_bancodocumento')
-def generate_doc_anamnesis(request, *rut):
+def generate_doc_anamnesis(request, rut=None):
     context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_hab_prag=False)
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            if alumno.curso:
+                curso = alumno.curso
+            else:
+                curso = ""
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+                'curso': curso,
+            }, datos_hab_prag=True)
+        except:
+            pass
+
     context['form'] = FormDocumentoAnamnesis
 
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+
+        if form_base.is_valid():
+            form = FormDocumentoAnamnesis(request.POST)
+            print(form_base)
+            if form.is_valid():
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+                print(edad_mes)
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_curso': form_base.cleaned_data['curso'] if form_base.cleaned_data['curso'] != None else "No asignado",
+                    'fecha_exam': fecha_hoy,
+
+                    
+                }
+                template = 'documentos/anamnesis.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    response['Content-Disposition'] = content 
+                    return response
+        
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+        context['form'] = FormDocumentoAnamnesis(request.POST)
+
     return render(request, 'formularios/docs/form_anamnesis.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_tecal(request, rut=None):
+    context = {}
+    context['form'] = FormDocumentoTecal
+
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+
+        if form_base.is_valid():
+            form = FormDocumentoTecal(request.POST)
+            print(form_base)
+            if form.is_valid():
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+                print(edad_mes)
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_edad_mes': form_base.cleaned_data['edad_mes'],
+                    'i1': "✔" if form.cleaned_data['item1'] == "1" else "item1",
+                    'i2': "✔" if form.cleaned_data['item2'] == "2" else "item2",
+                    'i3': "✔" if form.cleaned_data['item3'] == "1" else "item3",
+                    'i4': "✔" if form.cleaned_data['item4'] == "3" else "item4",
+                    'i5': "✔" if form.cleaned_data['item5'] == "1" else "item5",
+                    'i6': "✔" if form.cleaned_data['item6'] == "3" else "item6",
+                    'i7': "✔" if form.cleaned_data['item7'] == "1" else "item7",
+                    'i8': "✔" if form.cleaned_data['item8'] == "1" else "item8",
+                    'i9': "✔" if form.cleaned_data['item9'] == "3" else "item9",
+                    'i10': "✔" if form.cleaned_data['item10'] == "2" else "item10",
+                    'i11': "✔" if form.cleaned_data['item11'] == "1" else "item11",
+                    'i12': "✔" if form.cleaned_data['item12'] == "3" else "item12",
+                    'i13': "✔" if form.cleaned_data['item13'] == "1" else "item13",
+                    'i14': "✔" if form.cleaned_data['item14'] == "2" else "item14",
+                    'i15': "✔" if form.cleaned_data['item15'] == "1" else "item15",
+                    'i16': "✔" if form.cleaned_data['item16'] == "3" else "item16",
+                    'i17': "✔" if form.cleaned_data['item17'] == "1" else "item17",
+                    'i18': "✔" if form.cleaned_data['item18'] == "2" else "item18",
+                    'i19': "✔" if form.cleaned_data['item19'] == "3" else "item19",
+                    'i20': "✔" if form.cleaned_data['item20'] == "1" else "item20",
+                    'i21': "✔" if form.cleaned_data['item21'] == "1" else "item21",
+                    'i22': "✔" if form.cleaned_data['item22'] == "3" else "item22",
+                    'i23': "✔" if form.cleaned_data['item23'] == "3" else "item23",
+                    'i24': "✔" if form.cleaned_data['item24'] == "2" else "item24",
+                    'i25': "✔" if form.cleaned_data['item25'] == "3" else "item25",
+                    'i26': "✔" if form.cleaned_data['item26'] == "4" else "item26",
+                    'i27': "✔" if form.cleaned_data['item27'] == "1" else "item27",
+                    'i28': "✔" if form.cleaned_data['item28'] == "2" else "item28",
+                    'i29': "✔" if form.cleaned_data['item29'] == "1" else "item29",
+                    'i30': "✔" if form.cleaned_data['item30'] == "1" else "item30",
+                    'i31': "✔" if form.cleaned_data['item31'] == "3" else "item31",
+                    'i32': "✔" if form.cleaned_data['item32'] == "3" else "item32",
+                    'i33': "✔" if form.cleaned_data['item33'] == "1" else "item33",
+                    'i34': "✔" if form.cleaned_data['item34'] == "2" else "item34",
+                    'i35': "✔" if form.cleaned_data['item35'] == "3" else "item35",
+                    'i36': "✔" if form.cleaned_data['item36'] == "2" else "item36",
+                    'i37': "✔" if form.cleaned_data['item37'] == "1" else "item37",
+                    'i38': "✔" if form.cleaned_data['item38'] == "1" else "item38",
+                    'i39': "✔" if form.cleaned_data['item39'] == "2" else "item39",
+                    'i40': "✔" if form.cleaned_data['item40'] == "3" else "item40",
+                    'i41': "✔" if form.cleaned_data['item41'] == "1" else "item41",
+                    'i42': "✔" if form.cleaned_data['item42'] == "2" else "item42",
+                    'i43': "✔" if form.cleaned_data['item43'] == "2" else "item43",
+                    'i44': "✔" if form.cleaned_data['item44'] == "1" else "item44",
+                    'i45': "✔" if form.cleaned_data['item45'] == "3" else "item45",
+                    'i46': "✔" if form.cleaned_data['item46'] == "2" else "item46",
+                    'i47': "✔" if form.cleaned_data['item47'] == "1" else "item47",
+                    'i48': "✔" if form.cleaned_data['item48'] == "2" else "item48",
+                    'i49': "✔" if form.cleaned_data['item49'] == "1" else "item49",
+                    'i50': "✔" if form.cleaned_data['item50'] == "1" else "item50",
+                    'i51': "✔" if form.cleaned_data['item51'] == "3" else "item51",
+                    'i52': "✔" if form.cleaned_data['item52'] == "2" else "item52",
+                    'i53': "✔" if form.cleaned_data['item53'] == "3" else "item53",
+                    'i54': "✔" if form.cleaned_data['item54'] == "2" else "item54",
+                    'i55': "✔" if form.cleaned_data['item55'] == "1" else "item55",
+                    'i56': "✔" if form.cleaned_data['item56'] == "2" else "item56",
+                    'i57': "✔" if form.cleaned_data['item57'] == "1" else "item57",
+                    'i58': "✔" if form.cleaned_data['item58'] == "1" else "item58",
+                    'i59': "✔" if form.cleaned_data['item59'] == "2" else "item59",
+                    'i60': "✔" if form.cleaned_data['item60'] == "1" else "item60",
+                    'i61': "✔" if form.cleaned_data['item61'] == "3" else "item61",
+                    'i62': "✔" if form.cleaned_data['item62'] == "3" else "item62",
+                    'i63': "✔" if form.cleaned_data['item63'] == "1" else "item63",
+                    'i64': "✔" if form.cleaned_data['item64'] == "1" else "item64",
+                    'i65': "✔" if form.cleaned_data['item65'] == "2" else "item65",
+                    'i66': "✔" if form.cleaned_data['item66'] == "1" else "item66",
+                    'i67': "✔" if form.cleaned_data['item67'] == "3" else "item67",
+                    'i68': "✔" if form.cleaned_data['item68'] == "1" else "item68",
+                    'i69': "✔" if form.cleaned_data['item69'] == "2" else "item69",
+                    'i70': "✔" if form.cleaned_data['item70'] == "1" else "item70",
+                    'i71': "✔" if form.cleaned_data['item71'] == "3" else "item71",
+                    'i72': "✔" if form.cleaned_data['item72'] == "2" else "item72",
+                    'i73': "✔" if form.cleaned_data['item73'] == "2" else "item73",
+                    'i74': "✔" if form.cleaned_data['item74'] == "3" else "item74",
+                    'i75': "✔" if form.cleaned_data['item75'] == "3" else "item75",
+                    'i76': "✔" if form.cleaned_data['item76'] == "3" else "item76",
+                    'i77': "✔" if form.cleaned_data['item77'] == "3" else "item77",
+                    'i78': "✔" if form.cleaned_data['item78'] == "1" else "item78",
+                    'i79': "✔" if form.cleaned_data['item79'] == "2" else "item79",
+                    'i80': "✔" if form.cleaned_data['item80'] == "1" else "item80",
+                    'i81': "✔" if form.cleaned_data['item81'] == "1" else "item81",
+                    'i82': "✔" if form.cleaned_data['item82'] == "3" else "item82",
+                    'i83': "✔" if form.cleaned_data['item83'] == "2" else "item83",
+                    'i84': "✔" if form.cleaned_data['item84'] == "3" else "item84",
+                    'i85': "✔" if form.cleaned_data['item85'] == "2" else "item85",
+                    'i86': "✔" if form.cleaned_data['item86'] == "2" else "item86",
+                    'i87': "✔" if form.cleaned_data['item87'] == "1" else "item87",
+                    'i88': "✔" if form.cleaned_data['item88'] == "3" else "item88",
+                    'i89': "✔" if form.cleaned_data['item89'] == "1" else "item89",
+                    'i90': "✔" if form.cleaned_data['item90'] == "1" else "item90",
+                    'i91': "✔" if form.cleaned_data['item91'] == "2" else "item91",
+                    'i92': "✔" if form.cleaned_data['item92'] == "1" else "item92",
+                    'i93': "✔" if form.cleaned_data['item93'] == "1" else "item93",
+                    'i94': "✔" if form.cleaned_data['item94'] == "3" else "item94",
+                    'i95': "✔" if form.cleaned_data['item95'] == "2" else "item95",
+                    'i96': "✔" if form.cleaned_data['item96'] == "1" else "item96",
+                    'i97': "✔" if form.cleaned_data['item97'] == "3" else "item97",
+                    'i98': "✔" if form.cleaned_data['item98'] == "3" else "item98",
+                    'i99': "✔" if form.cleaned_data['item99'] == "2" else "item99",
+                    'i100': "✔" if form.cleaned_data['item100'] =="2" else "item100",
+                    'i101': "✔" if form.cleaned_data['item101'] == "1" else "item101",
+                }
+                template = 'documentos/tecal.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    response['Content-Disposition'] = content 
+                    return response
+        
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+        context['form'] = FormDocumentoTecal(request.POST)
+
+    return render(request, 'formularios/docs/form_tecal.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_fonoaudiologica(request, rut=None):
+    context = {}
+    context['form'] = FormDocumentoFonoaudiologica
+
+    return render(request, 'formularios/docs/form_fonoaudiologica.html', context)
