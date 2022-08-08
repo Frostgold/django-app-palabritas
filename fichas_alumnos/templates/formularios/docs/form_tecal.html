@@ -8,10 +8,12 @@
 
     <div class="container">
         <div class="col col-md-8 col-lg-6 mx-auto my-4">
-            <p class="fs-5 fw-bold text-center">Test para la comprensión auditiva del lenguaje de E. Carrow. Aplicación en chile</p>
+            <p class="fs-5 fw-bold text-center">Test para la comprensión auditiva del lenguaje de E. Carrow. Aplicación en Chile</p>
             <form method="post">
                 {% csrf_token %}
-                    {{ form | crispy }}
+                    {{form_base.nombre|as_crispy_field}}
+                    {{form_base.fech_nac|as_crispy_field}}
+                    {{ form|crispy }}
                 <br>
                 <button class="btn btn-success" type="submit">Generar</button>
             </form>

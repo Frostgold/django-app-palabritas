@@ -202,16 +202,88 @@ class FormDatosPersonalesAlumno(Form):
     domicilio = CharField(required=False, max_length= 255, label="Domicilio", error_messages={'required': ("Campo domicilio requerido."),}, )
 
     def __init__(self, *args, **kwargs):
-            datos_hab_prag = kwargs.pop('datos_hab_prag')
+            datos_alumno = kwargs.pop('datos_alumno')
+            #Configuración para campos de habilidades pragmáticas
+            try:
+                datos_hab_prag = kwargs.pop('datos_hab_prag')
+            except:
+                pass
+            #Configuración para campos de fonoaudiológica
+            try:
+                datos_fonoaudio = kwargs.pop('datos_fonoaudio')
+            except:
+                pass
+            #Configuración para campos de teprosif
+            try:
+                datos_teprosif = kwargs.pop('datos_teprosif')
+            except:
+                pass
+            #Configuración para campos de anamnesis
+            try:
+                datos_anamnesis = kwargs.pop('datos_anamnesis')
+            except:
+                pass
+            try:
+                datos_retirado = kwargs.pop('datos_retirado')
+            except:
+                pass
+
             super(FormDatosPersonalesAlumno, self).__init__(*args, **kwargs)
-            if datos_hab_prag:
-                self.fields['nombre'].widget.attrs['readonly'] = True
-                self.fields['fech_nac'].widget.attrs['readonly'] = True
-                self.fields['curso'].widget.attrs['disabled'] = True
-            else:
-                self.fields['nombre'].required = True
-                self.fields['fech_nac'].required = True
-    
+            #Configuración para campos de habilidades pragmáticas
+            try:
+                if datos_hab_prag:
+                    self.fields['nombre'].required = True
+                    self.fields['fech_nac'].required = True
+                    if datos_alumno:
+                        self.fields['nombre'].widget.attrs['readonly'] = True
+                        self.fields['fech_nac'].widget.attrs['readonly'] = True
+                        self.fields['curso'].widget.attrs['disabled'] = True
+            except:
+                pass
+
+            #Configuración para campos de fonoaudiológica
+            try:
+                if datos_fonoaudio:
+                    self.fields['nombre'].required = True
+                    self.fields['fech_nac'].required = True
+                    self.fields['domicilio'].required = True
+                    self.fields['rut'].required = True
+                    if datos_alumno:
+                        self.fields['nombre'].widget.attrs['readonly'] = True
+                        self.fields['fech_nac'].widget.attrs['readonly'] = True
+                        self.fields['domicilio'].widget.attrs['readonly'] = True
+                        self.fields['rut'].widget.attrs['readonly'] = True
+            except:
+                pass
+
+            #Configuración para campos de teprosif
+            try:
+                if datos_teprosif:
+                    self.fields['nombre'].required = True
+                    self.fields['fech_nac'].required = True
+                    self.fields['sexo'].required = True
+                    if datos_alumno:
+                        self.fields['nombre'].widget.attrs['readonly'] = True
+                        self.fields['fech_nac'].widget.attrs['readonly'] = True
+            except:
+                pass
+
+            #Configuración para campos de anamnesis
+            try:
+                if datos_anamnesis:
+                    self.fields['nombre'].required = True
+                    self.fields['fech_nac'].required = True
+                    self.fields['nivel'].required = True
+                    self.fields['domicilio'].required = True
+                    if datos_alumno:
+                        self.fields['nombre'].widget.attrs['readonly'] = True
+                        self.fields['fech_nac'].widget.attrs['readonly'] = True
+                        self.fields['curso'].widget.attrs['disabled'] = True
+                        if not datos_retirado:
+                            self.fields['nivel'].widget.attrs['disabled'] = True
+                        self.fields['domicilio'].widget.attrs['readonly'] = True
+            except:
+                pass
 
 
 class FormDocumentoPautaCotejo(Form):
@@ -354,34 +426,34 @@ class FormDocumentoAnamnesis(Form):
     ## a) Desarrollo prenatal
     embarazo_num = CharField(required=True, max_length= 2, label="Embarazo N°")
     sem_gest = CharField(required=True, max_length= 3, label="Semanas de gestación")
-    med_ant = BooleanField(required=True, label="Medidas anticonceptivas")
-    sangr = BooleanField(required=True, label="Sangramiento")
-    sint_perd = BooleanField(required=True, label="Sintomas de perdida")
-    convul_per = BooleanField(required=True, label="Convulsiones")
-    anemia = BooleanField(required=True, label="Anemia")
-    intoxi = BooleanField(required=True, label="Intoxicaciones")
-    trauma_per = BooleanField(required=True, label="Traumatismos")
-    diabete = BooleanField(required=True, label="Diabetes")
-    varic_rubeo = BooleanField(required=True, label="Varicela/Rubéola")
-    depre = BooleanField(required=True, label="Depresión")
-    exp_rx = BooleanField(required=True, label="Exposición a RX")
-    desp_place = BooleanField(required=True, label="Despr. Placenta")
-    medi_inge = BooleanField(required=True, label="Medicamentos ingeridos")
-    enf_infecci = BooleanField(required=True, label="Enfermedades infecciosas")
+    med_ant = BooleanField(required=False, label="Medidas anticonceptivas")
+    sangr = BooleanField(required=False, label="Sangramiento")
+    sint_perd = BooleanField(required=False, label="Sintomas de perdida")
+    convul_per = BooleanField(required=False, label="Convulsiones")
+    anemia = BooleanField(required=False, label="Anemia")
+    intoxi = BooleanField(required=False, label="Intoxicaciones")
+    trauma_per = BooleanField(required=False, label="Traumatismos")
+    diabete = BooleanField(required=False, label="Diabetes")
+    varic_rubeo = BooleanField(required=False, label="Varicela/Rubéola")
+    depre = BooleanField(required=False, label="Depresión")
+    exp_rx = BooleanField(required=False, label="Exposición a RX")
+    desp_place = BooleanField(required=False, label="Despr. Placenta")
+    medi_inge = BooleanField(required=False, label="Medicamentos ingeridos")
+    enf_infecci = BooleanField(required=False, label="Enfermedades infecciosas")
     ## b) Desarrollo perinatal
     lug_parto = CharField(required=True, max_length=20, label="Lugar de parto")
-    espe_parto = BooleanField(required=True, label="Especialista")
-    tipo_parto_norm = BooleanField(required=True, label="Parto normal")
-    tipo_parto_indu = BooleanField(required=True, label="Inducido")
-    tipo_parto_forcep = BooleanField(required=True, label="Fórceps")
-    mot_parto = CharField(required=True, max_length=70, label="Motivo")
-    cesarea = BooleanField(required=True, label="Cesárea")
-    mot_cesarea = CharField(required=True, max_length=70, label="Motivo")
+    espe_parto = BooleanField(required=False, label="Especialista")
+    tipo_parto_norm = BooleanField(required=False, label="Parto normal")
+    tipo_parto_indu = BooleanField(required=False, label="Inducido")
+    tipo_parto_forcep = BooleanField(required=False, label="Fórceps")
+    mot_parto = CharField(required=False, max_length=70, label="Motivo")
+    cesarea = BooleanField(required=False, label="Cesárea")
+    mot_cesarea = CharField(required=False, max_length=70, label="Motivo")
 
-    ant_morb_circuello = BooleanField(required=True, label="Circular al cuello")
-    ant_morb_sufrfet = BooleanField(required=True, label="Sufrimiento fetal")
-    ant_morb_placprev = BooleanField(required=True, label="Placenta previa")
-    ant_morb_ingemeco = BooleanField(required=True, label="Ingesta meconio")
+    ant_morb_circuello = BooleanField(required=False, label="Circular al cuello")
+    ant_morb_sufrfet = BooleanField(required=False, label="Sufrimiento fetal")
+    ant_morb_placprev = BooleanField(required=False, label="Placenta previa")
+    ant_morb_ingemeco = BooleanField(required=False, label="Ingesta meconio")
     ant_morb_otros = CharField(required=True, max_length=70, label="Otros")
 
     peso = CharField(required=True, max_length=10, label="Peso")
@@ -389,29 +461,29 @@ class FormDocumentoAnamnesis(Form):
     apgar = CharField(required=True, max_length=20, label="Apgar")
     color = CharField(required=True, max_length=10, label="Color")
 
-    hospi_per = BooleanField(required=True, label="Hospitalización")
-    mot_hospi = CharField(required=True, max_length=70, label="Motivo")
+    hospi_per = BooleanField(required=False, label="Hospitalización")
+    mot_hospi = CharField(required=False, max_length=70, label="Motivo")
 
     trata_medica = CharField(required=True, max_length=100, label="Tratamiento / Medicamentos")
     ## c) Antecedentes postnatales
-    trauma_post = BooleanField(required=True, label="Traumatismos")
-    hospi_post = BooleanField(required=True, label="Hospitalización")
-    meningitis = BooleanField(required=True, label="Meningitis")
-    encefalitis = BooleanField(required=True, label="Encefalitis")
-    fieb_alta = BooleanField(required=True, label="Fiebres altas")
-    convul_post = BooleanField(required=True, label="Convulsiones")
-    epilep_post = BooleanField(required=True, label="Epilepsia")
-    ausencias = BooleanField(required=True, label="Ausensias")
-    bronquitis = BooleanField(required=True, label="Bronquitis")
-    sbo = BooleanField(required=True, label="SBO")
-    amsa = BooleanField(required=True, label="Asma")
-    ira = BooleanField(required=True, label="IRA")
-    desnutri = BooleanField(required=True, label="Desnutrición")
+    trauma_post = BooleanField(required=False, label="Traumatismos")
+    hospi_post = BooleanField(required=False, label="Hospitalización")
+    meningitis = BooleanField(required=False, label="Meningitis")
+    encefalitis = BooleanField(required=False, label="Encefalitis")
+    fieb_alta = BooleanField(required=False, label="Fiebres altas")
+    convul_post = BooleanField(required=False, label="Convulsiones")
+    epilep_post = BooleanField(required=False, label="Epilepsia")
+    ausencias = BooleanField(required=False, label="Ausensias")
+    bronquitis = BooleanField(required=False, label="Bronquitis")
+    sbo = BooleanField(required=False, label="SBO")
+    amsa = BooleanField(required=False, label="Asma")
+    ira = BooleanField(required=False, label="IRA")
+    desnutri = BooleanField(required=False, label="Desnutrición")
     otros_morb = CharField(required=True, max_length=40, label="Otros eventos mórbidos")
-    control_med = BooleanField(required=True, label="Asiste a controles médicos periódicos")
+    control_med = BooleanField(required=False, label="Asiste a controles médicos periódicos")
     dr_tratante = CharField(required=True, max_length=40, label="Dr. Tratante")
-    vacu_dia = BooleanField(required=True, label="Vacunas al día")
-    trata_dental = BooleanField(required=True, label="Tratamientos dentales")
+    vacu_dia = BooleanField(required=False, label="Vacunas al día")
+    trata_dental = BooleanField(required=False, label="Tratamientos dentales")
     epoca_dental = CharField(required=True, max_length=20, label="Época")
     per_derivacion = CharField(required=True, max_length=20, label="Persona que lo derivó")
     mot_dental = CharField(required=True, max_length=70, label="Motivo")
@@ -430,8 +502,8 @@ class FormDocumentoAnamnesis(Form):
     ctl_esf_vnoct = CharField(required=True, max_length= 2, label="Nocturno")
     ctl_anal_diur = CharField(required=True, max_length= 2, label="Anal diurno")
     ctl_anal_noct = CharField(required=True, max_length= 2, label="Nocturno")
-    entrena_esf = BooleanField(required=True, label="¿Hubo entrenamiento en control de esfínter?")
-    retraso = BooleanField(required=True, label="Retraso")
+    entrena_esf = BooleanField(required=False, label="¿Hubo entrenamiento en control de esfínter?")
+    retraso = BooleanField(required=False, label="Retraso")
     ## Actividad motora
     act_motora = ChoiceField(required=True, choices=ACTI_MOTORA, label="Actividad motora")
     ## Tonicidad muscular
@@ -439,10 +511,10 @@ class FormDocumentoAnamnesis(Form):
     ## Motricidad gruesa
     motrici_gruesa = ChoiceField(required=True, choices=MOTRI_GRUESA, label="Motricidad gruesa")
     ## Motricidad fina
-    toma_cuchara = BooleanField(required=True, label="Toma adecuadamente la cuchara")
-    mov_garra = BooleanField(required=True, label="Garra")
-    mov_presion = BooleanField(required=True, label="Presión")
-    mov_pinza = BooleanField(required=True, label="Pinza")
+    toma_cuchara = BooleanField(required=False, label="Toma adecuadamente la cuchara")
+    mov_garra = BooleanField(required=False, label="Garra")
+    mov_presion = BooleanField(required=False, label="Presión")
+    mov_pinza = BooleanField(required=False, label="Pinza")
     # V.
     vocalizo = CharField(required=True, max_length= 2, label="Vocalizó")
     balbuceo = CharField(required=True, max_length= 2, label="Balbuceó")
@@ -459,14 +531,14 @@ class FormDocumentoAnamnesis(Form):
     #VI.
     texto_cinco = CharField(required=True, max_length= 300, label="", help_text="Indicar tipo de juegos preferidos, si juega sólo o busca compañía, relación con sus pares, relación con adultos, reacción frente a la frustración, respeta normas, recibe castigos o sanciones, otros.")
     ## Reacciona desmesuradamente ante
-    sonido = BooleanField(required=True, label="Sonido")
-    luces = BooleanField(required=True, label="Luces")
-    per_aje_cir = BooleanField(required=True, label="Personas ajenas a su círculo")
-    ecolalia = BooleanField(required=True, label="Ecolalia")
-    mov_estero = BooleanField(required=True, label="Mov. Estereotipados")
-    autoagresion = BooleanField(required=True, label="Autoagresiones")
-    pataleta = BooleanField(required=True, label="Realiza pataletas frecuentes y exageradas")
-    dificul_adaptacion = BooleanField(required=True, label="Presenta dificultades para adaptarse a nuevas situaciones")
+    sonido = BooleanField(required=False, label="Sonido")
+    luces = BooleanField(required=False, label="Luces")
+    per_aje_cir = BooleanField(required=False, label="Personas ajenas a su círculo")
+    ecolalia = BooleanField(required=False, label="Ecolalia")
+    mov_estero = BooleanField(required=False, label="Mov. Estereotipados")
+    autoagresion = BooleanField(required=False, label="Autoagresiones")
+    pataleta = BooleanField(required=False, label="Realiza pataletas frecuentes y exageradas")
+    dificul_adaptacion = BooleanField(required=False, label="Presenta dificultades para adaptarse a nuevas situaciones")
     # VII.
     texto_seis = CharField(required=True, max_length= 300, label="VII. Observaciones relevantes", )
 
@@ -949,53 +1021,53 @@ class FormDocumentoFonoaudiologica(Form):
 
     #PAGINA 2 ----------------------------------------------------
     #Articulación a la repetición
-    artic_b = BooleanField(label="B",)
-    artic_p = BooleanField(label="P",)
-    artic_m = BooleanField(label="M",)
-    artic_f = BooleanField(label="F",)
-    artic_d = BooleanField(label="D",)
-    artic_t = BooleanField(label="T",)
-    artic_s = BooleanField(label="S",)
-    artic_n = BooleanField(label="N",)
-    artic_l = BooleanField(label="L",)
-    artic_r = BooleanField(label="R",)
-    artic_rr = BooleanField(label="RR",)
-    artic_y = BooleanField(label="Y",)
-    artic_n = BooleanField(label="N",)
-    artic_ch = BooleanField(label="CH",)
-    artic_j = BooleanField(label="J",)
-    artic_g = BooleanField(label="G",)
-    artic_k = BooleanField(label="K",)
+    artic_b = BooleanField(required=False, label="B",)
+    artic_p = BooleanField(required=False, label="P",)
+    artic_m = BooleanField(required=False, label="M",)
+    artic_f = BooleanField(required=False, label="F",)
+    artic_d = BooleanField(required=False, label="D",)
+    artic_t = BooleanField(required=False, label="T",)
+    artic_s = BooleanField(required=False, label="S",)
+    artic_n = BooleanField(required=False, label="N",)
+    artic_l = BooleanField(required=False, label="L",)
+    artic_r = BooleanField(required=False, label="R",)
+    artic_rr = BooleanField(required=False, label="RR",)
+    artic_y = BooleanField(required=False, label="Y",)
+    artic_n = BooleanField(required=False, label="N",)
+    artic_ch = BooleanField(required=False, label="CH",)
+    artic_j = BooleanField(required=False, label="J",)
+    artic_g = BooleanField(required=False, label="G",)
+    artic_k = BooleanField(required=False, label="K",)
 
     #Dífonos vocálicos
-    difvoc_ai = BooleanField(label="ai",)
-    difvoc_au = BooleanField(label="au",)
-    difvoc_ei = BooleanField(label="ei",)
-    difvoc_eu = BooleanField(label="eu",)
-    difvoc_ia = BooleanField(label="ia",)
-    difvoc_ie = BooleanField(label="ie",)
-    difvoc_io = BooleanField(label="io",)
-    difvoc_iu = BooleanField(label="io",)
-    difvoc_oi = BooleanField(label="oi",)
-    difvoc_ua = BooleanField(label="ua",)
-    difvoc_ue = BooleanField(label="ue",)
-    difvoc_ui = BooleanField(label="ui",)
-    difvoc_uo = BooleanField(label="uo",)
+    difvoc_ai = BooleanField(required=False, label="ai",)
+    difvoc_au = BooleanField(required=False, label="au",)
+    difvoc_ei = BooleanField(required=False, label="ei",)
+    difvoc_eu = BooleanField(required=False, label="eu",)
+    difvoc_ia = BooleanField(required=False, label="ia",)
+    difvoc_ie = BooleanField(required=False, label="ie",)
+    difvoc_io = BooleanField(required=False, label="io",)
+    difvoc_iu = BooleanField(required=False, label="io",)
+    difvoc_oi = BooleanField(required=False, label="oi",)
+    difvoc_ua = BooleanField(required=False, label="ua",)
+    difvoc_ue = BooleanField(required=False, label="ue",)
+    difvoc_ui = BooleanField(required=False, label="ui",)
+    difvoc_uo = BooleanField(required=False, label="uo",)
 
     #Dífonos consonánticos
-    difcon_bl = BooleanField(label="bl",)
-    difcon_pl = BooleanField(label="pl",)
-    difcon_fl = BooleanField(label="fl",)
-    difcon_gl = BooleanField(label="gl",)
-    difcon_cl = BooleanField(label="cl",)
-    difcon_tl = BooleanField(label="tl",)
-    difcon_br = BooleanField(label="br",)
-    difcon_pr = BooleanField(label="pr",)
-    difcon_fr = BooleanField(label="fr",)
-    difcon_gr = BooleanField(label="gr",)
-    difcon_cr = BooleanField(label="cr",)
-    difcon_tr = BooleanField(label="tr",)
-    difcon_dr = BooleanField(label="dr",)
+    difcon_bl = BooleanField(required=False, label="bl",)
+    difcon_pl = BooleanField(required=False, label="pl",)
+    difcon_fl = BooleanField(required=False, label="fl",)
+    difcon_gl = BooleanField(required=False, label="gl",)
+    difcon_cl = BooleanField(required=False, label="cl",)
+    difcon_tl = BooleanField(required=False, label="tl",)
+    difcon_br = BooleanField(required=False, label="br",)
+    difcon_pr = BooleanField(required=False, label="pr",)
+    difcon_fr = BooleanField(required=False, label="fr",)
+    difcon_gr = BooleanField(required=False, label="gr",)
+    difcon_cr = BooleanField(required=False, label="cr",)
+    difcon_tr = BooleanField(required=False, label="tr",)
+    difcon_dr = BooleanField(required=False, label="dr",)
 
     #NIVEL SEMÁNTICO
     nvlsem_vocab = ChoiceField(label="Vocabulario", choices=CHOICES_VOCAB)
@@ -1035,6 +1107,338 @@ class FormDocumentoFonoaudiologica(Form):
     obs_pruebas_aplicadas = CharField(required=False, label="Pruebas aplicadas",)
     obs_diagnostico = CharField(label="Diagnóstico",)
     obs_indicaciones = CharField(label="Indicaciones",)
+
+    class Meta:
+        fields = ['__all__']
+
+
+class FormDocumentoTeprosif(Form):
+    reg1 = CharField(required=False, label="Ítem 1", help_text="PLANCHA")
+    est_sil1 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi1 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu1 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc1 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp1 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg2 = CharField(required=False, label="Ítem 2" ,help_text="RUEDA")
+    est_sil2 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi2 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu2 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc2 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp2 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg3 = CharField(required=False, label="Ítem 3" ,help_text="MARIPOSA")
+    est_sil3 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi3 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu3 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc3 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp3 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg4 = CharField(required=False, label="Ítem 4" ,help_text="BICICLETA")
+    est_sil4 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi4 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu4 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc4 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp4 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg5 = CharField(required=False, label="Ítem 5" ,help_text="HELICÓPTERO")
+    est_sil5 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi5 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu5 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc5 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp5 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg6 = CharField(required=False, label="Ítem 6" ,help_text="BUFANDA")
+    est_sil6 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi6 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu6 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc6 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp6 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg7 = CharField(required=False, label="Ítem 7" ,help_text="CAPERUCITA")
+    est_sil7 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi7 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu7 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc7 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp7 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg8 = CharField(required=False, label="Ítem 8" ,help_text="ALFOMBRA")
+    est_sil8 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi8 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu8 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc8 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp8 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg9 = CharField(required=False, label="Ítem 9" ,help_text="REFRIGERADOR")
+    est_sil9 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi9 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu9 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc9 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp9 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg10 = CharField(required=False, label="Ítem 10" ,help_text="EDIFICIO")
+    est_sil10 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi10 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu10 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc10 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp10 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg11 = CharField(required=False, label="Ítem 11" ,help_text="CALCETÍN")
+    est_sil11 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi11 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu11 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc11 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp11 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg12 = CharField(required=False, label="Ítem 12" ,help_text="DINOSAURIO")
+    est_sil12 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi12 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu12 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc12 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp12 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg13 = CharField(required=False, label="Ítem 13" ,help_text="TELÉFONO")
+    est_sil13 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi13 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu13 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc13 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp13 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg14 = CharField(required=False, label="Ítem 14" ,help_text="REMEDIO")
+    est_sil14 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi14 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu14 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc14 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp14 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg15 = CharField(required=False, label="Ítem 15" ,help_text="PEINETA")
+    est_sil15 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi15 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu15 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc15 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp15 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg16 = CharField(required=False, label="Ítem 16" ,help_text="AUTO")
+    est_sil16 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi16 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu16 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc16 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp16 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg17 = CharField(required=False, label="Ítem 17" ,help_text="INDIO")
+    est_sil17 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi17 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu17 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc17 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp17 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg18 = CharField(required=False, label="Ítem 18" ,help_text="PANTALÓN")
+    est_sil18 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi18 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu18 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc18 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp18 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg19 = CharField(required=False, label="Ítem 19" ,help_text="CAMIÓN")
+    est_sil19 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi19 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu19 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc19 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp19 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg20 = CharField(required=False, label="Ítem 20" ,help_text="CUADERNO")
+    est_sil20 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi20 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu20 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc20 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp20 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg21 = CharField(required=False, label="Ítem 21" ,help_text="MICRO")
+    est_sil21 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi21 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu21 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc21 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp21 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg22 = CharField(required=False, label="Ítem 22" ,help_text="TREN")
+    est_sil22 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi22 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu22 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc22 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp22 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg23 = CharField(required=False, label="Ítem 23" ,help_text="PLÁTANO")
+    est_sil23 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi23 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu23 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc23 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp23 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg24 = CharField(required=False, label="Ítem 24" ,help_text="JUGO")
+    est_sil24 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi24 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu24 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc24 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp24 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg25 = CharField(required=False, label="Ítem 25" ,help_text="ENCHUFE")
+    est_sil25 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi25 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu25 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc25 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp25 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg26 = CharField(required=False, label="Ítem 26" ,help_text="JABÓN")
+    est_sil26 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi26 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu26 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc26 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp26 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg27 = CharField(required=False, label="Ítem 27" ,help_text="TAMBOR")
+    est_sil27 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi27 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu27 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc27 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp27 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg28 = CharField(required=False, label="Ítem 28" ,help_text="VOLANTÍN")
+    est_sil28 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi28 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu28 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc28 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp28 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg29 = CharField(required=False, label="Ítem 29" ,help_text="JIRAFA")
+    est_sil29 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi29 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu29 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc29 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp29 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg30 = CharField(required=False, label="Ítem 30" ,help_text="GORRO")
+    est_sil30 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi30 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu30 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc30 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp30 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg31 = CharField(required=False, label="Ítem 31" ,help_text="ÁRBOL")
+    est_sil31 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi31 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu31 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc31 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp31 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg32 = CharField(required=False, label="Ítem 32" ,help_text="DULCE")
+    est_sil32 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi32 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu32 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc32 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp32 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg33 = CharField(required=False, label="Ítem 33" ,help_text="GUITARRA")
+    est_sil33 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi33 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu33 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc33 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp33 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg34 = CharField(required=False, label="Ítem 34" ,help_text="GUANTE")
+    est_sil34 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi34 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu34 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc34 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp34 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg35 = CharField(required=False, label="Ítem 35" ,help_text="RELOJ")
+    est_sil35 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi35 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu35 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc35 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp35 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg36 = CharField(required=False, label="Ítem 36" ,help_text="JAULA")
+    est_sil36 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi36 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu36 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc36 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp36 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg37 = CharField(required=False, label="Ítem 37" ,help_text="PUENTE")
+    est_sil37 = CharField(required=False, max_length=3, label="" ,help_text="Est. Silbica")
+    asimi37 = CharField(required=False, max_length=3, label="" ,help_text="Asimilación")
+    sustitu37 = CharField(required=False, max_length=3, label="" ,help_text="Sustitución")
+    tot_proc37 = CharField(required=False, max_length=3 ,label="" ,help_text="Total Proc")
+    otr_resp37 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    
+
+    class Meta:
+        fields = ['__all__']
+
+
+class FormDocumentoSTSG(Form):
+    #Subprueba receptiva
+    rec_uno_prim = BooleanField(required=False, label="El niño está sentado*",)
+    rec_uno_segu = BooleanField(required=False, label="El niño no está sentado",)
+    rec_dos_prim = BooleanField(required=False, label="El gato está encima de la caja",)
+    rec_dos_segu = BooleanField(required=False, label="El gato está adentro de la caja*",)
+    rec_tres_prim = BooleanField(required=False, label="El está subiendo.",)
+    rec_tres_segu = BooleanField(required=False, label="Ella está subiendo.*",)
+    rec_cuatro_prim = BooleanField(required=False, label="El perro está detrás de la silla.*",)
+    rec_cuatro_segu = BooleanField(required=False, label="El perro está debajo de la silla.",)
+    rec_cinco_prim = BooleanField(required=False, label="Están comiendo.",)
+    rec_cinco_segu = BooleanField(required=False, label="Está comiendo.*",)
+    rec_seis_prim = BooleanField(required=False, label="El libro es de él.*",)
+    rec_seis_segu = BooleanField(required=False, label="El libro es de ella.",)
+    rec_siete_prim = BooleanField(required=False, label="El niño se cayó.*",)
+    rec_siete_segu = BooleanField(required=False, label="El niño se cae.",)
+    rec_ocho_prim = BooleanField(required=False, label="Alguien está en la mesa.",)
+    rec_ocho_segu = BooleanField(required=False, label="Algo está en la mesa.*",)
+    rec_nueve_prim = BooleanField(required=False, label="El niño la está llamando.",)
+    rec_nueve_segu = BooleanField(required=False, label="El niño lo está llamando.*",)
+    rec_diez_prim = BooleanField(required=False, label="Este es mi papá.*",)
+    rec_diez_segu = BooleanField(required=False, label="Aquel es mi papá.",)
+    rec_once_prim = BooleanField(required=False, label="El niño está tomando helado.*",)
+    rec_once_segu = BooleanField(required=False, label="El niño estaba tomando helado.",)
+    rec_doce_prim = BooleanField(required=False, label="¿Dónde está la niña?.",)
+    rec_doce_segu = BooleanField(required=False, label="¿Quién es la niña?.*",)
+    rec_trece_prim = BooleanField(required=False, label="El niño tiene el pájaro.*",)
+    rec_trece_segu = BooleanField(required=False, label="El niño tenía el pájaro.",)
+    rec_catorce_prim = BooleanField(required=False, label="La niña las tiene.",)
+    rec_catorce_segu = BooleanField(required=False, label="La niña la tiene.",)
+    rec_quince_prim = BooleanField(required=False, label="Esta es mi cama.",)
+    rec_quince_segu = BooleanField(required=False, label="Esta es nuestra cama.*",)
+    rec_dieciseis_prim = BooleanField(required=False, label="El niño se ve.",)
+    rec_dieciseis_segu = BooleanField(required=False, label="El niño lo ve.*",)
+    rec_diecisiete_prim = BooleanField(required=False, label="La niña subirá.*",)
+    rec_diecisiete_segu = BooleanField(required=False, label="La niña subió.",)
+    rec_dieciocho_prim = BooleanField(required=False, label="Mira a quien llegó.",)
+    rec_dieciocho_segu = BooleanField(required=False, label="Mira lo que llegó.*",)
+    rec_diecinueve_prim = BooleanField(required=False, label='La mamá dice, "Se lo dio".',)
+    rec_diecinueve_segu = BooleanField(required=False, label='La mamá dice, "Me lo dio".*',)
+    rec_veinte_prim = BooleanField(required=False, label="La mamá va a comprar pan.*",)
+    rec_veinte_segu = BooleanField(required=False, label="La mamá fue a comprar pan.",)
+    rec_veintiuno_prim = BooleanField(required=False, label="Este es un avión.*",)
+    rec_veintiuno_segu = BooleanField(required=False, label="Ese es un avión.",)
+    rec_veintidos_prim = BooleanField(required=False, label="El papá es alto.",)
+    rec_veintidos_segu = BooleanField(required=False, label="El papá está alto.*",)
+    rec_veintitres_prim = BooleanField(required=False, label="El niño es llamado por la  niña.*",)
+    rec_veintitres_segu = BooleanField(required=False, label="La niña es llamada por el niño.",)
+    rec_observac = CharField(label="Observaciones")
+
+    #Subprueba expresiva
+    exp_uno_prim = BooleanField(required=False, label="La puerta no está cerrada.*",)
+    exp_uno_segu = BooleanField(required=False, label="La puerta está cerrada.",)
+    exp_dos_prim = BooleanField(required=False, label="El perro está encima del auto.*",)
+    exp_dos_segu = BooleanField(required=False, label="El perro está adentro del auto.",)
+    exp_tres_prim = BooleanField(required=False, label="El gato está debajo de la silla.",)
+    exp_tres_segu = BooleanField(required=False, label="El gato está detrás de la silla.*",)
+    exp_cuatro_prim = BooleanField(required=False, label="El ve al gato.*",)
+    exp_cuatro_segu = BooleanField(required=False, label="Ella ve al gato.",)
+    exp_cinco_prim = BooleanField(required=False, label="Alguien está en la silla.",)
+    exp_cinco_segu = BooleanField(required=False, label="Algo está en la silla.*",)
+    exp_seis_prim = BooleanField(required=False, label="El sombrero es de ella.",)
+    exp_seis_segu = BooleanField(required=False, label="El sombrero es de él.*",)
+    exp_siete_prim = BooleanField(required=False, label="Está durmiendo.",)
+    exp_siete_segu = BooleanField(required=False, label="Están durmiendo.*",)
+    exp_ocho_prim = BooleanField(required=False, label="El niño se vistió.*",)
+    exp_ocho_segu = BooleanField(required=False, label="El niño se viste.",)
+    exp_nueve_prim = BooleanField(required=False, label="La niña está escribiendo.*",)
+    exp_nueve_segu = BooleanField(required=False, label="La niña estaba escribiendo.",)
+    exp_diez_prim = BooleanField(required=False, label="La niña la ve.",)
+    exp_diez_segu = BooleanField(required=False, label="La niña lo ve.*",)
+    exp_once_prim = BooleanField(required=False, label="El niño tenía el globo.*",)
+    exp_once_segu = BooleanField(required=False, label="El niño tiene el globo.",)
+    exp_doce_prim = BooleanField(required=False, label="La niña lo lleva.*",)
+    exp_doce_segu = BooleanField(required=False, label="La niña los lleva.",)
+    exp_trece_prim = BooleanField(required=False, label="Este es mi amigo.",)
+    exp_trece_segu = BooleanField(required=False, label="Aquel es mi amigo.*",)
+    exp_catorce_prim = BooleanField(required=False, label="El niño lo lava.",)
+    exp_catorce_segu = BooleanField(required=False, label="El niño se lava.*",)
+    exp_quince_prim = BooleanField(required=False, label="Este es nuestro perro.",)
+    exp_quince_segu = BooleanField(required=False, label="Este es nuestro perro.",)
+    exp_dieciseis_prim = BooleanField(required=False, label="La niña comió.*",)
+    exp_dieciseis_segu = BooleanField(required=False, label="La niña comerá.",)
+    exp_diecisiete_prim = BooleanField(required=False, label="Esa es mi muñeca.",)
+    exp_diecisiete_segu = BooleanField(required=False, label="Esta es mi muñeca.*",)
+    exp_dieciocho_prim = BooleanField(required=False, label="¿Quién está en la puerta?.*",)
+    exp_dieciocho_segu = BooleanField(required=False, label="¿Qué está en la puerta?",)
+    exp_diecinueve_prim = BooleanField(required=False, label="¿Dónde está el niño?",)
+    exp_diecinueve_segu = BooleanField(required=False, label="¿Quién es el niño?.*",)
+    exp_veinte_prim = BooleanField(required=False, label="El niño va a cortarse el pelo.",)
+    exp_veinte_segu = BooleanField(required=False, label="El niño fue a cortarse el pelo.*",)
+    exp_veintiuno_prim = BooleanField(required=False, label='El niño dice, "Me la dio".*',)
+    exp_veintiuno_segu = BooleanField(required=False, label='El niño dice, "Se la dio".',)
+    exp_veintidos_prim = BooleanField(required=False, label="El niño es alto.",)
+    exp_veintidos_segu = BooleanField(required=False, label="El niño está alto.*",)
+    exp_veintitres_prim = BooleanField(required=False, label="La niña es empujada por el niño.*",)
+    exp_veintitres_segu = BooleanField(required=False, label="El niño es empujado por la niña.",)
+    exp_observac = CharField(label="Observaciones")
 
     class Meta:
         fields = ['__all__']

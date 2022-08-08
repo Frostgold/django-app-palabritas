@@ -9,7 +9,7 @@ import datetime
 from cursos.models import Curso, BancoTrabajo as BancoTrabajoCurso
 from lista_espera.models import ListaEspera
 from .models import FichaAlumno, BancoDocumento, BancoTrabajo, AvanceAlumno, DetalleApoderado
-from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet, FormDocumentoPautaCotejo, FormDatosPersonalesAlumno, FormDocumentoAnamnesis, FormDocumentoFonoaudiologica, FormDocumentoTecal
+from .forms import FormFichaAlumno, FormChangeFichaAlumno, FormAvanceAlumno, FormTrabajoAlumno, FormDocumentoAlumno, ApoderadoBaseFormSet, ListaEsperaBaseFormSet, FormDocumentoPautaCotejo, FormDatosPersonalesAlumno, FormDocumentoAnamnesis, FormDocumentoFonoaudiologica, FormDocumentoTecal, FormDocumentoSTSG, FormDocumentoTeprosif
 from .utils import render_to_pdf
 
 @login_required
@@ -330,7 +330,7 @@ def retirar_ficha_alumno(request, rut):
 @permission_required('fichas_alumnos.add_bancodocumento')
 def generate_doc_cotejo_hab_prag(request, rut=None):
     context = {}
-    context['form_base'] = FormDatosPersonalesAlumno(datos_hab_prag=False)
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_hab_prag=True)
     if rut:
         try:
             alumno = FichaAlumno.objects.get(rut=rut)
@@ -342,30 +342,40 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
                 'nombre': alumno.nombre,
                 'fech_nac': alumno.fecha_nacimiento,
                 'curso': curso,
-            }, datos_hab_prag=True)
+            }, datos_alumno=True, datos_hab_prag=True)
         except:
             pass
         
     context['form'] = FormDocumentoPautaCotejo
 
     if request.method == 'POST':
-        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
 
         if form_base.is_valid():
             form = FormDocumentoPautaCotejo(request.POST)
             print(form_base)
             if form.is_valid():
+                #Calculo fecha y edad
                 fecha_hoy = datetime.date.today()
                 fecha_nac = form_base.cleaned_data['fech_nac']
                 edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
                 edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
                 edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
-                print(edad_mes)
+                
+                #Curso
+                try:
+                    alumn_curso = curso.nombre
+                except:
+                    alumn_curso = form_base.cleaned_data['curso']
+                    if alumn_curso != None:
+                        curso = Curso.objects.get(id=form_base.cleaned_data['curso'])
+                        alumn_curso = curso.nombre
+
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
                     'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
                     'alumn_nacim': form_base.cleaned_data['fech_nac'],
-                    'alumn_curso': form_base.cleaned_data['curso'] if form_base.cleaned_data['curso'] != None else "No asignado",
+                    'alumn_curso': alumn_curso if alumn_curso != None else "No asignado",
                     'fecha_exam': fecha_hoy,
                     'cinetica_S': "X" if form.cleaned_data['cinetica'] == "si" else "",
                     'cinetica_N': "X" if form.cleaned_data['cinetica'] == "no" else "",
@@ -408,13 +418,13 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
                     response = HttpResponse(pdf, content_type='application/pdf') 
                     filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %(data['alumn_nombre'])
                     content = 'attachment; filename="{}"'.format(filename)
-                    response['Content-Disposition'] = content 
+                    #response['Content-Disposition'] = content 
                     return response
         
         if rut:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
         else:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_hab_prag=True)
         context['form'] = FormDocumentoPautaCotejo(request.POST)
 
     return render(request, 'formularios/docs/form_cotejo_hab_prag.html', context)
@@ -424,45 +434,54 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
 @permission_required('fichas_alumnos.add_bancodocumento')
 def generate_doc_anamnesis(request, rut=None):
     context = {}
-    context['form_base'] = FormDatosPersonalesAlumno(datos_hab_prag=False)
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_anamnesis=True)
     if rut:
         try:
+            retirado = False
             alumno = FichaAlumno.objects.get(rut=rut)
             if alumno.curso:
                 curso = alumno.curso
+                nivel = Curso.objects.get(id=curso)
+                nivel = nivel.nivel
             else:
                 curso = ""
+                try:
+                    nivel = ListaEspera.objects.get(alumno=rut)
+                    nivel = nivel.nivel
+                except:
+                    nivel = "1"
+                    retirado = True
             context['form_base'] = FormDatosPersonalesAlumno(data={
                 'nombre': alumno.nombre,
                 'fech_nac': alumno.fecha_nacimiento,
                 'curso': curso,
-            }, datos_hab_prag=True)
+                'nivel': nivel,
+                'domicilio': alumno.direccion,
+            }, datos_alumno=True, datos_anamnesis=True, datos_retirado=retirado)
         except:
             pass
 
     context['form'] = FormDocumentoAnamnesis
 
     if request.method == 'POST':
-        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
-
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_anamnesis=True)
         if form_base.is_valid():
             form = FormDocumentoAnamnesis(request.POST)
-            print(form_base)
             if form.is_valid():
+                #Calculo fecha y edad
                 fecha_hoy = datetime.date.today()
                 fecha_nac = form_base.cleaned_data['fech_nac']
                 edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
                 edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
                 edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
-                print(edad_mes)
+
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
-                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
                     'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
                     'alumn_curso': form_base.cleaned_data['curso'] if form_base.cleaned_data['curso'] != None else "No asignado",
+                    'alumn_nivel': form_base.cleaned_data['nivel'] if form_base.cleaned_data['nivel'] != None else "No asignado",
                     'fecha_exam': fecha_hoy,
-
-                    
                 }
                 template = 'documentos/anamnesis.html'
                 pdf = render_to_pdf(template, data)
@@ -471,13 +490,13 @@ def generate_doc_anamnesis(request, rut=None):
                     response = HttpResponse(pdf, content_type='application/pdf') 
                     filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
                     content = 'attachment; filename="{}"'.format(filename)
-                    response['Content-Disposition'] = content 
+                    #response['Content-Disposition'] = content 
                     return response
         
         if rut:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+            form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_anamnesis=True, datos_retirado=retirado)
         else:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+            form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_anamnesis=True)
         context['form'] = FormDocumentoAnamnesis(request.POST)
 
     return render(request, 'formularios/docs/form_anamnesis.html', context)
@@ -487,26 +506,36 @@ def generate_doc_anamnesis(request, rut=None):
 @permission_required('fichas_alumnos.add_bancodocumento')
 def generate_doc_tecal(request, rut=None):
     context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_hab_prag=True)
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+            }, datos_alumno=True, datos_hab_prag=True)
+        except:
+            pass
+
     context['form'] = FormDocumentoTecal
 
     if request.method == 'POST':
-        form_base = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
-
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
         if form_base.is_valid():
             form = FormDocumentoTecal(request.POST)
-            print(form_base)
             if form.is_valid():
+                #Calculo fecha y edad
                 fecha_hoy = datetime.date.today()
                 fecha_nac = form_base.cleaned_data['fech_nac']
                 edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
                 edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
                 edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
-                print(edad_mes)
+
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
-                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
                     'alumn_nacim': form_base.cleaned_data['fech_nac'],
-                    'alumn_edad_mes': form_base.cleaned_data['edad_mes'],
+                    'alumn_edad': edad_anio,
+                    'alumn_edad_mes': edad_mes,
                     'i1': "✔" if form.cleaned_data['item1'] == "1" else "item1",
                     'i2': "✔" if form.cleaned_data['item2'] == "2" else "item2",
                     'i3': "✔" if form.cleaned_data['item3'] == "1" else "item3",
@@ -614,15 +643,15 @@ def generate_doc_tecal(request, rut=None):
 
                 if pdf:
                     response = HttpResponse(pdf, content_type='application/pdf') 
-                    filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
+                    filename = "Tecal - %s.pdf" %(data['alumn_nombre'])
                     content = 'attachment; filename="{}"'.format(filename)
-                    response['Content-Disposition'] = content 
+                    #response['Content-Disposition'] = content 
                     return response
         
         if rut:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=True)
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
         else:
-            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_hab_prag=False)
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_hab_prag=True)
         context['form'] = FormDocumentoTecal(request.POST)
 
     return render(request, 'formularios/docs/form_tecal.html', context)
@@ -630,8 +659,166 @@ def generate_doc_tecal(request, rut=None):
 
 @login_required
 @permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_teprosif(request, rut=None):
+    context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_teprosif=True)
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+                'sexo': 'Femenino'
+            }, datos_alumno=True, datos_teprosif=True)
+        except:
+            pass
+
+    context['form'] = FormDocumentoTeprosif
+
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_teprosif=True)
+        if form_base.is_valid():
+            form = FormDocumentoTeprosif(request.POST)
+            if form.is_valid():
+                #Calculo fecha y edad
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_sexo': form_base.cleaned_data['sexo'],
+                    'fecha_exam': fecha_hoy,
+                }
+                template = 'documentos/TEPROSIF-R.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "Hoja de rerspuesta TEPROSIF-R - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    #response['Content-Disposition'] = content 
+                    return response
+
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_teprosif=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_teprosif=True)
+        context['form'] = FormDocumentoTeprosif(request.POST)
+
+    return render(request, 'formularios/docs/form_teprosif.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
 def generate_doc_fonoaudiologica(request, rut=None):
     context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_fonoaudio=True)
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+                'rut': alumno.rut,
+                'domicilio': alumno.direccion,
+            }, datos_alumno=True, datos_fonoaudio=True)
+        except:
+            pass
+        
     context['form'] = FormDocumentoFonoaudiologica
 
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_fonoaudio=True)
+        if form_base.is_valid():
+            form = FormDocumentoFonoaudiologica(request.POST)
+            if form.is_valid():
+                #Calculo fecha y edad
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'fecha_exam': fecha_hoy,
+                }
+                template = 'documentos/pauta_fono_palabritas.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "Observación clínica fonoaudiológica - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    #response['Content-Disposition'] = content 
+                    return response
+
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_fonoaudio=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_fonoaudio=True)
+        context['form'] = FormDocumentoPautaCotejo(request.POST)
+    
     return render(request, 'formularios/docs/form_fonoaudiologica.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_doc_stsg(request, rut=None):
+    context = {}
+    context['form_base'] = FormDatosPersonalesAlumno(datos_alumno=False, datos_hab_prag=True)
+
+    if rut:
+        try:
+            alumno = FichaAlumno.objects.get(rut=rut)
+            context['form_base'] = FormDatosPersonalesAlumno(data={
+                'nombre': alumno.nombre,
+                'fech_nac': alumno.fecha_nacimiento,
+            }, datos_alumno=True, datos_hab_prag=True)
+        except:
+            pass
+
+    context['form'] = FormDocumentoSTSG
+
+    if request.method == 'POST':
+        form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
+        if form_base.is_valid():
+            form = FormDocumentoSTSG(request.POST)
+            if form.is_valid():
+                #Calculo fecha y edad
+                fecha_hoy = datetime.date.today()
+                fecha_nac = form_base.cleaned_data['fech_nac']
+                edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
+                edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
+                edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+
+                data = {
+                    'alumn_nombre': form_base.cleaned_data['nombre'],
+                    'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'fecha_exam': fecha_hoy,
+                }
+                template = 'documentos/STSG_Hoja_de_Respuestas.html'
+                pdf = render_to_pdf(template, data)
+
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf') 
+                    filename = "STSG - %s.pdf" %(data['alumn_nombre'])
+                    content = 'attachment; filename="{}"'.format(filename)
+                    #response['Content-Disposition'] = content 
+                    return response
+
+        if rut:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
+        else:
+            context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_hab_prag=True)
+        context['form'] = FormDocumentoSTSG(request.POST)
+
+    return render(request, 'formularios/docs/form_stsg.html', context)
