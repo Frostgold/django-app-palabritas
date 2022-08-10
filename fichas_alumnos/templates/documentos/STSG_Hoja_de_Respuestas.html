@@ -80,26 +80,26 @@ style='letter-spacing:.05pt'> </span>Receptiva</span></p>
 
 <p class=MsoNormal><span lang=ES style='font-size:16.0pt;font-family:Escolar2'>&nbsp;</span></p>
 
-<table style='font-size: 16.0pt; font-family:Escolar2'>
+<table style='font-size: 11.0pt; font-family:Escolar2'>
     <tr>
+        <th style="width:15%"></th>
+        <th style="width:22%"></th>
+        <th style="width:6%"></th>
+        <th style="width:19%"></th>
+        <th style="width:8%"></th>
         <th style="width:20%"></th>
-        <th style="width:30%"></th>
-        <th style="width:10%"></th>
-        <th style="width:15%"></th>
-        <th style="width:10%"></th>
-        <th style="width:15%"></th>
       </tr>
     <tr style="height:20pt;">
         <td>Nombre</td>
-        <td colspan=5 style="border-bottom: 2px solid black"></td>
+        <td colspan=5 style="border-bottom: 2px solid black">{{ alumn_nombre }}</td>
     </tr>
     <tr>
-        <td style="height:26pt; padding-top: 5pt; ">F. Nacimiento</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
-        <td style="height:26pt; padding-top: 5pt; ">Edad</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
-        <td style="height:26pt; padding-top: 5pt; ">Fecha</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">F. Nacimiento</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ alumn_nacim }}</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">Edad</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ alumn_edad }}</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">Fecha</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ fecha_exam }}</td>
     </tr>
 </table>
 
@@ -115,67 +115,67 @@ style='letter-spacing:.05pt'> </span>Receptiva</span></p>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">1. El niño está sentado.*</br>     El niño no está sentado.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_uno_prim }}</br>{{ rec_uno_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">2. El gato está encima de la caja.</br>     El gato está adentro de la caja.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_dos_prim }}</br>{{ rec_dos_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">3. El está subiendo.</br>     Ella está subiendo.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_tres_prim }}</br>{{ rec_tres_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">4. El perro está detrás de la silla.*</br>     El perro está debajo de la silla.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_cuatro_prim }}</br>{{ rec_cuatro_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">5. Están comiendo.</br>     Está comiendo.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_cinco_prim }}</br>{{ rec_cinco_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">6. El libro es de él.*</br>     El libro es de ella.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_seis_prim }}</br>{{ rec_seis_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">7. El niño se cayó.*</br>     El niño se cae.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_siete_prim }}</br>{{ rec_siete_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">8. Alguien está en la mesa.</br>     Algo está en la mesa.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_ocho_prim }}</br>{{ rec_ocho_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">9. El niño la está llamando.</br>     El niño lo está llamando.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_nueve_prim }}</br>{{ rec_nueve_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">10. Este es mi papá.*</br>       Aquel es mi papá.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_diez_prim }}</br>{{ rec_diez_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">11. El niño está tomando helado.*</br>       El niño estaba tomando helado.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_once_prim }}</br>{{ rec_once_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">12. ¿Dónde está la niña?.</br>       ¿Quién es la niña?.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_doce_prim }}</br>{{ rec_doce_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">13. El niño tiene el pájaro.*</br>       El niño tenía el pájaro.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_trece_prim }}</br>{{ rec_trece_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">14. La niña las tiene.</br>       La niña la tiene.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_catorce_prim }}</br>{{ rec_catorce_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">15. Esta es mi cama.</br>       Esta es nuestra cama.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_quince_prim }}</br>{{ rec_quince_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">16. El niño se ve.</br>       El niño lo ve.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_dieciseis_prim }}</br>{{ rec_dieciseis_segu }}</td>
     </tr>
     <tr style="background-color: silver; font-size: 13.0pt;">
         <th style="width:70%;">ITEMS RECEPTIVOS</th>
@@ -183,35 +183,35 @@ style='letter-spacing:.05pt'> </span>Receptiva</span></p>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">17. La niña subirá.*</br>       La niña subió.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_diecisiete_prim }}</br>{{ rec_diecisiete_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">18. Mira a quien llegó.</br>       Mira lo que llegó.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_dieciocho_prim }}</br>{{ rec_dieciocho_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">19. La mamá dice, "Se lo dio".</br>       La mamá dice, "Me lo dio".*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_diecinueve_prim }}</br>{{ rec_diecinueve_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">20. La mamá va a comprar pan.*</br>       La mamá fue a comprar pan.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_veinte_prim }}</br>{{ rec_veinte_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">21. Este es un avión.*</br>       Ese es un avión.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_veintiuno_prim }}</br>{{ rec_veintiuno_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">22. El papá es alto.</br>       El papá está alto.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ rec_veintidos_prim }}</br>{{ rec_veintidos_segu }}</td>
     </tr>
     <tr>
         <td valign=bottom style="padding-left: 6pt;">23. El niño es llamado por la  niña.*</br>       La niña es llamada por el niño.</td>
-        <td valign=bottom style="text-align: center;"></br></td>
+        <td valign=bottom style="text-align: center;">{{ rec_veintitres_prim }}</br>{{ rec_veintitres_segu }}</td>
     </tr>
     <tr>
         <td><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>PUNTAJE TOTAL</span></h4></td>
-        <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'></span></h4></td>
+        <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>{{ rec_puntaje }}</span></h4></td>
     </tr>
 </table>
 
@@ -224,7 +224,7 @@ style='letter-spacing:.05pt'> </span>Receptiva</span></p>
         <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>OBSERVACIONES</span></h4></td>
     </tr>
     <tr>
-        <td></td>
+        <td>{{ rec_observac }}</td>
     </tr>
 </table>
 
@@ -255,26 +255,26 @@ style='letter-spacing:.05pt'> </span>–<span style='letter-spacing:-.15pt'> </s
 style='letter-spacing:.05pt'> </span>Expresiva</span></p>
 
 <p class=MsoNormal><span lang=ES style='font-size:16.0pt;font-family:Escolar2'>&nbsp;</span></p>
-<table style='font-size: 16.0pt; font-family:Escolar2'>
+<table style='font-size: 11.0pt; font-family:Escolar2'>
     <tr>
+        <th style="width:15%"></th>
+        <th style="width:22%"></th>
+        <th style="width:6%"></th>
+        <th style="width:19%"></th>
+        <th style="width:8%"></th>
         <th style="width:20%"></th>
-        <th style="width:30%"></th>
-        <th style="width:10%"></th>
-        <th style="width:15%"></th>
-        <th style="width:10%"></th>
-        <th style="width:15%"></th>
       </tr>
     <tr style="height:20pt;">
         <td>Nombre</td>
-        <td colspan=5 style="border-bottom: 2px solid black"></td>
+        <td colspan=5 style="border-bottom: 2px solid black">{{ alumn_nombre }}</td>
     </tr>
     <tr>
-        <td style="height:26pt; padding-top: 5pt; ">F. Nacimiento</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
-        <td style="height:26pt; padding-top: 5pt; ">Edad</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
-        <td style="height:26pt; padding-top: 5pt; ">Fecha</td>
-        <td style="height:26pt; padding-top: 5pt; border-bottom: 2px solid black"></td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">F. Nacimiento</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ alumn_nacim }}</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">Edad</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ alumn_edad }}</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; ">Fecha</td>
+        <td style="height:26pt; padding-top: 5pt; padding-bottom: -5pt; border-bottom: 2px solid black">{{ fecha_exam }}</td>
     </tr>
 </table>
 
@@ -290,67 +290,67 @@ style='letter-spacing:.05pt'> </span>Expresiva</span></p>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">1. La puerta no está cerrada.*</br>     La puerta está cerrada.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_uno_prim }}</br>{{ exp_uno_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;"> 2. El perro está encima del auto.*</br>     El perro está adentro del auto.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_dos_prim }}</br>{{ exp_dos_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">3. El gato está debajo de la silla.</br>     El gato está detrás de la silla.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_tres_prim }}</br>{{ exp_tres_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">4. El ve al gato.*</br>     Ella ve al gato.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_cuatro_prim }}</br>{{ exp_cuatro_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">5. Alguien está en la silla.</br>     Algo está en la silla.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_cinco_prim }}</br>{{ exp_cinco_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">6. El sombrero es de ella.</br>     El sombrero es de él.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_seis_prim }}</br>{{ exp_seis_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">7. Está durmiendo.</br>     Están durmiendo.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_siete_prim }}</br>{{ exp_siete_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">8. El niño se vistió.*</br>     El niño se viste.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_ocho_prim }}</br>{{ exp_ocho_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">9. La niña está escribiendo.*</br>     La niña estaba escribiendo.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_nueve_prim }}</br>{{ exp_nueve_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">10. La niña la ve.</br>       La niña lo ve.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_diez_prim }}</br>{{ exp_diez_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">11. El niño tenía el globo.*</br>       El niño tiene el globo.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_once_prim }}</br>{{ exp_once_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">12. La niña lo lleva.*</br>       La niña los lleva.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_doce_prim }}</br>{{ exp_doce_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">13. Este es mi amigo.</br>       Aquel es mi amigo.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_trece_prim }}</br>{{ exp_trece_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">14. El niño lo lava.</br>       El niño se lava.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_catorce_prim }}</br>{{ exp_catorce_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">15. Este es su perro.*</br>       Este es nuestro perro.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_quince_prim }}</br>{{ exp_quince_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">16. La niña comió.*</br>       La niña comerá.</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_dieciseis_prim }}</br>{{ exp_dieciseis_segu }}</td>
     </tr>
     <tr style="background-color: silver; font-size: 13.0pt;">
         <th style="width:70%;">ITEMS RECEPTIVOS</th>
@@ -358,35 +358,35 @@ style='letter-spacing:.05pt'> </span>Expresiva</span></p>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">17. Esa es mi muñeca.</br>       Esta es mi muñeca.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_diecisiete_prim }}</br>{{ exp_diecisiete_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">18. ¿Quién está en la puerta?.*</br>       ¿Qué está en la puerta?</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_dieciocho_prim }}</br>{{ exp_dieciocho_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">19. ¿Dónde está el niño?</br>       ¿Quién es el niño?.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_diecinueve_prim }}</br>{{ exp_diecinueve_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">20. El niño va a cortarse el pelo.</br>       El niño fue a cortarse el pelo.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_veinte_prim }}</br>{{ exp_veinte_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">21. El niño dice, "Me la dio".*</br>       El niño dice, "Se la dio".</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_veintiuno_prim }}</br>{{ exp_veintiuno_segu }}</td>
     </tr>
     <tr>
         <td style="padding-left: 6pt;">22. El niño es alto.</br>       El niño está alto.*</td>
-        <td style="text-align: center;"></br></td>
+        <td style="text-align: center;">{{ exp_veintidos_prim }}</br>{{ exp_veintidos_segu }}</td>
     </tr>
     <tr>
         <td valign=bottom style="padding-left: 6pt;">23. La niña es empujada por el niño.*</br>       El niño es empujado por la niña.</td>
-        <td valign=bottom style="text-align: center;"></br></td>
+        <td valign=bottom style="text-align: center;">{{ exp_veintitres_prim }}</br>{{ exp_veintitres_segu }}</td>
     </tr>
     <tr>
         <td><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>PUNTAJE TOTAL</span></h4></td>
-        <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'></span></h4></td>
+        <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>{{ exp_puntaje }}</span></h4></td>
     </tr>
 </table>
 
@@ -399,7 +399,7 @@ style='letter-spacing:.05pt'> </span>Expresiva</span></p>
         <td style="text-align: center;"><h4><span lang=ES style='font-size:13.0pt;font-family:"Calibri Light",sans-serif;'>OBSERVACIONES</span></h4></td>
     </tr>
     <tr>
-        <td></td>
+        <td>{{ exp_observac }}</td>
     </tr>
 </table>
 
