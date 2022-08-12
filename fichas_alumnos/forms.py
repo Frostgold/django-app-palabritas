@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm, DateInput, Textarea, FileInput, BaseInlineFormSet, ValidationError, CharField,  ChoiceField, DateField, ModelChoiceField, BooleanField, IntegerField
+from django.forms import Form, ModelForm, DateInput, Textarea, FileInput, TextInput, Select, BaseInlineFormSet, ValidationError, CharField,  ChoiceField, DateField, ModelChoiceField, BooleanField, IntegerField
 import datetime
 from django.core.validators import RegexValidator
 
@@ -303,6 +303,7 @@ class FormDocumentoPautaCotejo(Form):
         fields = ['__all__']
 
 
+BLANK = ' '
 # Prim. Grado
 PARENT_PAD = 'Padre'
 PARENT_MAD = 'Madre'
@@ -323,6 +324,7 @@ PARENT_PRO = 'Primo'
 PARENT_PRA = 'Prima'
 
 PARENT_CHOICES = [
+    (BLANK, (' ')),
     (PARENT_PAD, ('Padre')),
     (PARENT_MAD, ('Madre')),
     (PARENT_ABUO, ('Abuelo')),
@@ -339,41 +341,49 @@ PARENT_CHOICES = [
     (PARENT_PRA, ('Prima'))
 ]
 ## Tipo parto
+BLANK = ' '
 PART_NORM = 'Normal'
 PART_INDU = 'Inducido'
 PART_FORCEPS = 'Forceps'
 PART_CES = 'Cesarea'
 TIPO_PARTO = [
+    (BLANK, (' ')),
     (PART_NORM, ('Normal')),
     (PART_INDU, ('Inducido')),
     (PART_FORCEPS, ('Fórceps')),
     (PART_CES, ('Cesárea'))
 ]
 ## Actividad motora
+BLANK = ' '
 ACTI_NORM = 'Normal'
 ACTI_HIPERA = 'Hiperactivo'
 ACTI_HIPOA = 'Hipoactivo'
 ACTI_MOTORA = [ 
+    (BLANK, (' ')),
     (ACTI_NORM, ('Normal')),
     (ACTI_HIPERA, ('Hiperactivo')),
     (ACTI_HIPOA, ('Hipoactivo'))
 ]
 ## Tonalidad muscular
+BLANK = ' '
 TONA_NORM = 'Normal'
 TONA_HIPERT = 'Hipertonico'
 TONA_HIPOTO = 'Hipotonico'
 TONA_HIPERL = 'Hiperlaxo'
 TONA_MUSCULAR = [ 
+    (BLANK, (' ')),
     (TONA_NORM, ('Normal')),
     (TONA_HIPERT, ('Hipertonico')),
     (TONA_HIPOTO, ('Hipotonico')),
     (TONA_HIPERL, ('Hiperlaxo'))
 ]
 ## Motricidad gruesa
+BLANK = ''
 GRUE_DOM = 'Dominancia'
 GRUE_INES = 'Inestabilidad'
 GRUE_CAIDA = 'Caidas'
 MOTRI_GRUESA = [ 
+    (BLANK, (' ')),
     (GRUE_DOM, ('Dominancia')),
     (GRUE_INES, ('Inestabilidad al caminar')),
     (GRUE_CAIDA, ('Caidas frecuentes'))
@@ -400,11 +410,11 @@ class FormDocumentoAnamnesis(Form):
     parent_cua = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco cuarto familiar")
     parent_cin = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco quinto familiar")
     ### Edad
-    edad_familiar_uno = CharField(required=False, max_length= 3, label="Edad primer familiar")
-    edad_familiar_dos = CharField(required=False, max_length= 3, label="Edad segundo familiar")
-    edad_familiar_tres = CharField(required=False, max_length= 3, label="Edad tercer familiar")
-    edad_familiar_cua = CharField(required=False, max_length= 3, label="Edad cuarto familiar")
-    edad_familiar_cin = CharField(required=False, max_length= 3, label="Edad quinto familiar")
+    edad_familiar_uno = IntegerField(required=False, min_value=0, max_value=100, label="Edad primer familiar")
+    edad_familiar_dos = IntegerField(required=False, min_value=0, max_value=100, label="Edad segundo familiar")
+    edad_familiar_tres = IntegerField(required=False, min_value=0, max_value=100, label="Edad tercer familiar")
+    edad_familiar_cua = IntegerField(required=False, min_value=0, max_value=100, label="Edad cuarto familiar")
+    edad_familiar_cin = IntegerField(required=False, min_value=0, max_value=100, label="Edad quinto familiar")
     ### Ocupacion
     ocupa_familiar_uno = CharField(required=False, max_length= 50, label="Ocupación primer familiar")
     ocupa_familiar_dos = CharField(required=False, max_length= 50, label="Ocupación segundo familiar")
@@ -423,8 +433,8 @@ class FormDocumentoAnamnesis(Form):
     otros_rsp = CharField(required=False, max_length= 50, label="Otros")
     # III.
     ## a) Desarrollo prenatal
-    embarazo_num = CharField(required=False, max_length= 2, label="Embarazo N°")
-    sem_gest = CharField(required=False, max_length= 3, label="Semanas de gestación")
+    embarazo_num = IntegerField(required=False,min_value=0, max_value = 60, label="Embarazo N°")
+    sem_gest = IntegerField(required=False,min_value=0, max_value = 60, label="Semanas de gestación")
     med_ant = BooleanField(required=False, label="Medidas anticonceptivas")
     sangr = BooleanField(required=False, label="Sangramiento")
     sint_perd = BooleanField(required=False, label="Sintomas de perdida")
@@ -488,15 +498,15 @@ class FormDocumentoAnamnesis(Form):
     mot_exam = CharField(required=False, max_length=20, label="Motivo")
     # IV.
     ## Edad en que
-    fij_cabeza = CharField(required=False, max_length= 2, label="Fijó la cabeza")
-    sento_solo = CharField(required=False, max_length= 2, label="Se sentó solo")
-    gateo = CharField(required=False, max_length= 2, label="Gateó")
-    camino = CharField(required=False, max_length= 2, label="Caminó")
-    vist_solo = CharField(required=False, max_length= 2, label="Se vistió solo")
-    ctl_esf_vdiurno = CharField(required=False, max_length= 2, label="Vesical Diurno")
-    ctl_esf_vnoct = CharField(required=False, max_length= 2, label="Nocturno")
-    ctl_anal_diur = CharField(required=False, max_length= 2, label="Anal diurno")
-    ctl_anal_noct = CharField(required=False, max_length= 2, label="Nocturno")
+    fij_cabeza = IntegerField(required=False, min_value=0, max_value= 2, label="Fijó la cabeza")
+    sento_solo = IntegerField(required=False, min_value=0, max_value= 2, label="Se sentó solo")
+    gateo = IntegerField(required=False, min_value=0, max_value= 2, label="Gateó")
+    camino = IntegerField(required=False, min_value=0, max_value= 2, label="Caminó")
+    vist_solo = IntegerField(required=False, min_value=0, max_value= 2, label="Se vistió solo")
+    ctl_esf_vdiurno = IntegerField(required=False, min_value=0, max_value= 2, label="Vesical Diurno")
+    ctl_esf_vnoct = IntegerField(required=False, min_value=0, max_value= 2, label="Nocturno")
+    ctl_anal_diur = IntegerField(required=False, min_value=0, max_value= 2, label="Anal diurno")
+    ctl_anal_noct = IntegerField(required=False, min_value=0, max_value= 2, label="Nocturno")
     entrena_esf = BooleanField(required=False, label="¿Hubo entrenamiento en control de esfínter?")
     retraso = BooleanField(required=False, label="Retraso")
     ## Actividad motora
@@ -511,20 +521,20 @@ class FormDocumentoAnamnesis(Form):
     mov_presion = BooleanField(required=False, label="Presión")
     mov_pinza = BooleanField(required=False, label="Pinza")
     # V.
-    vocalizo = CharField(required=False, max_length= 2, label="Vocalizó")
-    balbuceo = CharField(required=False, max_length= 2, label="Balbuceó")
-    jerga = CharField(required=False, max_length= 2, label="Jerga")
-    prim_palabra = CharField(required=False, max_length= 2, label="1° Palabra")
-    holofrase = CharField(required=False, max_length= 2, label="Holofrases")
-    pivote = CharField(required=False, max_length= 2, label="Pivotes")
-    sintagma = CharField(required=False, max_length= 2, label="Sintagma")
+    vocalizo = IntegerField(required=False, min_value=0, max_value= 99, label="Vocalizó")
+    balbuceo = IntegerField(required=False, min_value=0, max_value= 99, label="Balbuceó")
+    jerga = IntegerField(required=False, min_value=0, max_value= 99, label="Jerga")
+    prim_palabra = IntegerField(required=False, min_value=0, max_value= 99, label="1° Palabra")
+    holofrase = IntegerField(required=False, min_value=0, max_value= 99, label="Holofrases")
+    pivote = IntegerField(required=False, min_value=0, max_value= 99, label="Pivotes")
+    sintagma = IntegerField(required=False, min_value=0, max_value= 99, label="Sintagma")
     ## Textos
-    texto_uno = CharField(required=False, max_length= 300, label=" ", help_text="Indicar edad primeras palabras, edad primeras frases, otros.")
-    texto_dos = CharField(required=False, max_length= 300, label="", help_text="Indicar cómo se comunica, si presenta intencionalidad comunicativa, si se aprecia comprensión, otros")
-    texto_tres = CharField(required=False, max_length= 300, label="", help_text="Indicar cómo se percibe la acuidad auditiva del niño, si busca la fuente de sonido, si se necesita repetir varias veces información determinada, si se necesita subir tono de voz para llamar su atención, otros.")
-    texto_cuatro =CharField(required=False, max_length= 300, label="", help_text="Indicar si les leen cuentos en casa, de qué tipo, cuántas veces a la semana, cómo se los presentan, ¿les hacen preguntas respecto a personajes, trama, contexto, palabras nuevas (vocabulario), problema y solución de la historia? (conducta lectora)")
+    texto_uno = CharField(required=False, max_length= 1000, label=" ", help_text="Indicar edad primeras palabras, edad primeras frases, otros.")
+    texto_dos = CharField(required=False, max_length= 1000, label="", help_text="Indicar cómo se comunica, si presenta intencionalidad comunicativa, si se aprecia comprensión, otros")
+    texto_tres = CharField(required=False, max_length= 1000, label="", help_text="Indicar cómo se percibe la acuidad auditiva del niño, si busca la fuente de sonido, si se necesita repetir varias veces información determinada, si se necesita subir tono de voz para llamar su atención, otros.")
+    texto_cuatro =CharField(required=False, max_length= 1000, label="", help_text="Indicar si les leen cuentos en casa, de qué tipo, cuántas veces a la semana, cómo se los presentan, ¿les hacen preguntas respecto a personajes, trama, contexto, palabras nuevas (vocabulario), problema y solución de la historia? (conducta lectora)")
     #VI.
-    texto_cinco = CharField(required=False, max_length= 300, label="", help_text="Indicar tipo de juegos preferidos, si juega sólo o busca compañía, relación con sus pares, relación con adultos, reacción frente a la frustración, respeta normas, recibe castigos o sanciones, otros.")
+    texto_cinco = CharField(required=False, max_length= 1000, label="", help_text="Indicar tipo de juegos preferidos, si juega sólo o busca compañía, relación con sus pares, relación con adultos, reacción frente a la frustración, respeta normas, recibe castigos o sanciones, otros.")
     ## Reacciona desmesuradamente ante
     sonido = BooleanField(required=False, label="Sonido")
     luces = BooleanField(required=False, label="Luces")
@@ -535,7 +545,7 @@ class FormDocumentoAnamnesis(Form):
     pataleta = BooleanField(required=False, label="Realiza pataletas frecuentes y exageradas")
     dificul_adaptacion = BooleanField(required=False, label="Presenta dificultades para adaptarse a nuevas situaciones")
     # VII.
-    texto_seis = CharField(required=False, max_length= 300, label="VII. Observaciones relevantes", help_text = "Obsevaciones a considerar")
+    texto_seis = CharField(required=False, max_length= 1000, label="VII. Observaciones relevantes", help_text = "Obsevaciones a considerar")
 
     class Meta:
         fields = ['__all__']
@@ -543,121 +553,141 @@ class FormDocumentoAnamnesis(Form):
 
 class FormDocumentoTecal(Form):
 
-    item1 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 1", help_text="Respuesta correcta: 1")
-    item2 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 2", help_text="Respuesta correcta: 2")
-    item3 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 3", help_text="Respuesta correcta: 1")
-    item4 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 4", help_text="Respuesta correcta: 3")
-    item5 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 5", help_text="Respuesta correcta: 1")
-    item6 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 6", help_text="Respuesta correcta: 3")
-    item7 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 7", help_text="Respuesta correcta: 1")
-    item8 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 8", help_text="Respuesta correcta: 1")
-    item9 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 9", help_text="Respuesta correcta: 3")
-    item10 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 10", help_text="Respuesta correcta: 2")
+    item1_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 1", help_text="Respuesta correcta: 1")
+    item2_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 2", help_text="Respuesta correcta: 2")
+    item3_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 3", help_text="Respuesta correcta: 1")
+    item4_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 4", help_text="Respuesta correcta: 3")
+    item5_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 5", help_text="Respuesta correcta: 1")
+    item6_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 6", help_text="Respuesta correcta: 3")
+    item7_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 7", help_text="Respuesta correcta: 1")
+    item8_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 8", help_text="Respuesta correcta: 1")
+    item9_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 9", help_text="Respuesta correcta: 3")
+    item10_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 10", help_text="Respuesta correcta: 2")
 
-    item11 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 11", help_text="Respuesta correcta: 1")
-    item12 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 12", help_text="Respuesta correcta: 3")
-    item13 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 13", help_text="Respuesta correcta: 1")
-    item14 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 14", help_text="Respuesta correcta: 2")
-    item15 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 15", help_text="Respuesta correcta: 1")
-    item16 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 16", help_text="Respuesta correcta: 3")
-    item17 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 17", help_text="Respuesta correcta: 1")
-    item18 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 18", help_text="Respuesta correcta: 2")
-    item19 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 19", help_text="Respuesta correcta: 3")
-    item20 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 20", help_text="Respuesta correcta: 1")
+    item11_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 11", help_text="Respuesta correcta: 1")
+    item12_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 12", help_text="Respuesta correcta: 3")
+    item13_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 13", help_text="Respuesta correcta: 1")
+    item14_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 14", help_text="Respuesta correcta: 2")
+    item15_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 15", help_text="Respuesta correcta: 1")
+    item16_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 16", help_text="Respuesta correcta: 3")
+    item17_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 17", help_text="Respuesta correcta: 1")
+    item18_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 18", help_text="Respuesta correcta: 2")
+    item19_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 19", help_text="Respuesta correcta: 3")
+    item20_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 20", help_text="Respuesta correcta: 1")
 
-    item21 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 21", help_text="Respuesta correcta: 1")
-    item22 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 22", help_text="Respuesta correcta: 3")
-    item23 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 23", help_text="Respuesta correcta: 3")
-    item24 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 24", help_text="Respuesta correcta: 2")
-    item25 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 25", help_text="Respuesta correcta: 3")
-    item26 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 26", help_text="Respuesta correcta: 4")
-    item27 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 27", help_text="Respuesta correcta: 1")
-    item28 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 28", help_text="Respuesta correcta: 2")
-    item29 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 29", help_text="Respuesta correcta: 1")
-    item30 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 30", help_text="Respuesta correcta: 1")
+    item21_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 21", help_text="Respuesta correcta: 1")
+    item22_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 22", help_text="Respuesta correcta: 3")
+    item23_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 23", help_text="Respuesta correcta: 3")
+    item24_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 24", help_text="Respuesta correcta: 2")
+    item25_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 25", help_text="Respuesta correcta: 3")
+    item26_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 26", help_text="Respuesta correcta: 4")
+    item27_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 27", help_text="Respuesta correcta: 1")
+    item28_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 28", help_text="Respuesta correcta: 2")
+    item29_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 29", help_text="Respuesta correcta: 1")
+    item30_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 30", help_text="Respuesta correcta: 1")
 
-    item31 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 31", help_text="Respuesta correcta: 3")
-    item32 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 32", help_text="Respuesta correcta: 3")
-    item33 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 33", help_text="Respuesta correcta: 1")
-    item34 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 34", help_text="Respuesta correcta: 2")
-    item35 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 35", help_text="Respuesta correcta: 3")
-    item36 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 36", help_text="Respuesta correcta: 2")
-    item37 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 37", help_text="Respuesta correcta: 1")
-    item38 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 38", help_text="Respuesta correcta: 1")
-    item39 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 39", help_text="Respuesta correcta: 2")
-    item40 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 40", help_text="Respuesta correcta: 3")
+    item31_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 31", help_text="Respuesta correcta: 3")
+    item32_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 32", help_text="Respuesta correcta: 3")
+    item33_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 33", help_text="Respuesta correcta: 1")
+    item34_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 34", help_text="Respuesta correcta: 2")
+    item35_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 35", help_text="Respuesta correcta: 3")
+    item36_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 36", help_text="Respuesta correcta: 2")
+    item37_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 37", help_text="Respuesta correcta: 1")
+    item38_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 38", help_text="Respuesta correcta: 1")
+    item39_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 39", help_text="Respuesta correcta: 2")
+    item40_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 40", help_text="Respuesta correcta: 3")
 
-    item41 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 41", help_text="Respuesta correcta: 1")
-    item42 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 42", help_text="Respuesta correcta: 2")
-    item43 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 43", help_text="Respuesta correcta: 2")
-    item44 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 44", help_text="Respuesta correcta: 1")
-    item45 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 45", help_text="Respuesta correcta: 3")
-    item46 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 46", help_text="Respuesta correcta: 2")
-    item47 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 47", help_text="Respuesta correcta: 1")
-    item48 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 48", help_text="Respuesta correcta: 2")
-    item49 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 49", help_text="Respuesta correcta: 1")
-    item50 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 50", help_text="Respuesta correcta: 1")
+    item41_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 41", help_text="Respuesta correcta: 1")
+    item42_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 42", help_text="Respuesta correcta: 2")
+    item44_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 44", help_text="Respuesta correcta: 1")
+    item45_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 45", help_text="Respuesta correcta: 3")
+    item46_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 46", help_text="Respuesta correcta: 2")
+    item47_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 47", help_text="Respuesta correcta: 1")
+    item48_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 48", help_text="Respuesta correcta: 2")
+    item49_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 49", help_text="Respuesta correcta: 1")
+    item43_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 43", help_text="Respuesta correcta: 2")
+    item50_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 50", help_text="Respuesta correcta: 1")
 
-    item51 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 51", help_text="Respuesta correcta: 3")
-    item52 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 52", help_text="Respuesta correcta: 2")
-    item53 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 53", help_text="Respuesta correcta: 3")
-    item54 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 54", help_text="Respuesta correcta: 2")
-    item55 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 55", help_text="Respuesta correcta: 1")
-    item56 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 56", help_text="Respuesta correcta: 2")
-    item57 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 57", help_text="Respuesta correcta: 1")
-    item58 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 58", help_text="Respuesta correcta: 1")
-    item59 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 59", help_text="Respuesta correcta: 2")
-    item60 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 60", help_text="Respuesta correcta: 1")
+    item51_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 51", help_text="Respuesta correcta: 3")
+    item52_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 52", help_text="Respuesta correcta: 2")
+    item53_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 53", help_text="Respuesta correcta: 3")
+    item54_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 54", help_text="Respuesta correcta: 2")
+    item55_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 55", help_text="Respuesta correcta: 1")
+    item56_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 56", help_text="Respuesta correcta: 2")
+    item57_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 57", help_text="Respuesta correcta: 1")
+    item58_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 58", help_text="Respuesta correcta: 1")
+    item59_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 59", help_text="Respuesta correcta: 2")
+    item60_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 60", help_text="Respuesta correcta: 1")
 
-    item61 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 61", help_text="Respuesta correcta: 3")
-    item62 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 62", help_text="Respuesta correcta: 3")
-    item63 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 63", help_text="Respuesta correcta: 1")
-    item64 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 64", help_text="Respuesta correcta: 1")
-    item65 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 65", help_text="Respuesta correcta: 2")
-    item66 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 66", help_text="Respuesta correcta: 1")
-    item67 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 67", help_text="Respuesta correcta: 3")
-    item68 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 68", help_text="Respuesta correcta: 1")
-    item69 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 69", help_text="Respuesta correcta: 2")
-    item70 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 70", help_text="Respuesta correcta: 1")
+    item61_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 61", help_text="Respuesta correcta: 3")
+    item62_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 62", help_text="Respuesta correcta: 3")
+    item63_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 63", help_text="Respuesta correcta: 1")
+    item64_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 64", help_text="Respuesta correcta: 1")
+    item65_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 65", help_text="Respuesta correcta: 2")
+    item66_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 66", help_text="Respuesta correcta: 1")
+    item67_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 67", help_text="Respuesta correcta: 3")
+    item68_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 68", help_text="Respuesta correcta: 1")
+    item69_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 69", help_text="Respuesta correcta: 2")
+    item70_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 70", help_text="Respuesta correcta: 1")
 
-    item71 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 71", help_text="Respuesta correcta: 3")
-    item72 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 72", help_text="Respuesta correcta: 2")
-    item73 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 73", help_text="Respuesta correcta: 2")
-    item74 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 74", help_text="Respuesta correcta: 3")
-    item75 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 75", help_text="Respuesta correcta: 3")
-    item76 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 76", help_text="Respuesta correcta: 3")
-    item77 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 77", help_text="Respuesta correcta: 3")
-    item78 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 78", help_text="Respuesta correcta: 1")
-    item79 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 79", help_text="Respuesta correcta: 2")
-    item80 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 80", help_text="Respuesta correcta: 1")
+    item71_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 71", help_text="Respuesta correcta: 3")
+    item72_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 72", help_text="Respuesta correcta: 2")
+    item73_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 73", help_text="Respuesta correcta: 2")
+    item74_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 74", help_text="Respuesta correcta: 3")
+    item75_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 75", help_text="Respuesta correcta: 3")
+    item76_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 76", help_text="Respuesta correcta: 3")
+    item77_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 77", help_text="Respuesta correcta: 3")
+    item78_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 78", help_text="Respuesta correcta: 1")
+    item79_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 79", help_text="Respuesta correcta: 2")
+    item80_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 80", help_text="Respuesta correcta: 1")
 
-    item81 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 81", help_text="Respuesta correcta: 1")
-    item82 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 82", help_text="Respuesta correcta: 3")
-    item83 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 83", help_text="Respuesta correcta: 2")
-    item84 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 84", help_text="Respuesta correcta: 3")
-    item85 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 85", help_text="Respuesta correcta: 2")
-    item86 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 86", help_text="Respuesta correcta: 2")
-    item87 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 87", help_text="Respuesta correcta: 1")
-    item88 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 88", help_text="Respuesta correcta: 3")
-    item89 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 89", help_text="Respuesta correcta: 1")
-    item90 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 90", help_text="Respuesta correcta: 1")
+    item81_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 81", help_text="Respuesta correcta: 1")
+    item82_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 82", help_text="Respuesta correcta: 3")
+    item83_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 83", help_text="Respuesta correcta: 2")
+    item84_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 84", help_text="Respuesta correcta: 3")
+    item85_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 85", help_text="Respuesta correcta: 2")
+    item86_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 86", help_text="Respuesta correcta: 2")
+    item87_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 87", help_text="Respuesta correcta: 1")
+    item88_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 88", help_text="Respuesta correcta: 3")
+    item89_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 89", help_text="Respuesta correcta: 1")
+    item90_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 90", help_text="Respuesta correcta: 1")
 
-    item91 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 91", help_text="Respuesta correcta: 2")
-    item92 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 92", help_text="Respuesta correcta: 1")
-    item93 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 93", help_text="Respuesta correcta: 1")
-    item94 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 94", help_text="Respuesta correcta: 3")
-    item95 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 95", help_text="Respuesta correcta: 2")
-    item96 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 96", help_text="Respuesta correcta: 1")
-    item97 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 97", help_text="Respuesta correcta: 3")
-    item98 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 98", help_text="Respuesta correcta: 3")
-    item99 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 99", help_text="Respuesta correcta: 2")
-    item100 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 100", help_text="Respuesta correcta: 2")
+    item91_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 91", help_text="Respuesta correcta: 2")
+    item92_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 92", help_text="Respuesta correcta: 1")
+    item93_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 93", help_text="Respuesta correcta: 1")
+    item94_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 94", help_text="Respuesta correcta: 3")
+    item95_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 95", help_text="Respuesta correcta: 2")
+    item96_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 96", help_text="Respuesta correcta: 1")
+    item97_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 97", help_text="Respuesta correcta: 3")
+    item98_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 98", help_text="Respuesta correcta: 3")
+    item99_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 99", help_text="Respuesta correcta: 2")
+    item100_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 100", help_text="Respuesta correcta: 2")
 
-    item101 = IntegerField(required=False, min_value=0 , max_value=4, label="Item 101", help_text="Respuesta correcta: 1")
+    item101_sin = IntegerField(required=False, min_value=1 , max_value=4, label="Item 101", help_text="Respuesta correcta: 1")
 
     class Meta:
         fields = ['__all__']
 
+_BLANK = ''
+_DS_POS_NORM = '(X + 1 DS)'
+_DS_NEG_NORM = '(X - 1 DS)'
+_DS_NEG_RISK = '(X - 1 DS y X - 2 DS)'
+_DS_NEG_DEF = '(< X - 2 DS)'
+CHOICES_DS = [
+    (_BLANK, (' ')),
+    (_DS_POS_NORM,  ('NORMAL (X + 1 DS)')),
+    (_DS_NEG_NORM,  ('NORMAL (X - 1 DS)')),
+    (_DS_NEG_RISK,  ('EN RIESGO (X - 1 DS y X - 2 DS)')),
+    (_DS_NEG_DEF, ('DEFICIENTE (< X - 2 DS)'))
+]
+class FormTecalConfirmacion(Form):
+    ds_tot = ChoiceField(label="DS Total", choices=CHOICES_DS)
+    ds_voc = ChoiceField(label="DS Vocabulario", choices=CHOICES_DS)
+    ds_mor = ChoiceField(label="DS Morfologiía", choices=CHOICES_DS)
+    ds_sin = ChoiceField(label="DS Sintaxis", choices=CHOICES_DS)
+
+    class Meta:
+        fields = ['__all__']
 
 #Opciones para Documento Obs. Fonoaudiológica
 _BLANK = ''
@@ -895,23 +925,6 @@ CHOICES_LENG_REPROD = [
     (_INTERPRETA, ('Interpreta')),
 ]
 
-#NIVEL MORFOSINTACTICO
-#Expresión espontánea
-_SUSTANTIVOS = 'sustantivos'
-_ARTICULOS = 'articulos'
-_VERBOS = 'verbos'
-_ADVERBIOS = 'adverbios'
-_PREPOSICIONES = 'preposiciones'
-_PRONOMBRE = 'pronombre'
-CHOICES_EXPRESION_ESP = [
-    (_SUSTANTIVOS, ('Sustantivos')),
-    (_ARTICULOS, ('Artículos')),
-    (_VERBOS, ('Verbos')),
-    (_ADVERBIOS, ('Adverbios')),
-    (_PREPOSICIONES, ('Preposiciones')),
-    (_PRONOMBRE, ('Pronombre')),
-]
-
 #ASPECTO COMPRENSIVO
 CHOICES_ASP_COMPREN = [
     (_NORMAL, ('Normal')),
@@ -1071,10 +1084,17 @@ class FormDocumentoFonoaudiologica(Form):
     nvlsem_expresafun = CharField(required=False, label="Expresa función",)
     nvlsem_hiperonimia = CharField(required=False, label="Hiperonimia",)
     #Lenguaje reproductivo
-    nvlsem_lengrep = ChoiceField(label="Lenguaje reproductivo", choices=CHOICES_LENG_REPROD)
+    nvlsem_lengrep_nom = BooleanField(required=False, label="Nomina")
+    nvlsem_lengrep_des = BooleanField(required=False, label="Describe")
+    nvlsem_lengrep_int = BooleanField(required=False, label="Interpreta")
 
     #NIVEL MORFOSINTÁCTICO
-    nvlmorf_expresion_esp = ChoiceField(label="Uso de", choices=CHOICES_EXPRESION_ESP)
+    nvlmorf_exp_sustan = BooleanField(required=False, label="Uso de:", help_text="Sustantivos")
+    nvlmorf_exp_articu = BooleanField(required=False, label="", help_text="Artículos")
+    nvlmorf_exp_verbos = BooleanField(required=False, label="", help_text="Verbos")
+    nvlmorf_exp_adverb = BooleanField(required=False, label="", help_text="Adverbios")
+    nvlmorf_exp_prepos = BooleanField(required=False, label="", help_text="Preposiciones")
+    nvlmorf_exp_pronom = BooleanField(required=False, label="", help_text="Pronombre")
     nvlmorf_observaciones = CharField(required=False, label="Observaciones",)
 
     #ASPECTO COMPRENSIVO
@@ -1092,7 +1112,7 @@ class FormDocumentoFonoaudiologica(Form):
     obs_nvlsin_ordcomplejas2 = CharField(required=False, label="Ordenes complejas (2 verbos)",)
     obs_nvlsin_ordcomplejas3 = CharField(required=False, label="Ordenes complejas (3 o más)",)
     obs_nvlsin_vozpasiva = CharField(required=False, label="Voz pasiva",)
-    obs_nvlsin_observaciones = CharField(required=False, label="Obersvaciones",)
+    obs_nvlsin_observaciones = CharField(required=False, label="Observaciones",)
     obs_aspgram_contocular = CharField(required=False, label="Contacto ocular",)
     obs_aspgram_postura = CharField(required=False, label="Mantiene postura y distancias",)
     obs_aspgram_dialogo = CharField(required=False, label="Inicia diálogo",)
@@ -1107,193 +1127,225 @@ class FormDocumentoFonoaudiologica(Form):
         fields = ['__all__']
 
 
+_NORESPONDE = 'NR'
+_NOTRANSCRI = 'NT'
+_OTRAPALABR = 'OP'
+_NOIDENTIFI = 'PNI'
+_NOCLASIFIC = 'PNC'
+CHOICES_OTHER_RESP = [
+    (_BLANK, ('--------')),
+    (_NORESPONDE, ('No responde')),
+    (_NOTRANSCRI, ('Respuesta no transcribible')),
+    (_OTRAPALABR, ('Responde otra palabra')),
+    (_NOIDENTIFI, ('Respuesta con procesos no identificables')),
+    (_NOCLASIFIC, ('Respuesta con procesos no clasificables según las categorías propuestas')),
+]
+
 class FormDocumentoTeprosif(Form):
-    reg1 = CharField(required=False, label="Ítem 1", help_text="PLANCHA")
-    est_sil1 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi1 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu1 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp1 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Otras respuestas")
-    reg2 = CharField(required=False, label="Ítem 2" ,help_text="RUEDA")
-    est_sil2 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi2 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu2 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp2 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg3 = CharField(required=False, label="Ítem 3" ,help_text="MARIPOSA")
-    est_sil3 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi3 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu3 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp3 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg4 = CharField(required=False, label="Ítem 4" ,help_text="BICICLETA")
-    est_sil4 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi4 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu4 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp4 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg5 = CharField(required=False, label="Ítem 5" ,help_text="HELICÓPTERO")
-    est_sil5 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi5 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu5 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp5 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg6 = CharField(required=False, label="Ítem 6" ,help_text="BUFANDA")
-    est_sil6 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi6 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu6 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp6 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg7 = CharField(required=False, label="Ítem 7" ,help_text="CAPERUCITA")
-    est_sil7 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi7 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu7 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp7 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg8 = CharField(required=False, label="Ítem 8" ,help_text="ALFOMBRA")
-    est_sil8 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi8 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu8 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp8 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg9 = CharField(required=False, label="Ítem 9" ,help_text="REFRIGERADOR")
-    est_sil9 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi9 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu9 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp9 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg10 = CharField(required=False, label="Ítem 10" ,help_text="EDIFICIO")
-    est_sil10 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi10 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu10 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp10 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg11 = CharField(required=False, label="Ítem 11" ,help_text="CALCETÍN")
-    est_sil11 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi11 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu11 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp11 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg12 = CharField(required=False, label="Ítem 12" ,help_text="DINOSAURIO")
-    est_sil12 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi12 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu12 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp12 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg13 = CharField(required=False, label="Ítem 13" ,help_text="TELÉFONO")
-    est_sil13 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi13 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu13 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp13 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg14 = CharField(required=False, label="Ítem 14" ,help_text="REMEDIO")
-    est_sil14 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi14 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu14 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp14 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg15 = CharField(required=False, label="Ítem 15" ,help_text="PEINETA")
-    est_sil15 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi15 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu15 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp15 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg16 = CharField(required=False, label="Ítem 16" ,help_text="AUTO")
-    est_sil16 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi16 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu16 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp16 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg17 = CharField(required=False, label="Ítem 17" ,help_text="INDIO")
-    est_sil17 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi17 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu17 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp17 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg18 = CharField(required=False, label="Ítem 18" ,help_text="PANTALÓN")
-    est_sil18 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi18 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu18 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp18 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg19 = CharField(required=False, label="Ítem 19" ,help_text="CAMIÓN")
-    est_sil19 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi19 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu19 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp19 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg20 = CharField(required=False, label="Ítem 20" ,help_text="CUADERNO")
-    est_sil20 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi20 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu20 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp20 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg21 = CharField(required=False, label="Ítem 21" ,help_text="MICRO")
-    est_sil21 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi21 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu21 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp21 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg22 = CharField(required=False, label="Ítem 22" ,help_text="TREN")
-    est_sil22 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi22 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu22 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp22 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg23 = CharField(required=False, label="Ítem 23" ,help_text="PLÁTANO")
-    est_sil23 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi23 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu23 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp23 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg24 = CharField(required=False, label="Ítem 24" ,help_text="JUGO")
-    est_sil24 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi24 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu24 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp24 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg25 = CharField(required=False, label="Ítem 25" ,help_text="ENCHUFE")
-    est_sil25 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi25 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu25 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp25 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg26 = CharField(required=False, label="Ítem 26" ,help_text="JABÓN")
-    est_sil26 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi26 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu26 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp26 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg27 = CharField(required=False, label="Ítem 27" ,help_text="TAMBOR")
-    est_sil27 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi27 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu27 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp27 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg28 = CharField(required=False, label="Ítem 28" ,help_text="VOLANTÍN")
-    est_sil28 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi28 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu28 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp28 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg29 = CharField(required=False, label="Ítem 29" ,help_text="JIRAFA")
-    est_sil29 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi29 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu29 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp29 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg30 = CharField(required=False, label="Ítem 30" ,help_text="GORRO")
-    est_sil30 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi30 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu30 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp30 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg31 = CharField(required=False, label="Ítem 31" ,help_text="ÁRBOL")
-    est_sil31 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi31 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu31 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp31 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg32 = CharField(required=False, label="Ítem 32" ,help_text="DULCE")
-    est_sil32 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi32 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu32 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp32 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg33 = CharField(required=False, label="Ítem 33" ,help_text="GUITARRA")
-    est_sil33 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi33 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu33 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp33 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg34 = CharField(required=False, label="Ítem 34" ,help_text="GUANTE")
-    est_sil34 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi34 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu34 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp34 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg35 = CharField(required=False, label="Ítem 35" ,help_text="RELOJ")
-    est_sil35 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi35 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu35 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp35 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg36 = CharField(required=False, label="Ítem 36" ,help_text="JAULA")
-    est_sil36 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi36 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu36 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp36 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
-    reg37 = CharField(required=False, label="Ítem 37" ,help_text="PUENTE")
-    est_sil37 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Est. Silbica")
-    asimi37 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Asimilación")
-    sustitu37 = IntegerField(required=False, min_value=0 , max_value=6, label="", help_text="Sustitución")
-    otr_resp37 = CharField(required=False, max_length=3 ,label="" ,help_text="Otras respuestas")
+    reg1 = CharField(required=False, label="Ítem 1 - PLANCHA", help_text="Si está correcto indique con un OK.")
+    est_sil1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp1 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="", help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg2 = CharField(required=False, label="Ítem 2 - RUEDA" ,help_text="Si está correcto indique con un OK.")
+    est_sil2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp2 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg3 = CharField(required=False, label="Ítem 3 - MARIPOSA" ,help_text="Si está correcto indique con un OK.")
+    est_sil3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp3 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg4 = CharField(required=False, label="Ítem 4 - BICICLETA" ,help_text="Si está correcto indique con un OK.")
+    est_sil4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp4 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg5 = CharField(required=False, label="Ítem 5 - HELICÓPTERO" ,help_text="Si está correcto indique con un OK.")
+    est_sil5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp5 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg6 = CharField(required=False, label="Ítem 6 - BUFANDA" ,help_text="Si está correcto indique con un OK.")
+    est_sil6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp6 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg7 = CharField(required=False, label="Ítem 7 - CAPERUCITA" ,help_text="Si está correcto indique con un OK.")
+    est_sil7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp7 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg8 = CharField(required=False, label="Ítem 8 - ALFOMBRA" ,help_text="Si está correcto indique con un OK.")
+    est_sil8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp8 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg9 = CharField(required=False, label="Ítem 9 - REFRIGERADOR" ,help_text="Si está correcto indique con un OK.")
+    est_sil9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp9 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg10 = CharField(required=False, label="Ítem 10 - EDIFICIO" ,help_text="Si está correcto indique con un OK.")
+    est_sil10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp10 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg11 = CharField(required=False, label="Ítem 11 - CALCETÍN" ,help_text="Si está correcto indique con un OK.")
+    est_sil11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp11 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg12 = CharField(required=False, label="Ítem 12 - DINOSAURIO" ,help_text="Si está correcto indique con un OK.")
+    est_sil12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp12 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg13 = CharField(required=False, label="Ítem 13 - TELÉFONO" ,help_text="Si está correcto indique con un OK.")
+    est_sil13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp13 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg14 = CharField(required=False, label="Ítem 14 - REMEDIO" ,help_text="Si está correcto indique con un OK.")
+    est_sil14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp14 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg15 = CharField(required=False, label="Ítem 15 - PEINETA" ,help_text="Si está correcto indique con un OK.")
+    est_sil15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp15 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg16 = CharField(required=False, label="Ítem 16 - AUTO" ,help_text="Si está correcto indique con un OK.")
+    est_sil16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp16 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg17 = CharField(required=False, label="Ítem 17 - INDIO" ,help_text="Si está correcto indique con un OK.")
+    est_sil17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp17 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg18 = CharField(required=False, label="Ítem 18 - PANTALÓN" ,help_text="Si está correcto indique con un OK.")
+    est_sil18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp18 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg19 = CharField(required=False, label="Ítem 19 - CAMIÓN" ,help_text="Si está correcto indique con un OK.")
+    est_sil19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp19 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg20 = CharField(required=False, label="Ítem 20 - CUADERNO" ,help_text="Si está correcto indique con un OK.")
+    est_sil20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp20 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg21 = CharField(required=False, label="Ítem 21 - MICRO" ,help_text="Si está correcto indique con un OK.")
+    est_sil21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp21 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg22 = CharField(required=False, label="Ítem 22 - TREN" ,help_text="Si está correcto indique con un OK.")
+    est_sil22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp22 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg23 = CharField(required=False, label="Ítem 23 - PLÁTANO" ,help_text="Si está correcto indique con un OK.")
+    est_sil23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp23 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg24 = CharField(required=False, label="Ítem 24 - JUGO" ,help_text="Si está correcto indique con un OK.")
+    est_sil24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp24 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg25 = CharField(required=False, label="Ítem 25 - ENCHUFE" ,help_text="Si está correcto indique con un OK.")
+    est_sil25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp25 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg26 = CharField(required=False, label="Ítem 26 - JABÓN" ,help_text="Si está correcto indique con un OK.")
+    est_sil26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp26 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg27 = CharField(required=False, label="Ítem 27 - TAMBOR" ,help_text="Si está correcto indique con un OK.")
+    est_sil27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp27 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg28 = CharField(required=False, label="Ítem 28 - VOLANTÍN" ,help_text="Si está correcto indique con un OK.")
+    est_sil28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp28 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg29 = CharField(required=False, label="Ítem 29 - JIRAFA" ,help_text="Si está correcto indique con un OK.")
+    est_sil29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp29 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg30 = CharField(required=False, label="Ítem 30 - GORRO" ,help_text="Si está correcto indique con un OK.")
+    est_sil30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp30 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg31 = CharField(required=False, label="Ítem 31 - ÁRBOL" ,help_text="Si está correcto indique con un OK.")
+    est_sil31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp31 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg32 = CharField(required=False, label="Ítem 32 - DULCE" ,help_text="Si está correcto indique con un OK.")
+    est_sil32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp32 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg33 = CharField(required=False, label="Ítem 33 - GUITARRA" ,help_text="Si está correcto indique con un OK.")
+    est_sil33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp33 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg34 = CharField(required=False, label="Ítem 34 - GUANTE" ,help_text="Si está correcto indique con un OK.")
+    est_sil34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp34 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg35 = CharField(required=False, label="Ítem 35 - RELOJ" ,help_text="Si está correcto indique con un OK.")
+    est_sil35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp35 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg36 = CharField(required=False, label="Ítem 36 - JAULA" ,help_text="Si está correcto indique con un OK.")
+    est_sil36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp36 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
+    reg37 = CharField(required=False, label="Ítem 37 - PUENTE" ,help_text="Si está correcto indique con un OK.")
+    est_sil37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
+    asimi37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
+    sustitu37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    otr_resp37 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     
+    class Meta:
+        fields = ['__all__']
+
+
+_DESEMPENO_N = 'N'
+_DESEMPENO_R = 'R'
+_DESEMPENO_D = 'D'
+CHOICES_DESEMPENO = [
+    (_BLANK, ('--------')),
+    (_DESEMPENO_N, ('N')),
+    (_DESEMPENO_R, ('R')),
+    (_DESEMPENO_D, ('D')),
+]
+
+class FormDocumentoFinalTeprosif(Form):
+    nvl_desemp_barrido = ChoiceField(required=False, choices=CHOICES_DESEMPENO, label="Nivel de desempeño barrido")
+    nvl_desemp_teprosif = ChoiceField(required=False, choices=CHOICES_DESEMPENO, label="Nivel de desempeño TEPROSIF completo")
+
     class Meta:
         fields = ['__all__']
 

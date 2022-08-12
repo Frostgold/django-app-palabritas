@@ -11,10 +11,10 @@
             <p class="fs-5 fw-bold text-center">Anamnesis</p>
             <form method="post">
                 {% csrf_token %}
-                    {{form_base.nombre|as_crispy_field}}
-                    {{form_base.fech_nac|as_crispy_field}}
-                    {{form_base.curso|as_crispy_field}}
-                    {{form_base.nivel|as_crispy_field}}
+                    {{form_base.nombre   |as_crispy_field}}
+                    {{form_base.fech_nac |as_crispy_field}}
+                    {{form_base.curso    |as_crispy_field}}
+                    {{form_base.nivel    |as_crispy_field}}
                     {{form_base.domicilio|as_crispy_field}}
                     {{ form|crispy }}
                 <br>

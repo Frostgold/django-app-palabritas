@@ -17,10 +17,12 @@ urlpatterns = [
     path('pdf/anamnesis/<str:rut>', views.generate_doc_anamnesis, name='generate_anamnesis'),
     path('pdf/tecal', views.generate_doc_tecal, name='generate_tecal'),
     path('pdf/tecal/<str:rut>', views.generate_doc_tecal, name='generate_tecal'),
+    path('pdf/tecal_confirmacion', views.confirmation_tecal, name="confirmation_tecal"),
     path('pdf/fonoaudiologica', views.generate_doc_fonoaudiologica, name='generate_fonoaudio'),
     path('pdf/fonoaudiologica/<str:rut>', views.generate_doc_fonoaudiologica, name='generate_fonoaudio'),
     path('pdf/teprosif', views.generate_doc_teprosif, name='generate_teprosif'),
     path('pdf/teprosif/<str:rut>', views.generate_doc_teprosif, name='generate_teprosif'),
+    path('pdf/teprosif_puntajes', views.generate_doc_final_teprosif, name='teprosif_puntajes'),
     path('pdf/stsg', views.generate_doc_stsg, name='generate_stsg'),
     path('pdf/stsg/<str:rut>', views.generate_doc_stsg, name='generate_stsg'),
 ]
