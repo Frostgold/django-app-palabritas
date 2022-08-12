@@ -62,19 +62,25 @@
                     TOTAL
                 </td>
                 <td width=76 colspan=2>
-                    29
+                    {{ total }}
                 </td>
                 <td width=134 colspan=4>
                     TOTAL
                 </td>
                 <td width=89 colspan=5>
-                    29
+                    {% if ds_tot == '(X + 1 DS)' or ds_tot == '(X - 1 DS)' %}
+                    {{ ds_tot }}
+                    {% endif%}
                 </td>
                 <td width=166 colspan=5>
-                    29
+                    {% if ds_tot == '(X - 1 DS y X - 2 DS)'%}
+                    {{ ds_tot }}
+                    {% endif%}
                 </td>
                 <td width=131 colspan=6>
-                    29
+                    {% if ds_tot == '(< X - 2 DS)'%}
+                    {{ ds_tot }}
+                    {% endif%}
                 </td>
             </tr>
             <tr style='height:21.05pt'>
@@ -82,19 +88,26 @@
                     VOCABULARIO (1-41)
                 </td>
                 <td width=76 colspan=2>
-                    29
+                    {{ tot_voc }}
                 </td>
                 <td width=134 colspan=4>
                     VOCABULARIO
                 </td>
                 <td width=89 colspan=5>
-                    29
+                    {% if ds_voc == '(X + 1 DS)' or ds_voc == '(X - 1 DS)' %}
+                    {{ ds_voc }}
+                    {% endif%}
+                    
                 </td>
                 <td width=166 colspan=5>
-                    29
+                    {% if ds_voc == '(X - 1 DS y X - 2 DS)'%}
+                    {{ ds_voc }}
+                    {% endif%}
                 </td>
                 <td width=131 colspan=6>
-                    29
+                    {% if ds_voc == '(< X - 2 DS)'%}
+                    {{ ds_voc }}
+                    {% endif%}
                 </td>
             </tr>
             <tr style='height:21.4pt'>
@@ -102,19 +115,25 @@
                     MORFOLOGÍA (42-89)
                 </td>
                 <td width=76 colspan=2>
-                    29
+                    {{ tot_mor }}
                 </td>
                 <td width=134 colspan=4>
                     MORFOLOGÍA
                 </td>
                 <td width=89 colspan=5>
-                    29
+                    {% if ds_mor == '(X + 1 DS)' or ds_mor == '(X - 1 DS)' %}
+                    {{ ds_mor }}
+                    {% endif%}
                 </td>
                 <td width=166 colspan=5>
-                    29
+                    {% if ds_mor == '(X - 1 DS y X - 2 DS)'%}
+                    {{ ds_mor }}
+                    {% endif%}
                 </td>
                 <td width=131 colspan=6>
-                    29
+                    {% if ds_mor == '(< X - 2 DS)'%}
+                    {{ ds_mor }}
+                    {% endif%}
                 </td>
             </tr>
             <tr style='height:24.25pt'>
@@ -122,19 +141,25 @@
                     SINTAXIS (90-101)
                 </td>
                 <td width=76 colspan=2>
-                    29
+                    {{ tot_sin }}
                 </td>
                 <td width=134 colspan=4>
                     SINTAXIS
                 </td>
                 <td width=89 colspan=5>
-                    29
+                    {% if ds_sin == '(X + 1 DS)' or ds_sin == '(X - 1 DS)' %}
+                    {{ ds_mor }}
+                    {% endif%}
                 </td>
                 <td width=166 colspan=5>
-                    29
+                    {% if ds_sin == '(X - 1 DS y X - 2 DS)'%}
+                    {{ ds_sin }}
+                    {% endif%}
                 </td>
                 <td width=131 colspan=6>    
-                    29
+                    {% if ds_sin == '(< X - 2 DS)'%}
+                    {{ ds_sin }}
+                    {% endif%}
                 </td>
             </tr>
         </table>

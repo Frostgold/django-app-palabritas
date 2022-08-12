@@ -92,26 +92,26 @@ Clínica Fonoaudiológica</span></b></p>
 <table class=MsoNormalTable border=1 cellpadding=3 style="vertical-align: baseline; border-collapse: collapse;">
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>ANTECEDENTES DEL DESARROLLO</span></h4></td>
-            <td>Desarrollo del Lenguaje: </td>
+            <td>Desarrollo del Lenguaje: {{ antdes_leng }}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td>Antecedentes Natales:</td>
-            <td>Balbuceo: </td>
-    </tr>
-    <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td> </td>
-            <td>Primeras palabras: </td>
-    </tr>
-    <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td>Desarrollo Motor: </td>
-            <td>Primeras frases: </td>
+            <td>Antecedentes Natales: {{ antdes_natal }}</td>
+            <td>Balbuceo: {{ antdes_balbuceo }}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td> </td>
-            <td>Comunicación actual: </td>
+            <td>Primeras palabras: {{ antdes_palabras }}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td colspan=2>Antecedentes mórbidos: </td>
+            <td>Desarrollo Motor: {{ antdes_motor }}</td>
+            <td>Primeras frases: {{ antdes_frases }}</td>
+    </tr>
+    <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
+            <td> </td>
+            <td>Comunicación actual: {{ antdes_comactual }}</td>
+    </tr>
+    <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
+            <td colspan=2>Antecedentes mórbidos: {{ antdes_morbidos }}</td>
     </tr>
 </table> 
 
@@ -119,7 +119,7 @@ Clínica Fonoaudiológica</span></b></p>
 
 <table class=MsoNormalTable border=1 cellpadding=3 style="vertical-align: baseline; border-collapse: collapse;">
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td>Desarrollo social: </td>
+        <td>Desarrollo social: {{ desarrollo_social }}</td>
     </tr>
 </table> 
 
@@ -130,17 +130,17 @@ Clínica Fonoaudiológica</span></b></p>
             <td>Antecedentes familiares</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td>Trastornos de lenguaje:</td>
-            <td>Trastorno psiquiátrico: </td>
-            <td>Epilepsia: </td>
+            <td>Trastornos de lenguaje: {{ antfam_lenguaje }}</td>
+            <td>Trastorno psiquiátrico: {{ antfam_psiquia }}</td>
+            <td>Epilepsia: {{ antfam_epilepsia }}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td>Déficit Auditivo: </td>
-            <td>Déficit cognitivo: </td>
-            <td>Trastorno de aprendizaje: </td>
+            <td>Déficit Auditivo: {{ antfam_auditivo }}</td>
+            <td>Déficit cognitivo: {{ antfam_cognitivo }}</td>
+            <td>Trastorno de aprendizaje: {{ antfam_aprendizaje }}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td colspan=3>Observaciones: </td>
+            <td colspan=3>Observaciones: {{ antfam_observaciones }}</td>
     </tr>
 </table> 
 
@@ -155,40 +155,40 @@ font-family:"Calibri Light",sans-serif'>EXPLORACIÓN FONOARTICULATORIA</span></h
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Respiración</td>
-            <td>Tipo: Costal sup. </td>
-            <td>Costo-diafrag. </td>
-            <td>Abdominal </td>
+            <td>Tipo: Costal sup.{% if resp_tipo == 'costal-sup' %} ✔{% endif %}</td>
+            <td>Costo-diafrag.{% if resp_tipo == 'costo-diafrag' %} ✔{% endif %}</td>
+            <td>Abdominal{% if resp_tipo == 'abdominal' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td></td>
-            <td>Modo: Nasal </td>
-            <td>Bucal </td>
-            <td>Mixto </td>
+            <td>Modo: Nasal{% if resp_modo == 'nasal' %} ✔{% endif %} </td>
+            <td>Bucal{% if resp_modo == 'bucal' %} ✔{% endif %} </td>
+            <td>Mixto{% if resp_modo == 'mixto' %} ✔{% endif %} </td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td></td>
-            <td>C.F.R.: Sí </td>
-            <td>No </td>
+            <td>C.F.R.: Sí{% if resp_cfr == 'si' %} ✔{% endif %}</td>
+            <td>No{% if resp_cfr == 'no' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Deglución</td>
-            <td>Normal </td>
-            <td>Atípica </td>
+            <td>Normal{% if deglucion == 'normal' %} ✔{% endif %}</td>
+            <td>Atípica{% if deglucion == 'atipica' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=5 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Examen anátomo funcional de los órganos fonoarticulatorios</span></h4></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Labios</td>
-        <td>Forma: Normal </td>
-        <td>Corto </td>
-        <td>Fisurado </td>
+        <td>Forma: Normal{% if labios_forma == 'normal' %} ✔{% endif %}</td>
+        <td>Corto{% if labios_forma == 'corto' %} ✔{% endif %}</td>
+        <td>Fisurado{% if labios_forma == 'fisurado' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
-        <td>Fuerza: Normal </td>
-        <td>Hipotónico </td>
-        <td>Hipertónico </td>
+        <td>Fuerza: Normal{% if labios_fuerza == 'normal' %} ✔{% endif %}</td>
+        <td>Hipotónico{% if labios_fuerza == 'hipotonico' %} ✔{% endif %}</td>
+        <td>Hipertónico{% if labios_fuerza == 'hipertonico' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Praxias</span></h4></td>
@@ -198,106 +198,106 @@ font-family:"Calibri Light",sans-serif'>EXPLORACIÓN FONOARTICULATORIA</span></h
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Protunsión</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if labprax_protunsion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_protunsion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_protunsion == 'nula' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Retrusión</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if labprax_retrusion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_retrusion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_retrusion == 'nula' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Percusión</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if labprax_percusion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_percusion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_percusion == 'nula' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Vibración</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if labprax_vibracion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_vibracion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if labprax_vibracion == 'nula' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Dientes</span></h4></td>
         <td>Implantación:</td>
-        <td>Normal</td>
-        <td>Temporal</td>
-        <td>Alterada</td>
+        <td>Normal{% if dientes_implantacion == 'normal' %} ✔{% endif %}</td>
+        <td>Temporal{% if dientes_implantacion == 'temporal' %} ✔{% endif %}</td>
+        <td>Alterada{% if dientes_implantacion == 'alterada' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Mordida:</span> Normal</td>
-        <td>Cubierta</td>
-        <td>Cruzada</td>
-        <td>Abierta</td>
-        <td>Bis a bis invertida</td>
+        <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Mordida:</span> Normal{% if mordida == 'normal' %} ✔{% endif %}</td>
+        <td>Cubierta{% if mordida == 'cubierta' %} ✔{% endif %}</td>
+        <td>Cruzada{% if mordida == 'cruzada' %} ✔{% endif %}</td>
+        <td>Abierta{% if mordida == 'abierta' %} ✔{% endif %}</td>
+        <td>Bis a bis invertida{% if mordida == 'bisabis' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Maxilar:</span></td>
         <td>Forma:</td>
-        <td>Normal</td>
-        <td>Prognatismo</td>
-        <td>Pregnatismo</td>
+        <td>Normal{% if maxilar_forma == 'normal' %} ✔{% endif %}</td>
+        <td>Prognatismo{% if maxilar_forma == 'prognatismo' %} ✔{% endif %}</td>
+        <td>Pregnatismo{% if maxilar_forma == 'pregnatismo' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Praxias:</td>
-        <td>Normal</td>
-        <td>Insuficiente</td>
-        <td>Nula</td>
+        <td>Normal{% if maxilar_praxias == 'normal' %} ✔{% endif %}</td>
+        <td>Insuficiente{% if maxilar_praxias == 'insuficiente' %} ✔{% endif %}</td>
+        <td>Nula{% if maxilar_praxias == 'nula' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Paladar oseo</span>&nbsp; &nbsp;Forma:</td>
-        <td>Normal</td>
-        <td>Alto</td>
-        <td>Ojival</td>
-        <td>Fisurado</td>
+        <td>Normal{% if paladaros_forma == 'normal' %} ✔{% endif %}</td>
+        <td>Alto{% if paladaros_forma == 'alto' %} ✔{% endif %}</td>
+        <td>Ojival{% if paladaros_forma == 'ojival' %} ✔{% endif %}</td>
+        <td>Fisurado{% if paladaros_forma == 'fisurado' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Velo paladar</span></td>
         <td>Movilidad:</td>
-        <td>Normal</td>
-        <td>Parético</td>
-        <td>Rígido</td>
+        <td>Normal{% if velpal_movilidad == 'normal' %} ✔{% endif %}</td>
+        <td>Parético{% if velpal_movilidad == 'paretico' %} ✔{% endif %}</td>
+        <td>Rígido{% if velpal_movilidad == 'rigido' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Uvula:</td>
-        <td>Normal</td>
-        <td>Bífida</td>
-        <td>Ausente</td>
+        <td>Normal{% if velpal_uvula == 'normal' %} ✔{% endif %}</td>
+        <td>Bífida{% if velpal_uvula == 'bifida' %} ✔{% endif %}</td>
+        <td>Ausente{% if velpal_uvula == 'ausente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Amígdalas</span></td>
-        <td>Normal</td>
-        <td>Hipertróficas</td>
-        <td>Ausentes</td>
+        <td>Normal{% if amigdalas == 'normal' %} ✔{% endif %}</td>
+        <td>Hipertróficas{% if amigdalas == 'hipertroficas' %} ✔{% endif %}</td>
+        <td>Ausentes{% if amigdalas == 'ausentes' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Lengua</span></td>
         <td>Tamaño:</td>
-        <td>Normal</td>
-        <td>Macroglosia</td>
-        <td>Microglosia</td>
+        <td>Normal{% if lengua_tamano == 'normal' %} ✔{% endif %}</td>
+        <td>Macroglosia{% if lengua_tamano == 'macroglosia' %} ✔{% endif %}</td>
+        <td>Microglosia{% if lengua_tamano == 'microglosia' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Fuerza:</td>
-        <td>Normal</td>
-        <td>Débil</td>
+        <td>Normal{% if lengua_fuerza == 'normal' %} ✔{% endif %}</td>
+        <td>Débil{% if lengua_fuerza == 'debil' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Frenillo:</td>
-        <td>Normal</td>
-        <td>Corto funcional</td>
-        <td>Ausente</td>
+        <td>Normal{% if lengua_frenillo == 'normal' %} ✔{% endif %}</td>
+        <td>Corto funcional{% if lengua_frenillo == 'corto' %} ✔{% endif %}</td>
+        <td>Ausente{% if lengua_frenillo == 'ausente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Praxias</span></h4></td>
@@ -307,51 +307,51 @@ font-family:"Calibri Light",sans-serif'>EXPLORACIÓN FONOARTICULATORIA</span></h
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Elevación</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_elevacion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_elevacion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_elevacion == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Depresión</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_depresion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_depresion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_depresion == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Chasqueo</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_chasqueo == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_chasqueo == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_chasqueo == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Vibración</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_vibracion == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_vibracion == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_vibracion == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Tocar comisuras</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_comisuras == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_comisuras == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_comisuras == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Mov. vestibular</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if lengprax_vestibular == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_vestibular == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if lengprax_vestibular == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Cara</span></td>
         <td>Forma:</td>
-        <td>Simétrica</td>
-        <td>Asimétrica</td>
+        <td>Simétrica{% if cara_forma == 'simetrica' %} ✔{% endif %}</td>
+        <td>Asimétrica{% if cara_forma == 'asimetrica' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Praxias</span></h4></td>
@@ -361,69 +361,69 @@ font-family:"Calibri Light",sans-serif'>EXPLORACIÓN FONOARTICULATORIA</span></h
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Mov. bilaterales</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if caraprax_bilateral == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if caraprax_bilateral == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if caraprax_bilateral == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td>Mov. unilaterales</td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
-        <td style="text-align: center;"></td>
+        <td style="text-align: center;">{% if caraprax_unilateral == 'normal' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if caraprax_unilateral == 'insuficiente' %}✔{% endif %}</td>
+        <td style="text-align: center;">{% if caraprax_unilateral == 'ausente' %}✔{% endif %}</td>
         <td></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Voz</span></td>
         <td>Calidad:</td>
-        <td>Normal</td>
-        <td>Disfónica</td>
+        <td>Normal{% if voz_calidad == 'normal' %} ✔{% endif %}</td>
+        <td>Disfónica{% if voz_calidad == 'disfonica' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Intensidad:</td>
-        <td>Normal</td>
-        <td>Aumentada</td>
-        <td>Débil</td>
+        <td>Normal{% if voz_intensidad == 'normal' %} ✔{% endif %}</td>
+        <td>Aumentada{% if voz_intensidad == 'aumentada' %} ✔{% endif %}</td>
+        <td>Débil{% if voz_intensidad == 'debil' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Tono</span></td>
-        <td>Normal</td>
-        <td>Agudo</td>
-        <td>Grave</td>
-        <td>Bitonal</td>
+        <td>Normal{% if tono == 'normal' %} ✔{% endif %}</td>
+        <td>Agudo{% if tono == 'agudo' %} ✔{% endif %}</td>
+        <td>Grave{% if tono == 'grave' %} ✔{% endif %}</td>
+        <td>Bitonal{% if tono == 'bitonal' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Resonancia</span></td>
-        <td>Normal</td>
-        <td>Faringe</td>
-        <td>Hipernasal</td>
-        <td>Hiponasal</td>
+        <td>Normal{% if tono_resonancia == 'normal' %} ✔{% endif %}</td>
+        <td>Faringe{% if tono_resonancia == 'faringe' %} ✔{% endif %}</td>
+        <td>Hipernasal{% if tono_resonancia == 'hipernasal' %} ✔{% endif %}</td>
+        <td>Hiponasal{% if tono_resonancia == 'hiponasal' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Timbre</span></td>
-        <td>Normal</td>
-        <td>Estridente</td>
-        <td>Opaco</td>
+        <td>Normal{% if tono_timbre == 'normal' %} ✔{% endif %}</td>
+        <td>Estridente{% if tono_timbre == 'estridente' %} ✔{% endif %}</td>
+        <td>Opaco{% if tono_timbre == 'opaco' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td colspan=5 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Audición:</span></h4></td>
+        <td colspan=5 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Audición: {{ audicion }}</span></h4></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td colspan=5 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Discriminación:</span></h4></td>
+        <td colspan=5 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Discriminación: {{ discriminacion }}</span></h4></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Habla</span></td>
         <td>Velocidad:</td>
-        <td>Normal</td>
-        <td>Traquilalia</td>
-        <td>Bradilalia</td>
+        <td>Normal{% if habla_velocidad == 'normal' %} ✔{% endif %}</td>
+        <td>Traquilalia{% if habla_velocidad == 'traquilalia' %} ✔{% endif %}</td>
+        <td>Bradilalia{% if habla_velocidad == 'bradilalia' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
         <td>Fluidez:</td>
-        <td>Normal</td>
-        <td>Espasmos</td>
+        <td>Normal{% if habla_fluidez == 'normal' %} ✔{% endif %}</td>
+        <td>Espasmos{% if habla_fluidez == 'espasmos' %} ✔{% endif %}</td>
     </tr>
 </table> 
 
@@ -453,23 +453,23 @@ font-family:"Calibri Light",sans-serif'>Articulación a la repetición</span></h
             <th><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>K</span></h4></th>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{artic_b}}</td>
+            <td>{{artic_p}}</td>
+            <td>{{artic_m}}</td>
+            <td>{{artic_f}}</td>
+            <td>{{artic_d}}</td>
+            <td>{{artic_t}}</td>
+            <td>{{artic_s}}</td>
+            <td>{{artic_n}}</td>
+            <td>{{artic_l}}</td>
+            <td>{{artic_r}}</td>
+            <td>{{artic_rr}}</td>
+            <td>{{artic_y}}</td>
+            <td>{{artic_n}}</td>
+            <td>{{artic_ch}}</td>
+            <td>{{artic_j}}</td>
+            <td>{{artic_g}}</td>
+            <td>{{artic_k}}</td>
     </tr>
 </table> 
 
@@ -493,19 +493,19 @@ font-family:"Calibri Light",sans-serif'>Articulación a la repetición</span></h
             <th><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>uo</span></h4></th>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{difvoc_ai}}</td>
+            <td>{{difvoc_au}}</td>
+            <td>{{difvoc_ei}}</td>
+            <td>{{difvoc_eu}}</td>
+            <td>{{difvoc_ia}}</td>
+            <td>{{difvoc_ie}}</td>
+            <td>{{difvoc_io}}</td>
+            <td>{{difvoc_iu}}</td>
+            <td>{{difvoc_oi}}</td>
+            <td>{{difvoc_ua}}</td>
+            <td>{{difvoc_ue}}</td>
+            <td>{{difvoc_ui}}</td>
+            <td>{{difvoc_uo}}</td>
     </tr>
 </table>
 
@@ -530,19 +530,19 @@ consonánticos</span></p>
             <th><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>dr</span></h4></th>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{difcon_bl}}</td>
+            <td>{{difcon_pl}}</td>
+            <td>{{difcon_fl}}</td>
+            <td>{{difcon_gl}}</td>
+            <td>{{difcon_cl}}</td>
+            <td>{{difcon_tl}}</td>
+            <td>{{difcon_br}}</td>
+            <td>{{difcon_pr}}</td>
+            <td>{{difcon_fr}}</td>
+            <td>{{difcon_gr}}</td>
+            <td>{{difcon_cr}}</td>
+            <td>{{difcon_tr}}</td>
+            <td>{{difcon_dr}}</td>
     </tr>
 </table>
 
@@ -554,22 +554,22 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Vocabulario</span></td>
-            <td>Adecuado</td>
-            <td>Funcional</td>
-            <td>Deficiente</td>
+            <td>Adecuado{% if nvlsem_vocab == 'adecuado' %} ✔{% endif %}</td>
+            <td>Funcional{% if nvlsem_vocab == 'funcional' %} ✔{% endif %}</td>
+            <td>Deficiente{% if nvlsem_vocab == 'deficiente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Fluidez léxica</span></td>
-            <td>Adecuado</td>
-            <td>Deficiente</td>
+            <td>Adecuado{% if nvlsem_lexica == 'adecuado' %} ✔{% endif %}</td>
+            <td>Deficiente{% if nvlsem_lexica == 'deficiente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=6 >
-            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>1.-Hiponimia:</span></h4>
+            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>1.-Hiponimia: {{nvlsem_hiponimia}}</span></h4>
             <p><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
-            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>2.-Expresa función:</span></h4>
+            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>2.-Expresa función: {{nvlsem_expresafun}}</span></h4>
             <p><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
-            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>3.-Hiperonimia:</span></h4>
+            <h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>3.-Hiperonimia: {{nvlsem_hiperonimia}}</span></h4>
             <p><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
         </td>
     </tr>
@@ -577,9 +577,9 @@ consonánticos</span></p>
         <td colspan=6 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Lenguaje Reproductivo</span></h4></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td colspan=2>Nomina</td>
-        <td colspan=2>Describe</td>
-        <td colspan=2>Interpreta</td>
+        <td colspan=2>Nomina {% if nvlsem_lengrep_nom == True %} ✔{% endif %}</td>
+        <td colspan=2>Describe {% if nvlsem_lengrep_des == True %} ✔{% endif %}</td>
+        <td colspan=2>Interpreta {% if nvlsem_lengrep_int == True %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=6 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>NIVEL MORFOSINTÁCTICO</span></h4></td>
@@ -589,18 +589,18 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>Uso de</span></td>
-        <td>Sustantivos</td>
-        <td>Artículos</td>
-        <td>Verbos</td>
-        <td>Adverbios</td>
-        <td>Preposiciones</td>
+        <td>Sustantivos{% if nvlmorf_exp_sustan == True %} ✔{% endif %}</td>
+        <td>Artículos{% if nvlmorf_exp_articu == True %} ✔{% endif %}</td>
+        <td>Verbos{% if nvlmorf_exp_verbos == True %} ✔{% endif %}</td>
+        <td>Adverbios{% if nvlmorf_exp_adverb == True %} ✔{% endif %}</td>
+        <td>Preposiciones{% if nvlmorf_exp_prepos == True %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td></td>
-        <td>Pronombre</td>
+        <td>Pronombre {% if nvlmorf_exp_pronom == True %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-        <td colspan=6 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Observaciones:</span></h4></td>
+        <td colspan=6 ><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>Observaciones:{{nvlmorf_observaciones}}</span></h4></td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=2><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif; font-weight: bold;'>ASPECTO COMPRENSIVO</span></td>
@@ -609,18 +609,18 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=2><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Discriminación auditiva:</span></td>
-        <td colspan=2 style="text-align: center;"></td>
-        <td colspan=2 style="text-align: center;"></td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_discriminacion == 'normal' %} ✔{% endif %}</td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_discriminacion == 'deficiente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=2><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Memoria auditiva:</span></td>
-        <td colspan=2 style="text-align: center;"></td>
-        <td colspan=2 style="text-align: center;"></td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_memverbal == 'normal' %} ✔{% endif %}</td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_memverbal == 'deficiente' %} ✔{% endif %}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td colspan=2><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif;'>Asociación auditiva:</span></td>
-        <td colspan=2 style="text-align: center;"></td>
-        <td colspan=2 style="text-align: center;"></td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_asociacion == 'normal' %} ✔{% endif %}</td>
+        <td colspan=2 style="text-align: center;">{% if aspcomp_asociacion == 'deficiente' %} ✔{% endif %}</td>
     </tr>
 </table> 
 
@@ -633,23 +633,23 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Vocabulario pasivo:</td>
-            <td></td>
+            <td>{{obs_nvlsem_vocabpasivo}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Definiciones por uso:</td>
-            <td></td>
+            <td>{{obs_nvlsem_defuso}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Absurdos visuales:</td>
-            <td></td>
+            <td>{{obs_nvlsem_absvisuales}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Analogías:</td>
-            <td></td>
+            <td>{{obs_nvlsem_analogias}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Relaciones opuestas:</td>
-            <td></td>
+            <td>{{obs_nvlsem_relopuestas}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>NIVEL SINTÁCTICO</span></h4></td>
@@ -657,23 +657,23 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Ordenes simples:</td>
-            <td></td>
+            <td>{{obs_nvlsin_ordsimples}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Ordenes complejas (2 verb):</td>
-            <td></td>
+            <td>{{obs_nvlsin_ordcomplejas2}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Ordenes complejas (3 o más):</td>
-            <td></td>
+            <td>{{obs_nvlsin_ordcomplejas3}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Voz pasiva:</td>
-            <td></td>
+            <td>{{obs_nvlsin_vozpasiva}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Observaciones:</td>
-            <td></td>
+            <td>{{obs_nvlsin_observaciones}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>ASPECTO PRAGMÁTICO</span></h4></td>
@@ -681,39 +681,39 @@ consonánticos</span></p>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Contacto ocular:</td>
-            <td></td>
+            <td>{{obs_aspgram_contocular}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Mantiene postura y distancias:</td>
-            <td></td>
+            <td>{{obs_aspgram_postura}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Inicia diálogo:</td>
-            <td></td>
+            <td>{{obs_aspgram_dialogo}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Mantiene tòpico:</td>
-            <td></td>
+            <td>{{obs_aspgram_topico}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Facultades conversacionales:</td>
-            <td></td>
+            <td>{{obs_aspgram_facultades}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
             <td>Intenciones comunicativas:</td>
-            <td></td>
+            <td>{{obs_aspgram_intcomunic}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>PRUEBAS APLICADAS</span></h4></td>
-        <td></td>
+        <td>{{obs_pruebas_aplicadas}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>DIAGNÓSTICO</span></h4></td>
-        <td></td>
+        <td>{{obs_diagnostico}}</td>
     </tr>
     <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
         <td><h4><span lang=ES style='font-size:8.0pt;font-family:"Calibri Light",sans-serif'>INDICACIONES</span></h4></td>
-        <td></td>
+        <td>{{obs_indicaciones}}</td>
     </tr>
 </table> 
 

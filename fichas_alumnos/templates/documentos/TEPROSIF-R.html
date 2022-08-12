@@ -27,29 +27,29 @@
           </tr>
         <tr>
             <td>NOMBRE</td>
-            <td colspan=3 style="border-bottom: 1px solid black">:  </td>
+            <td colspan=3 style="border-bottom: 1px solid black">:  {{ alumn_nombre }}</td>
             <td>FECHA DE NACIMIENTO</td>
-            <td style="border-bottom: 1px solid black">:  </td>
+            <td style="border-bottom: 1px solid black">:  {{ alumn_nacim }}</td>
         </tr>
         <tr>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">EDAD</td>
-            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  {{ alumn_edad }}</td>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">SEXO</td>
-            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  {{ alumn_sexo }}</td>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">FECHA DE EVALUACIÓN</td>
-            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  {{ fecha_exam }}</td>
         </tr>
         <tr>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">TOTAL PSF BARRIDO</td>
-            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  {{ psf_barrido_total }}</td>
             <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt; ">TOTAL PSF TEPROSIF COMPLETO</td>
-            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  </td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt; border-bottom: 1px solid black">:  {{ psf_total }}</td>
         </tr>
         <tr>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">NIVEL DE DESEMPEÑO</td>
-            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N    R    D</td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N{% if nvl_desemp_barrido == 'N' %}✔{% endif %}    R{% if nvl_desemp_barrido == 'R' %}✔{% endif %}    D{% if nvl_desemp_barrido == 'D' %}✔{% endif %}</td>
             <td style="padding-top: 2pt; padding-bottom: -1.5pt; ">NIVEL DE DESEMPEÑO</td>
-            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N    R    D</td>
+            <td colspan=2 style="padding-top: 2pt; padding-bottom: -1.5pt;">:  N{% if nvl_desemp_teprosif == 'N' %}✔{% endif %}    R{% if nvl_desemp_teprosif == 'R' %}✔{% endif %}    D{% if nvl_desemp_teprosif == 'D' %}✔{% endif %}</td>
         </tr>
     </table>
 
@@ -69,390 +69,390 @@
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">1</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PLANCHA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg1}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil1}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi1}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu1}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total1}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp1}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">2</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">RUEDA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg2}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil2}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi2}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu2}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total2}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp2}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">3</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">MARIPOSA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg3}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil3}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi3}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu3}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total3}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp3}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">4</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">BICICLETA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg4}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil4}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi4}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu4}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total4}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp4}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">5</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">HELICOPTERO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg5}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil5}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi5}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu5}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total5}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp5}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">6</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">BUFANDA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg6}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil6}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi6}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu6}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total6}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp6}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">7</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CAPERUCITA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg7}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil7}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi7}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu7}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total7}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp7}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">8</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ALFOMBRA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg8}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil8}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi8}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu8}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total8}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp8}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">9</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">REFRIGERADOR</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg9}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil9}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi9}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu9}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total9}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp9}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">10</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">EDIFICIO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg10}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil10}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi10}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu10}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total10}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp10}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">11</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CALCETÍN</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg11}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil11}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi11}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu11}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total11}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp11}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">12</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">DINOSAURIO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg12}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil12}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi12}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu12}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total12}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp12}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">13</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TELEFONO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg13}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil13}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi13}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu13}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total13}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp13}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">14</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">REMEDIO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg14}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil14}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi14}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu14}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total14}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp14}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">15</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PEINETA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg15}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil15}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi15}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu15}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total15}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp15}}</td>
         </tr>
         <tr>
             <td colspan="3" style="padding-bottom: -2.5pt; border: 1px solid black;">TOTAL PSF BARRIDO CON 15 ITEMES</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_barrido_est_sil}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_barrido_asimi}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_barrido_sustitu}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_barrido_total}}</td>
             <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">16</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">AUTO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg16}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil16}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi16}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu16}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total16}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp16}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">17</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">INDIO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg17}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil17}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi17}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu17}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total17}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp17}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">18</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PANTALÓN</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg18}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil18}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi18}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu18}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total18}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp18}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">19</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CAMION</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg19}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil19}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi19}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu19}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total19}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp19}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">20</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">CUADERNO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg20}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil20}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi20}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu20}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total20}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp20}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">21</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">MICRO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg21}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil21}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi21}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu21}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total21}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp21}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">22</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TREN</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg22}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil22}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi22}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu22}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total22}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp22}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">23</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PLÁTANO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg23}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil23}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi23}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu23}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total23}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp23}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">24</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JUGO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg24}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil24}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi24}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu24}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total24}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp24}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">25</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ENCHUFE</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg25}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil25}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi25}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu25}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total25}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp25}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">26</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JABÓN</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg26}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil26}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi26}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu26}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total26}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp26}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">27</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">TAMBOR</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg27}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil27}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi27}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu27}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total27}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp27}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">28</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">VOLANTÍN</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg28}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil28}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi28}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu28}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total28}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp28}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">29</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JIRAFA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg29}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil29}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi29}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu29}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total29}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp29}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">30</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GORRO</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg30}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil30}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi30}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu30}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total30}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp30}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">31</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">ARBOL</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg31}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil31}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi31}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu31}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total31}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp31}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">32</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">DULCE</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg32}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil32}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi32}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu32}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total32}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp32}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">33</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GUITARRA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg33}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil33}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi33}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu33}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total33}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp33}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">34</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">GUANTE</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg34}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil34}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi34}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu34}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total34}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp34}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">35</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">RELOJ</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg35}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil35}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi35}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu35}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total35}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp35}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">36</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">JAULA</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg36}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil36}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi36}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu36}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total36}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp36}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td style="padding-bottom: -2.5pt; text-align: center;">37</td>
             <td style="padding-bottom: -2.5pt; padding-left: 2pt;">PUENTE</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border-bottom: 1px solid black;">{{reg37}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{est_sil37}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{asimi37}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{sustitu37}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{total37}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{otr_resp37}}</td>
         </tr>
         <tr style="height: 15pt;">
             <td></td>
             <td></td>
             <td style="padding-bottom: -2.5pt; text-align: center;">TOTAL P.S.F.</td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
-            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;"></td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_total_est_sil}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_total_asimi}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_total_sustitu}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 1px solid black;">{{psf_total}}</td>
+            <td style="padding-bottom: -2.5pt; text-align: center; border: 0px;"></td>
         </tr>
     </table>
 

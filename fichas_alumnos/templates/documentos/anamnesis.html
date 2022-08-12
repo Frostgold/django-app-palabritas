@@ -13,200 +13,129 @@
         </h1>
         <h1 style="padding-left:8px">I. Identificaci&oacute;n</h1>
         <table>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Nombre</td>
-                        <td>: {{ alumn_nombre }} </td>
+                <tr>
+                    <td>Nombre</td>
+                    <td>: {{ alumn_nombre }} </td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Fecha de nacimiento</td>
-                        <td>: {{ alumn_nacim }} </td>
-                        <td>Edad cronológica</td>
-                        <td>: {{ alumn_edad }} </td>
+                <tr>
+                    <td>Fecha de nacimiento</td>
+                    <td>: {{ alumn_nacim }} </td>
+                    <td>Edad cronológica</td>
+                    <td>: {{ alumn_edad }} </td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Escolaridad actual</td>
-                        <td>: </td>
-                        <td>Nivel</td>
-                        <td>: </td>
+                <tr>
+                    <td>Escolaridad actual</td>
+                    <td>: {{ esco_actual }} </td>
+                    <td>Nivel</td>
+                    <td>: {{ alumn_nivel }} </td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Historia escolar</td>
-                        <td>: </td>
+                <tr>
+                    <td>Historia escolar</td>
+                    <td>: {{ histo_esco }}</td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Domicilio</td>
-                        <td>: {{ domicilio }}</td>
+                <tr>
+                    <td>Domicilio</td>
+                    <td>: {{ domicilio }}</td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Nombre Entrevistador</td>
-                        <td>: </td>
-                        <td>Fecha Entrevista</td>
-                        <td>: </td>
+                <tr>
+                    <td>Nombre Entrevistador</td>
+                    <td>: {{ nom_entrevis }}</td>
+                    <td>Fecha Entrevista</td>
+                    <td>: {{ fecha_exam }}</td>
                 </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>Datos proporcionados por</td>
-                        <td>: </td>
+                <tr>
+                    <td>Datos proporcionados por</td>
+                    <td>: {{ datos_propor }}</td>
                 </tr>
         </table>
         <br>
         <h1 style="padding-left:8px">II. Antecedentes Familiares:</h1>
         <h2 style="padding-left:10px"><strong>a) Antecedentes del Grupo Familiar</strong></h2>
-        <table class="TableNormal" style="margin-left: 5.75pt; border-collapse: collapse; border: none;" border="1"
-                cellspacing="0" cellpadding="0">
-                <tbody>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph" style="margin-left: 5.6pt; line-height: 11.3pt;"><span
-                                                        lang="ES" style="font-size: 9.0pt;">Nombre</span></p>
-                                </td>
-                                <td style="width: 3.0cm; border: solid black 1.0pt; border-left: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph" style="margin-left: 5.6pt; line-height: 11.3pt;"><span
-                                                        lang="ES" style="font-size: 9.0pt;">Parentesco</span></p>
-                                </td>
-                                <td style="width: 78.0pt; border: solid black 1.0pt; border-left: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph" style="margin-left: 5.6pt; line-height: 11.3pt;"><span
-                                                        lang="ES" style="font-size: 9.0pt;">Edad</span></p>
-                                </td>
-                                <td style="width: 127.55pt; border: solid black 1.0pt; border-left: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph" style="margin-left: 5.6pt; line-height: 11.3pt;"><span
-                                                        lang="ES" style="font-size: 9.0pt;">Ocupaci&oacute;n</span></p>
-                                </td>
-                        </tr>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; border-top: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 3.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 78.0pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 127.55pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                        </tr>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; border-top: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 3.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 78.0pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 127.55pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                        </tr>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; border-top: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 3.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 78.0pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 127.55pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                        </tr>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; border-top: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 3.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 78.0pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 127.55pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                        </tr>
-                        <tr style="height: 12.25pt;">
-                                <td style="width: 212.65pt; border: solid black 1.0pt; border-top: none; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="284">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 3.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="113">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 78.0pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="104">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                                <td style="width: 127.55pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 0cm 0cm 0cm; height: 12.25pt;"
-                                        valign="top" width="170">
-                                        <p class="TableParagraph"><span lang="ES"
-                                                        style="font-size: 8.0pt; font-family: 'Times New Roman',serif;">&nbsp;</span>
-                                        </p>
-                                </td>
-                        </tr>
-                </tbody>
+        <table class="TableNormal" border=1 style="padding-top:1pt; padding-left:2pt">  
+            <tr >
+                <td>
+                    Nombre
+                </td>
+                <td>
+                    Parentesco
+                </td>
+                <td>
+                    Edad
+                </td>
+                <td>
+                    Ocupaci&oacute;n
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    {{ nom_familiar_uno }}
+                </td>
+                <td>
+                    {{ parent_uno }}
+                </td>
+                <td>
+                    {{ edad_familiar_uno }}
+                </td>
+                <td>
+                    {{ ocupa_familiar_uno }}
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    {{ nom_familiar_dos }}
+                </td>
+                <td>
+                    {{ parent_dos }}
+                </td>
+                <td>
+                    {{ edad_familiar_dos }}
+                </td>
+                <td>
+                    {{ ocupa_familiar_dos }}
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    {{ nom_familiar_tres }}
+                </td>
+                <td>
+                    {{ parent_tres }}
+                </td>
+                <td>
+                    {{ edad_familiar_tres }}
+                </td>
+                <td>
+                    {{ ocupa_familiar_tres }}
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    {{ nom_familiar_cua }}
+                </td>
+                <td>
+                    {{ parent_cua }}
+                </td>
+                <td>
+                    {{ edad_familiar_cua }}
+                </td>
+                <td>
+                    {{ ocupa_familiar_cua }}
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    {{ nom_familiar_cin }}
+                </td>
+                <td>
+                    {{ parent_cin }}
+                </td>
+                <td>
+                    {{ edad_familiar_cin }}
+                </td>
+                <td>
+                    {{ ocupa_familiar_cin }}
+                </td>
+            </tr>  
         </table>
         <br>
         <h2 style="padding-left:10px">b) Antecedentes M&oacute;rbidos Familiares (Herencia y relaci&oacute;n parental)
@@ -215,55 +144,55 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Alt. Lenguaje: -
+                                        Alt. Lenguaje: {{ alt_len_rsp }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Tartamudez: -
+                                        Tartamudez: {{ tarta_rsp }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        D&eacute;f Atencional: -
+                                        D&eacute;f Atencional: {{ def_ate_rsp }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Epilepsia: -
+                                        Epilepsia: {{ epilep_rsp }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        S&iacute;ndrome: -
+                                        S&iacute;ndrome: {{ sind_rsp }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Deficiencia: -
+                                        Deficiencia: {{ def_rsp }} 
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Sordera: -
+                                        Sordera: {{ sord_rsp }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Deficiencia mental: -
+                                        Deficiencia mental: {{ def_men_rsp }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Otros: -
+                                        Otros: {{ otros_rsp }}
                                 </span>
                         </td>
                 </tr>
@@ -275,146 +204,146 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Embazaro n°: -
+                                        Embazaro n°: {{ embarazo_num }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Semanas de gestaci&oacute;n: -
+                                        Semanas de gestaci&oacute;n: {{ sem_gest }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Medidas anticonceptivas: -
-                                        </span>
-                        </td>
-                </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
-                        <td>
-                                <span lang="ES" style="font-size: 9.0pt;">
-                                        Sangramiento: -
-                                </span>
-                        </td>
-                        <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
-                                        Sintomas de perdida: -
-                                        </span>
-                        </td>
-                        <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
-                                        Convulsiones: -
+                                        Medidas anticonceptivas: {{ med_ant }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Anemia: -
+                                        Sangramiento: {{ sangr }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Intoxicaciones: -
+                                        Sintomas de perdida: {{ sint_perd }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Traumatismos: -
+                                        Convulsiones: {{ convul_per }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Diabetes: -
+                                        Anemia: {{ anemia }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Varicela / Rub&eacute;ola: -
+                                        Intoxicaciones: {{ intoxi }}
+                                        </span>
+                        </td>
+                        <td>
+                                <snap lang="ES" style="font-size: 9.0pt;">
+                                        Traumatismos: {{ trauma_per }}
+                                        </span>
+                        </td>
+                </tr>
+                <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
+                        <td>
+                                <span lang="ES" style="font-size: 9.0pt;">
+                                        Diabetes: {{ diabete }}
+                                </span>
+                        </td>
+                        <td>
+                                <snap lang="ES" style="font-size: 9.0pt;">
+                                        Varicela / Rub&eacute;ola: {{ varic_rubeo }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Depresi&oacute;n: -
+                                        Depresi&oacute;n: {{ depre }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Exposici&oacute;n a RX: -
+                                        Exposici&oacute;n a RX: {{ exp_rx }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Despr. Placenta: -
-                                </span>
-                        </td>
-                </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
-                        <td>
-                                <span lang="ES" style="font-size: 9.0pt;">
-                                        Medicamentos ingeridos: -
+                                        Despr. Placenta: {{ desp_place }}
                                 </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Enfermedades infecciosas: -
+                                        Medicamentos ingeridos: {{ medi_inge }}
+                                </span>
+                        </td>
+                </tr>
+                <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
+                        <td>
+                                <span lang="ES" style="font-size: 9.0pt;">
+                                        Enfermedades infecciosas: {{ enf_infecci }}
                                 </span>
                         </td>
                 </tr>
         </table>
-        <div style="page-break-before:always">&nbsp;</div>
+        {% comment %} <div style="page-break-before:always">&nbsp;</div> {% endcomment %}
         <h2 style="padding-left:10px"><strong>b) Desarrollo perinatal</strong></h2>
         <table style="padding-top:10px;padding-left:0px">
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Lugar de parto: -
+                                        Lugar de parto: {{ lug_parto }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Especialista: -
+                                        Especialista: {{ espe_parto }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Parto normal: -
+                                        Parto normal: {%if tipo_parto == 'Normal'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%} 
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Inducido: -
+                                        Inducido: {%if tipo_parto == 'Inducido'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%} 
                                         </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        F&oacute;rceps: -
+                                        F&oacute;rceps: {%if tipo_parto == 'Forceps'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%} 
                                 </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Motivo: -
+                                        Motivo: {%if tipo_parto != 'Cesarea'%}{{ mot_part }}{%else%}{{ '-' }}{%endif%}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Cesárea: -
+                                        Cesárea: {%if tipo_parto == 'Cesarea'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%} 
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Motivo: -
+                                        Motivo: {%if tipo_parto == 'Cesarea'%}{{ mot_part }}{%else%}{{ '-' }}{%endif%}
                                         </span>
                         </td>
                 </tr>
@@ -426,12 +355,12 @@
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Circular al cuello: -
+                                        Circular al cuello: {{ ant_morb_circuello }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Sufrimiento fetal: -
+                                        Sufrimiento fetal: {{ ant_morb_sufrfet }}
                                         </span>
                         </td>
                 </tr>
@@ -442,60 +371,60 @@
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Placenta previa: -
+                                        Placenta previa: {{ ant_morb_placprev }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Ingesta Meconio: -
+                                        Ingesta Meconio: {{ ant_morb_ingemeco }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Otros: -
+                                        Otros: {{ ant_morb_otros }}
                                 </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Peso: -
+                                        Peso: {{ peso }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Talla: -
+                                        Talla: {{ talla }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Apgar: -
+                                        Apgar: {{ apgar }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Color: -
+                                        Color: {{ color }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Hospitalización: -
+                                        Hospitalización: {{ hospi_per }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Motivo: -
+                                        Motivo: {{ mot_hospi }}
                                 </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="2">
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Tratamiento / Medicamentos: -
+                                        Tratamiento / Medicamentos: {{ trata_medico }}
                                 </span>
                         </td>
                 </tr>
@@ -507,123 +436,123 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td colspan="2">
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Traumatismo: -
+                                        Traumatismo: {{ trauma_post }}
                                 </span>
                         </td>
                         <td colspan="2">
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Hospotalización: -
+                                        Hospotalización: {{ hospi_post }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Meningitis: -
+                                        Meningitis: {{ meningitis }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Encefalitis: -
+                                        Encefalitis: {{ encefalitis }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Fiebres altas: -
+                                        Fiebres altas: {{ fieb_alta }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Convulsiones: -
+                                        Convulsiones: {{ convul_post }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Epilepsia: -
+                                        Epilepsia: {{ epilep_post }}
                                 </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Ausencias: -
+                                        Ausencias: {{ ausencias }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Bronquitis: -
+                                        Bronquitis: {{ bronquitis }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        SBO: -
+                                        SBO: {{ sbo }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Asma: -
+                                        Asma: {{ amsa }}
                                         </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                IRA: -
+                                IRA: {{ ira }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="2">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Desnutrición: -
+                                Desnutrición: {{ desnutri }}
                             </span>
                         </td>
                         <td colspan="2">
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Otros eventos mórbidos: -
+                                Otros eventos mórbidos: {{ otros_morb }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="3">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Asiste a los controles médicos periódicos: -
+                                Asiste a los controles médicos periódicos: {{ control_med }}
                             </span>
                         </td>
                         <td colspan="2">
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Dr. Tratante: -
+                                Dr. Tratante: {{ dr_tratante }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="2">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Vacunas al día: -
+                                Vacunas al día: {{ vacu_dia }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="2">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Tratamientos dentales: -
+                                Tratamientos dentales: {{ trata_dental }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Época: -
+                                Época: {{ epoca_dental }}
                             </span>
                         </td>
                         <td colspan="2">
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Persona que lo derivó: -
+                                Persona que lo derivó: {{ per_derivacion }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="5">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Motivo: -
+                                Motivo: {{ mot_dental }}
                             </span>
                         </td>
                 </tr>
@@ -634,17 +563,17 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Época: -
+                                Época: {{ epoca_exam }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Persona que lo derivó:
+                                Persona que lo derivó: {{ per_deriva_exam }}
                             </span>
                         </td>
                         <td colspan="2">
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Motivo: -
+                                Motivo: {{ mot_exam }}
                             </span>
                         </td>
                 </tr>
@@ -657,27 +586,27 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Fijó la cabeza: -
+                                Fijó la cabeza: {{ fij_cabeza }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Se sentó solo: -
+                                Se sentó solo: {{ sento_solo }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Gateó: -
+                                Gateó: {{ gateo }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Caminó: -
+                                Caminó: {{ camino }}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Se vistió solo: -
+                                Se vistió solo: {{ vist_solo }}
                             </span>
                         </td>
                 </tr>
@@ -689,12 +618,12 @@
                         </td>
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Vesical Diurno: -
+                                Vesical Diurno: {{ ctl_esf_vdiurno }}
                             </span>
                         </td>
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Nocturno: -
+                                Nocturno: {{ ctl_esf_vnoct }}
                             </span>
                         </td>
                 </tr>
@@ -705,24 +634,24 @@
                         </td>
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Anal Diurno: -
+                                Anal Diurno: {{ ctl_anal_diur }}
                             </span>
                         </td>
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Nocturno: -
+                                Nocturno: {{ ctl_anal_noct }}
                             </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="3">
                             <span lang="ES" style="font-size: 9.0pt;">
-                                ¿Hubo entrenamiento en control del esfinter?: -
+                                ¿Hubo entrenamiento en control del esfinter?: {{ entrena_esf }}
                             </span>
                         </td>
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Retraso: -
+                                Retraso: {{ retraso }}
                             </span>
                         </td>
                 </tr>
@@ -733,17 +662,17 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Normal: -
+                                Normal: {%if act_motora == 'Normal'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Hiperactivo: -
+                                Hiperactivo: {%if act_motora == 'Hiperactivo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Hipoactivo: -
+                                Hipoactivo: {%if act_motora == 'Hipoactivo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                 </tr>
@@ -754,22 +683,22 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                Normal: -
+                                Normal: {%if toni_muscular == 'Normal'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Hipertónico: -
+                                Hipertónico: {%if toni_muscular == 'Hipertonico'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Hipotónico: -
+                                Hipotónico: {%if toni_muscular == 'Hipotonico'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Hiperlaxo: -
+                                Hiperlaxo: {%if toni_muscular == 'Hiperlaxo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                 </tr>
@@ -780,17 +709,17 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                             <span lang="ES" style="font-size: 9.0pt;">
-                                    Dominancia: -
+                                    Dominancia: {%if motrici_gruesa == 'Dominancia'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Inestabilidad al caminar: -
+                                Inestabilidad al caminar: {%if motrici_gruesa == 'Inestabilidad'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
                             <snap lang="ES" style="font-size: 9.0pt;">
-                                Caídas frecuentes: -
+                                Caídas frecuentes: {%if motrici_gruesa == 'Caidas'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                 </tr>
@@ -801,7 +730,7 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Dominancia: -
+                                        Toma adecuadamente la cuchara: {{ toma_cuchara }}
                                 </span>
                         </td>
                 </tr>
@@ -813,17 +742,17 @@
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Garra: -
+                                        Garra: {{ mov_garra }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Presión: -
+                                        Presión: {{ mov_presion }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Pinza: -
+                                        Pinza: {{ mov_pinza }}
                                         </span>
                         </td>
                 </tr>
@@ -835,39 +764,39 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Volcalizó: -
+                                        Volcalizó: {{ vocalizo }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Balbuceó: -
+                                        Balbuceó: {{ balbuceo }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Jerga: -
+                                        Jerga: {{ jerga }}
                                         </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        1° Palabra: -
+                                        1° Palabra: {{ prim_palabra }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Holofrases: -
+                                        Holofrases: {{ holofrase }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Pivotes: -
+                                        Pivotes: {{ pivote }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Sintagma: -
+                                        Sintagma: {{ sintagma }}
                                 </span>
                         </td>
                 </tr>
@@ -879,7 +808,7 @@
                 </strong>
         </p>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		{{ texto_uno }}
 	</textarea>
         <br>
         <p class="MsoBodyText" style="margin-left: 9.0pt; margin-right: 9.0pt; font-size: 10.0pt;">
@@ -889,7 +818,7 @@
                 </strong>
         </p>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            {{ texto_dos }}
 	</textarea>
         <br>
         <p class="MsoBodyText" style="margin-left: 9.0pt; margin-right: 9.0pt; font-size: 10.0pt;">
@@ -901,7 +830,7 @@
                 </strong>
         </p>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		{{ texto_tres }}
 	</textarea>
         <br>
         <p class="MsoBodyText" style="margin-left: 9.0pt; margin-right: 9.0pt; font-size: 10.0pt;">
@@ -914,7 +843,7 @@
                 </strong>
         </p>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            {{ texto_cuatro }}
 	</textarea>
         <div style="page-break-before:always">&nbsp;</div>
         <h1 style="padding-left:8px">VI. Desarrollo Social:</h1>
@@ -927,7 +856,7 @@
                 </strong>
         </p>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            {{ texto_cinco }}
 	</textarea>
         <br>
         <h3 style="padding-left:12px"><strong>Reacciona de forma desmesurada ante:</strong></h3>
@@ -935,49 +864,49 @@
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Sonido: -
+                                        Sonido: {{ sonido }}
                                 </span>
                         </td>
                         <td>
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Luces: -
+                                        Luces: {{ luces }}
                                         </span>
                         </td>
                         <td colspan="2">
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Personas ajenas a su círculo: -
+                                        Personas ajenas a su círculo: {{ per_aje_cir }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Ecolalia: -
+                                        Ecolalia: {{ ecolalia }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Mov. Estereotípados: -
+                                        Mov. Estereotípados: {{ mov_estero }}
                                 </span>
                         </td>
                         <td>
                                 <span lang="ES" style="font-size: 9.0pt;">
-                                        Autoagresiones: -
+                                        Autoagresiones: {{ autoagresion }}
                                 </span>
-                        </td>
-                </tr>
-                <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
-                        <td colspan="4">
-                                <snap lang="ES" style="font-size: 9.0pt;">
-                                        Realiza pataletas frecuentes y exageradas: -
-                                        </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="4">
                                 <snap lang="ES" style="font-size: 9.0pt;">
-                                        Presenta dificultades para adaptarse a nuevas situaciones: -
+                                        Realiza pataletas frecuentes y exageradas: {{ pataleta }}
                                         </span>
+                        </td>
+                </tr>
+                <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
+                        <td colspan="4">
+                            <snap lang="ES" style="font-size: 9.0pt;">
+                                Presenta dificultades para adaptarse a nuevas situaciones: {{ dificul_adaptacion }}
+                            </span>
                         </td>
                 </tr>
         </table>
@@ -985,7 +914,7 @@
 
         <h1 style="padding-left:8px">VII. Observaciones Relevantes:</h1>
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		{{ texto_seis }}
 	</textarea>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <table style="text-align: center">
