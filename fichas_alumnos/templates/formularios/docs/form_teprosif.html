@@ -16,11 +16,13 @@
                     {{form_base.nombre|as_crispy_field}}
                     {{form_base.fech_nac|as_crispy_field}}
                     {{form_base.sexo|as_crispy_field}}
-                    <br>
-                    {{form|crispy}}
-
-                <br>
-                <button class="btn btn-success" type="submit">Continuar</button>
+                    {% for field in form %}
+                        {% if 'reg' in field.name%}
+                            </br>
+                        {% endif %}
+                        {{ field|as_crispy_field }}
+                    {% endfor %}
+                <button class="btn btn-success mt-3" type="submit">Continuar</button>
             </form>
         </div>
     </div>

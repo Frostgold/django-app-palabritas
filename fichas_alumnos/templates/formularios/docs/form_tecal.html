@@ -12,7 +12,20 @@
                 {% csrf_token %}
                     {{form_base.nombre|as_crispy_field}}
                     {{form_base.fech_nac|as_crispy_field}}
-                    {{ form|crispy }}
+
+                    {% for field in form %}
+                    {% if field.name == 'item1_voc' %}
+                        </br>
+                        <h4>VOCABULARIO</h4>
+                    {% elif field.name == 'item42_mor' %}
+                        </br>
+                        <h4>MORFOLOGÍA</h4>
+                    {% elif field.name == 'item90_sin' %}
+                        </br>
+                        <h4>SINTAXIS</h4>
+                    {% endif %}
+                    {{ field|as_crispy_field }}
+                    {% endfor %}
                 <br>
                 <button class="btn btn-success" type="submit">Continuar</button>
             </form>

@@ -399,28 +399,30 @@ class FormDocumentoAnamnesis(Form):
     ## a) Atecedentes familiares
     ### Nombre familiares
     nom_familiar_uno = CharField(required=False, max_length= 50, label="Nombre primer familiar")
-    nom_familiar_dos = CharField(required=False, max_length= 50, label="Nombre segundo familiar")
-    nom_familiar_tres = CharField(required=False, max_length= 50, label="Nombre tercer familiar")
-    nom_familiar_cua = CharField(required=False, max_length= 50, label="Nombre cuarto familiar")
-    nom_familiar_cin = CharField(required=False, max_length= 50, label="Nombre quinto familiar")
-    ### Parentesco
     parent_uno = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco primer familiar")
-    parent_dos = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco segundo familiar")
-    parent_tres = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco tercer familiar")
-    parent_cua = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco cuarto familiar")
-    parent_cin = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco quinto familiar")
-    ### Edad
     edad_familiar_uno = IntegerField(required=False, min_value=0, max_value=100, label="Edad primer familiar")
-    edad_familiar_dos = IntegerField(required=False, min_value=0, max_value=100, label="Edad segundo familiar")
-    edad_familiar_tres = IntegerField(required=False, min_value=0, max_value=100, label="Edad tercer familiar")
-    edad_familiar_cua = IntegerField(required=False, min_value=0, max_value=100, label="Edad cuarto familiar")
-    edad_familiar_cin = IntegerField(required=False, min_value=0, max_value=100, label="Edad quinto familiar")
-    ### Ocupacion
     ocupa_familiar_uno = CharField(required=False, max_length= 50, label="Ocupación primer familiar")
+
+    nom_familiar_dos = CharField(required=False, max_length= 50, label="Nombre segundo familiar")
+    parent_dos = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco segundo familiar")
+    edad_familiar_dos = IntegerField(required=False, min_value=0, max_value=100, label="Edad segundo familiar")
     ocupa_familiar_dos = CharField(required=False, max_length= 50, label="Ocupación segundo familiar")
+
+    nom_familiar_tres = CharField(required=False, max_length= 50, label="Nombre tercer familiar")
+    parent_tres = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco tercer familiar")
+    edad_familiar_tres = IntegerField(required=False, min_value=0, max_value=100, label="Edad tercer familiar")
     ocupa_familiar_tres = CharField(required=False, max_length= 50, label="Ocupación tercer familiar")
+
+    nom_familiar_cua = CharField(required=False, max_length= 50, label="Nombre cuarto familiar")
+    parent_cua = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco cuarto familiar")
+    edad_familiar_cua = IntegerField(required=False, min_value=0, max_value=100, label="Edad cuarto familiar")
     ocupa_familiar_cua = CharField(required=False, max_length= 50, label="Ocupación cuarto familiar")
+    
+    nom_familiar_cin = CharField(required=False, max_length= 50, label="Nombre quinto familiar")
+    edad_familiar_cin = IntegerField(required=False, min_value=0, max_value=100, label="Edad quinto familiar")
+    parent_cin = ChoiceField(required=False, choices=PARENT_CHOICES, label="Parentesco quinto familiar")
     ocupa_familiar_cin = CharField(required=False, max_length= 50, label="Ocupación quinto familiar")
+    
     ## b) Antecedentes Morbidos familiares
     alt_len_rsp = CharField(required=False, max_length= 50, label="Alt. Lenguaje")
     tarta_rsp = CharField(required=False, max_length= 50, label="Tartamudez")
@@ -498,15 +500,15 @@ class FormDocumentoAnamnesis(Form):
     mot_exam = CharField(required=False, max_length=20, label="Motivo")
     # IV.
     ## Edad en que
-    fij_cabeza = IntegerField(required=False, min_value=0, max_value= 2, label="Fijó la cabeza")
-    sento_solo = IntegerField(required=False, min_value=0, max_value= 2, label="Se sentó solo")
-    gateo = IntegerField(required=False, min_value=0, max_value= 2, label="Gateó")
-    camino = IntegerField(required=False, min_value=0, max_value= 2, label="Caminó")
-    vist_solo = IntegerField(required=False, min_value=0, max_value= 2, label="Se vistió solo")
-    ctl_esf_vdiurno = IntegerField(required=False, min_value=0, max_value= 2, label="Vesical Diurno")
-    ctl_esf_vnoct = IntegerField(required=False, min_value=0, max_value= 2, label="Nocturno")
-    ctl_anal_diur = IntegerField(required=False, min_value=0, max_value= 2, label="Anal diurno")
-    ctl_anal_noct = IntegerField(required=False, min_value=0, max_value= 2, label="Nocturno")
+    fij_cabeza = IntegerField(required=False, min_value=0, max_value= 99, label="Fijó la cabeza")
+    sento_solo = IntegerField(required=False, min_value=0, max_value= 99, label="Se sentó solo")
+    gateo = IntegerField(required=False, min_value=0, max_value= 99, label="Gateó")
+    camino = IntegerField(required=False, min_value=0, max_value= 99, label="Caminó")
+    vist_solo = IntegerField(required=False, min_value=0, max_value= 99, label="Se vistió solo")
+    ctl_esf_vdiurno = IntegerField(required=False, min_value=0, max_value= 99, label="Vesical Diurno")
+    ctl_esf_vnoct = IntegerField(required=False, min_value=0, max_value= 99, label="Nocturno")
+    ctl_anal_diur = IntegerField(required=False, min_value=0, max_value= 99, label="Anal diurno")
+    ctl_anal_noct = IntegerField(required=False, min_value=0, max_value= 99, label="Nocturno")
     entrena_esf = BooleanField(required=False, label="¿Hubo entrenamiento en control de esfínter?")
     retraso = BooleanField(required=False, label="Retraso")
     ## Actividad motora
@@ -545,7 +547,7 @@ class FormDocumentoAnamnesis(Form):
     pataleta = BooleanField(required=False, label="Realiza pataletas frecuentes y exageradas")
     dificul_adaptacion = BooleanField(required=False, label="Presenta dificultades para adaptarse a nuevas situaciones")
     # VII.
-    texto_seis = CharField(required=False, max_length= 1000, label="VII. Observaciones relevantes", help_text = "Obsevaciones a considerar")
+    texto_seis = CharField(required=False, max_length= 1000, label="", help_text = "Obsevaciones a considerar")
 
     class Meta:
         fields = ['__all__']
@@ -599,13 +601,13 @@ class FormDocumentoTecal(Form):
 
     item41_voc = IntegerField(required=False, min_value=1 , max_value=4, label="Item 41", help_text="Respuesta correcta: 1")
     item42_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 42", help_text="Respuesta correcta: 2")
+    item43_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 43", help_text="Respuesta correcta: 2")
     item44_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 44", help_text="Respuesta correcta: 1")
     item45_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 45", help_text="Respuesta correcta: 3")
     item46_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 46", help_text="Respuesta correcta: 2")
     item47_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 47", help_text="Respuesta correcta: 1")
     item48_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 48", help_text="Respuesta correcta: 2")
     item49_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 49", help_text="Respuesta correcta: 1")
-    item43_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 43", help_text="Respuesta correcta: 2")
     item50_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 50", help_text="Respuesta correcta: 1")
 
     item51_mor = IntegerField(required=False, min_value=1 , max_value=4, label="Item 51", help_text="Respuesta correcta: 3")
@@ -966,7 +968,7 @@ class FormDocumentoFonoaudiologica(Form):
     labios_forma = ChoiceField(label="Forma de labios", choices=CHOICES_LABIO_FORMA)
     labios_fuerza = ChoiceField(label="Fuerza de labios", choices=CHOICES_LABIO_FUERZA)
     #praxias
-    labprax_protunsion = ChoiceField(label="Protunsión", choices=CHOICES_PRAXIAS_LABIO)
+    labprax_protunsion = ChoiceField(label="Protrusión", choices=CHOICES_PRAXIAS_LABIO)
     labprax_retrusion = ChoiceField(label="Retrusión", choices=CHOICES_PRAXIAS_LABIO)
     labprax_percusion = ChoiceField(label="Precusión", choices=CHOICES_PRAXIAS_LABIO)
     labprax_vibracion = ChoiceField(label="Vibración", choices=CHOICES_PRAXIAS_LABIO)
@@ -982,7 +984,7 @@ class FormDocumentoFonoaudiologica(Form):
     maxilar_praxias = ChoiceField(label="Praxias maxilares", choices=CHOICES_PRAXIAS_LABIO)
 
     #Paladar oseo
-    paladaros_forma = ChoiceField(label="Forma de paladar oseo", choices=CHOICES_PALADAR_FORMA)
+    paladaros_forma = ChoiceField(label="Forma de paladar óseo", choices=CHOICES_PALADAR_FORMA)
 
     #Velo paladar
     velpal_movilidad = ChoiceField(label="Movilidad", choices=CHOICES_PALADAR_MOV)
@@ -1089,12 +1091,12 @@ class FormDocumentoFonoaudiologica(Form):
     nvlsem_lengrep_int = BooleanField(required=False, label="Interpreta")
 
     #NIVEL MORFOSINTÁCTICO
-    nvlmorf_exp_sustan = BooleanField(required=False, label="Uso de:", help_text="Sustantivos")
-    nvlmorf_exp_articu = BooleanField(required=False, label="", help_text="Artículos")
-    nvlmorf_exp_verbos = BooleanField(required=False, label="", help_text="Verbos")
-    nvlmorf_exp_adverb = BooleanField(required=False, label="", help_text="Adverbios")
-    nvlmorf_exp_prepos = BooleanField(required=False, label="", help_text="Preposiciones")
-    nvlmorf_exp_pronom = BooleanField(required=False, label="", help_text="Pronombre")
+    nvlmorf_exp_sustan = BooleanField(required=False, label="Sustantivos",)
+    nvlmorf_exp_articu = BooleanField(required=False, label="Artículos",)
+    nvlmorf_exp_verbos = BooleanField(required=False, label="Verbos",)
+    nvlmorf_exp_adverb = BooleanField(required=False, label="Adverbios",)
+    nvlmorf_exp_prepos = BooleanField(required=False, label="Preposiciones",)
+    nvlmorf_exp_pronom = BooleanField(required=False, label="Pronombre",)
     nvlmorf_observaciones = CharField(required=False, label="Observaciones",)
 
     #ASPECTO COMPRENSIVO

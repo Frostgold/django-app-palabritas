@@ -70,5 +70,42 @@
 
 </div>
 
+{% if request.session.pdf_tecal %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_tecal' %}';
+        }
+    </script>
+{% elif request.session.pdf_hab_prag %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_hab_prag' %}';
+        }
+    </script>
+{% elif request.session.pdf_stsg %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_stsg' %}';
+        }
+    </script>
+{% elif request.session.pdf_fonoaudio %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_fonoaudio' %}';
+        }
+    </script>
+{% elif request.session.pdf_teprosif %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_teprosif' %}';
+        }
+    </script>
+{% elif request.session.pdf_anamnesis %}
+    <script>
+        window.onload = function(e){ 
+            window.location='{% url 'pdf_anamnesis' %}';
+        }
+    </script>
+{% endif %}
 
 {% endblock content %}

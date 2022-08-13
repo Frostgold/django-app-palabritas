@@ -79,15 +79,15 @@ def ficha_alumno_view(request, rut):
     context['avance_form'] = FormAvanceAlumno
     context['trabajo_form'] = FormTrabajoAlumno
     context['documento_form'] = FormDocumentoAlumno
-    context['apoderado'] = DetalleApoderado.objects.filter(alumno=rut)
     context['ficha'] = FichaAlumno.objects.filter(rut=rut)
+    if not context['ficha']:
+        return redirect('listado_fichas_alumnos')
+    context['apoderado'] = DetalleApoderado.objects.filter(alumno=rut)
     context['avances'] = AvanceAlumno.objects.filter(alumno=rut).order_by('-id')
     context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut).order_by('-id')
     context['documentos'] = BancoDocumento.objects.filter(alumno=rut).order_by('-id')
     context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.curso)
 
-    if not context['ficha']:
-        return redirect('listado_fichas_alumnos')
 
     context['rut_alumno'] = rut
 
@@ -374,9 +374,9 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
                     'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
-                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'].strftime("%d/%m/%Y"),
                     'alumn_curso': alumn_curso if alumn_curso != None else "No asignado",
-                    'fecha_exam': fecha_hoy,
+                    'fecha_exam': fecha_hoy.strftime("%d/%m/%Y"),
                     'cinetica_S': "X" if form.cleaned_data['cinetica'] == "si" else "",
                     'cinetica_N': "X" if form.cleaned_data['cinetica'] == "no" else "",
                     'cinetica_AV': "X" if form.cleaned_data['cinetica'] == "av" else "",
@@ -411,15 +411,9 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
                     'aclar_N': "X" if form.cleaned_data['aclar_rep'] == "no" else "",
                     'aclar_AV': "X" if form.cleaned_data['aclar_rep'] == "av" else "",
                 }
-                template = 'documentos/PautadeCotejohabilidadespragmticas.html'
-                pdf = render_to_pdf(template, data)
 
-                if pdf:
-                    response = HttpResponse(pdf, content_type='application/pdf') 
-                    filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %(data['alumn_nombre'])
-                    content = 'attachment; filename="{}"'.format(filename)
-                    #response['Content-Disposition'] = content 
-                    return response
+                request.session['pdf_hab_prag'] = data
+                return redirect('listado_fichas_alumnos')
         
         if rut:
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
@@ -428,6 +422,25 @@ def generate_doc_cotejo_hab_prag(request, rut=None):
         context['form'] = FormDocumentoPautaCotejo(request.POST)
 
     return render(request, 'formularios/docs/form_cotejo_hab_prag.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_hab_prag(request):
+    try:
+        if request.session['pdf_hab_prag']:
+            data = request.session['pdf_hab_prag']
+            del request.session['pdf_hab_prag']
+
+            template = 'documentos/PautadeCotejohabilidadespragmticas.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Cotejo Habilidades Pragmáticas - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content 
+            return response
+    except:
+        return redirect('listado_fichas_alumnos')
 
 
 @login_required
@@ -481,11 +494,11 @@ def generate_doc_anamnesis(request, rut=None):
                 domicilio = form_base.cleaned_data['domicilio']
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
-                    'alumn_nacim': form_base.cleaned_data['fech_nac'],
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'].strftime("%d/%m/%Y"),
                     'alumn_edad': "{} y {}".format("{} años".format(edad_anio) if edad_anio != 1 else "{} año".format(edad_anio), "{} meses".format(edad_mes) if edad_mes != 1 else "{} mes".format(edad_mes)),
                     'alumn_curso': form_base.cleaned_data['curso'] if form_base.cleaned_data['curso'] != None else "No asignado",
-                    'alumn_nivel': form_base.cleaned_data['nivel'] if form_base.cleaned_data['nivel'] != None else "No asignado",
-                    'fecha_exam': fecha_hoy,
+                    'alumn_nivel': "{}".format(form_base.cleaned_data['nivel']) if form_base.cleaned_data['nivel'] != None else "No asignado",
+                    'fecha_exam': fecha_hoy.strftime("%d/%m/%Y"),
                     'domicilio': domicilio,
                     'esco_actual': form.cleaned_data['esco_actual'] if form.cleaned_data['esco_actual'] != "" else "-",
                     'histo_esco': form.cleaned_data['histo_esco'] if form.cleaned_data['histo_esco'] != "" else "-",
@@ -639,15 +652,8 @@ def generate_doc_anamnesis(request, rut=None):
                     
                     'texto_seis': form.cleaned_data['texto_seis'] if form.cleaned_data['texto_seis'] != "" else "-"
                 }
-                template = 'documentos/anamnesis.html'
-                pdf = render_to_pdf(template, data)
-
-                if pdf:
-                    response = HttpResponse(pdf, content_type='application/pdf') 
-                    filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
-                    content = 'attachment; filename="{}"'.format(filename)
-                    #response['Content-Disposition'] = content 
-                    return response
+                request.session['pdf_anamnesis'] = data
+                return redirect('listado_fichas_alumnos')
         
         if rut:
             form_base = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_anamnesis=True, datos_retirado=retirado)
@@ -656,6 +662,25 @@ def generate_doc_anamnesis(request, rut=None):
         context['form'] = FormDocumentoAnamnesis(request.POST)
 
     return render(request, 'formularios/docs/form_anamnesis.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_anamnesis(request):
+    try:
+        if request.session['pdf_anamnesis']:
+            data = request.session['pdf_anamnesis']
+            del request.session['pdf_anamnesis']
+            template = 'documentos/anamnesis.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Anamnesis - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content 
+            return response
+
+    except:
+        return redirect('listado_fichas_alumnos')    
 
 
 @login_required
@@ -686,6 +711,8 @@ def generate_doc_tecal(request, rut=None):
                 edad_anio = fecha_hoy.year - fecha_nac.year - ((fecha_hoy.month, fecha_hoy.day) < (fecha_nac.month, fecha_nac.day))
                 edad_mes = fecha_hoy.month - fecha_nac.month - ((fecha_hoy.day) < (fecha_nac.day))
                 edad_mes = edad_mes if edad_mes >= 0 else (12 - (edad_mes*-1))
+
+                #Calculo de puntajes
                 tot_voc = 0
                 tot_mor = 0
                 tot_sin = 0
@@ -701,18 +728,12 @@ def generate_doc_tecal(request, rut=None):
                         else:
                             tot_sin += 1
                 
+                #Calculo total
                 tot = tot_voc + tot_mor + tot_sin
-                print(tot_voc , tot_mor , tot_sin, tot)
-
-                ds_tot = 0
-                ds_voc = 0
-                ds_mor = 0
-                ds_sin = 0
-
 
                 data = {
                     'alumn_nombre': form_base.cleaned_data['nombre'],
-                    'alumn_nacim': "{}".format(form_base.cleaned_data['fech_nac']),
+                    'alumn_nacim': form_base.cleaned_data['fech_nac'].strftime("%d/%m/%Y"),
                     'alumn_edad': "{}".format(edad_anio),
                     'alumn_edad_mes': "{}".format(edad_mes),
                     'i1' : " " if form.cleaned_data['item1_voc'] == 1  else form.cleaned_data["item1_voc"] if form.cleaned_data["item1_voc"] is not None else "NR",
@@ -958,17 +979,28 @@ def confirmation_tecal(request):
             data['ds_mor'] = form.cleaned_data['ds_mor']
             data['ds_sin'] = form.cleaned_data['ds_sin']
 
-            template = 'documentos/tecal.html'
-            pdf = render_to_pdf(template, data)
-
-            if pdf:
-                response = HttpResponse(pdf, content_type='application/pdf') 
-                filename = "Tecal - %s.pdf" %(data['alumn_nombre'])
-                content = 'attachment; filename="{}"'.format(filename)
-                response['Content-Disposition'] = content 
-                return response
+            request.session['pdf_tecal'] = data
+            return redirect('listado_fichas_alumnos')
     
     return render(request, 'formularios/docs/form_tecal_confirmation.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_tecal(request):
+    try:
+        if request.session['pdf_tecal']:
+            data = request.session['pdf_tecal']
+            del request.session['pdf_tecal']
+            template = 'documentos/tecal.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Tecal - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content
+            return response
+    except:
+        return redirect('listado_fichas_alumnos')
 
 
 @login_required
@@ -1305,17 +1337,29 @@ def generate_doc_final_teprosif(request):
             data['nvl_desemp_barrido'] = form.cleaned_data['nvl_desemp_barrido']
             data['nvl_desemp_teprosif'] = form.cleaned_data['nvl_desemp_teprosif']
 
-            template = 'documentos/TEPROSIF-R.html'
-            pdf = render_to_pdf(template, data)
-
-            if pdf:
-                response = HttpResponse(pdf, content_type='application/pdf') 
-                filename = "Hoja de rerspuesta TEPROSIF-R - %s.pdf" %(data['alumn_nombre'])
-                content = 'attachment; filename="{}"'.format(filename)
-                #response['Content-Disposition'] = content 
-                return response
+            request.session['pdf_teprosif'] = data
+            return redirect('listado_fichas_alumnos')
 
     return render(request, 'formularios/docs/form_final_teprosif.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_teprosif(request):
+    try:
+        if request.session['pdf_teprosif']:
+            data = request.session['pdf_teprosif']
+            del request.session['pdf_teprosif']
+            template = 'documentos/TEPROSIF-R.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Hoja de rerspuesta TEPROSIF-R - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content 
+            return response
+
+    except:
+        return redirect('listado_fichas_alumnos')
 
 
 @login_required
@@ -1493,23 +1537,35 @@ def generate_doc_fonoaudiologica(request, rut=None):
                     'obs_diagnostico': form.cleaned_data['obs_diagnostico'],
                     'obs_indicaciones': form.cleaned_data['obs_indicaciones'],
                 }
-                template = 'documentos/pauta_fono_palabritas.html'
-                pdf = render_to_pdf(template, data)
-
-                if pdf:
-                    response = HttpResponse(pdf, content_type='application/pdf') 
-                    filename = "Observación clínica fonoaudiológica - %s.pdf" %(data['alumn_nombre'])
-                    content = 'attachment; filename="{}"'.format(filename)
-                    #response['Content-Disposition'] = content 
-                    return response
+                request.session['pdf_fonoaudio'] = data
+                return redirect('listado_fichas_alumnos')
 
         if rut:
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_fonoaudio=True)
         else:
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=False, datos_fonoaudio=True)
-        context['form'] = FormDocumentoPautaCotejo(request.POST)
+        context['form'] = FormDocumentoFonoaudiologica(request.POST)
     
     return render(request, 'formularios/docs/form_fonoaudiologica.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_fonoaudiologica(request):
+    try:
+        if request.session['pdf_fonoaudio']:
+            data = request.session['pdf_fonoaudio']
+            del request.session['pdf_fonoaudio']
+            template = 'documentos/pauta_fono_palabritas.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "Observación clínica fonoaudiológica - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content 
+            return response
+
+    except:
+        return redirect('listado_fichas_alumnos')
 
 
 @login_required
@@ -1655,15 +1711,9 @@ def generate_doc_stsg(request, rut=None):
                     'exp_puntaje': exp_puntaje,
                     'exp_observac': form.cleaned_data['exp_observac'],
                 }
-                template = 'documentos/STSG_Hoja_de_Respuestas.html'
-                pdf = render_to_pdf(template, data)
-
-                if pdf:
-                    response = HttpResponse(pdf, content_type='application/pdf') 
-                    filename = "STSG - %s.pdf" %(data['alumn_nombre'])
-                    content = 'attachment; filename="{}"'.format(filename)
-                    #response['Content-Disposition'] = content 
-                    return response
+                
+                request.session['pdf_stsg'] = data
+                return redirect('listado_fichas_alumnos')
 
         if rut:
             context['form_base'] = FormDatosPersonalesAlumno(request.POST, datos_alumno=True, datos_hab_prag=True)
@@ -1672,3 +1722,22 @@ def generate_doc_stsg(request, rut=None):
         context['form'] = FormDocumentoSTSG(request.POST)
 
     return render(request, 'formularios/docs/form_stsg.html', context)
+
+
+@login_required
+@permission_required('fichas_alumnos.add_bancodocumento')
+def generate_pdf_stsg(request):
+    try:
+        if request.session['pdf_stsg']:
+            data = request.session['pdf_stsg']
+            del request.session['pdf_stsg']
+            template = 'documentos/STSG_Hoja_de_Respuestas.html'
+            pdf = render_to_pdf(template, data)
+            response = HttpResponse(pdf, content_type='application/pdf') 
+            filename = "STSG - %s.pdf" %(data['alumn_nombre'])
+            content = 'attachment; filename="{}"'.format(filename)
+            response['Content-Disposition'] = content 
+            return response
+
+    except:
+        return redirect('listado_fichas_alumnos')

@@ -15,8 +15,126 @@
                     {{form_base.fech_nac|as_crispy_field}}
                     {{form_base.domicilio|as_crispy_field}}
                     {{form_base.rut|as_crispy_field}}
-                    {{ form | crispy }}
-                <button class="btn btn-success" type="submit">Generar</button>
+                    {% for field in form %}
+                        {% if field.name == 'antdes_leng'%}
+                            </br>
+                            <h1>Antecedentes del desarrollo</h3>
+
+                        {% elif field.name == 'desarrollo_social'%}
+                            </br>
+
+                        {% elif field.name == 'antfam'%}
+                            </br>
+                            <h3>Antecedentes familiares</h3>
+
+                        {% elif field.name == 'resp_tipo'%}
+                            </br>
+                            <h1>Exploración fonoarticulatoria</h1>
+                            <h4>Funciones prelinguísticas</h4>
+
+                        {% elif field.name == 'labios_forma'%}
+                            </br>
+                            <h3>Exámen anátomo funcional de los órganos fonoarticulatorios</h3>
+                            <h4>Labios</h4>
+
+                        {% elif field.name == 'labprax_protunsion'%}
+                            <h5 class="mt-2">Praxias</h5>
+
+                        {% elif field.name == 'dientes_implantacion'%}
+                            </br>
+                            <h4>Dientes</h4>
+
+                        {% elif field.name == 'mordida'%}
+                            </br>
+                            <h4>Mordida</h4>
+
+                        {% elif field.name == 'maxilar_forma'%}
+                            </br>
+                            <h4>Maxilar</h4>
+
+                        {% elif field.name == 'paladaros_forma'%}
+                            </br>
+                            <h4>Paladar óseo</h4>
+
+                        {% elif field.name == 'velpal_movilidad'%}
+                            </br>
+                            <h4>Velo paladar</h4>
+
+                        {% elif field.name == 'amigdalas'%}
+                            </br>
+                            <h4>Amígdalas</h4>
+
+                        {% elif field.name == 'lengua_tamano'%}
+                            </br>
+                            <h4>Lengua</h4>
+                        {% elif field.name == 'lengprax_elevacion'%}
+                            <h5 class="mt-2">Praxias</h5>
+
+                        {% elif field.name == 'cara_forma'%}
+                            </br>
+                            <h4>Cara</h4>
+                        {% elif field.name == 'caraprax_bilateral'%}
+                            <h5 class="mt-2">Praxias</h5>
+
+                        {% elif field.name == 'voz_calidad'%}
+                            </br>
+                            <h4>Voz</h4>
+
+                        {% elif field.name == 'tono'%}
+                            </br>
+                            <h4>Tono</h4>
+
+                        {% elif field.name == 'audicion'%}
+                            </br>
+
+                        {% elif field.name == 'discriminacion'%}
+                            </br>
+                        
+                        {% elif field.name == 'habla_velocidad'%}
+                            </br>
+                            <h4>Habla</h4>
+
+                        {% elif field.name == 'artic_b'%}
+                            </br>
+                            <h4>Articulación a la repetición</h4>
+
+                        {% elif field.name == 'difvoc_ai'%}
+                            <h5 class="mt-2">Dífonos vocálicos</h5>
+
+                        {% elif field.name == 'difcon_bl'%}
+                            <h5 class="mt-2">Dífonos consonánticos</h5>
+
+                        {% elif field.name == 'nvlsem_vocab'%}
+                            </br>
+                            <h1>Nivel semántico</h3>
+
+                        {% elif field.name == 'nvlsem_lengrep_nom'%}
+                            <h4 class="mt-1">Lenguaje reproductivo</h4>
+
+                        {% elif field.name == 'nvlmorf_exp_sustan'%}
+                            <h4 class="mt-1">Nivel morfosintáctico</h4>
+                            <h6>Uso de:</h6>
+
+                        {% elif field.name == 'aspcomp_discriminacion'%}
+                            <h4 class="mt-1">Aspecto comprensivo</h4>
+
+                        {% elif field.name == 'obs_nvlsem_vocabpasivo'%}
+                            </br>
+                            <h4 class="mt-2">Nivel semántico</h4>
+
+                        {% elif field.name == 'obs_nvlsin_ordsimples'%}
+                            <h4 class="mt-2">Nivel sintáctico</h4>
+
+                        {% elif field.name == 'obs_aspgram_contocular'%}
+                            <h4 class="mt-2">Aspecto pragmático</h4>
+
+                        {% elif field.name == 'obs_pruebas_aplicadas'%}
+                            </br>
+
+                        {% endif %}
+                        {{ field|as_crispy_field }}
+                    {% endfor %}
+                <button class="btn btn-success mt-3" type="submit">Generar</button>
             </form>
         </div>
     </div>

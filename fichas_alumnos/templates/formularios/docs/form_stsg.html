@@ -13,8 +13,13 @@
                 {% csrf_token %}
                     {{form_base.nombre|as_crispy_field}}
                     {{form_base.fech_nac|as_crispy_field}}
-                    {{ form|crispy }}
-                <button class="btn btn-success" type="submit">Generar</button>
+                    {% for field in form %}
+                        {% if 'prim' in field.auto_id %}
+                            </br>
+                        {% endif %}
+                        {{ field|as_crispy_field }}
+                    {% endfor %}
+                <button class="btn btn-success mt-3" type="submit">Generar</button>
             </form>
         </div>
     </div>

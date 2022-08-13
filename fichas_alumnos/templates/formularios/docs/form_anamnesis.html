@@ -8,7 +8,8 @@
 
     <div class="container">
         <div class="col col-md-8 col-lg-6 mx-auto my-4">
-            <p class="fs-5 fw-bold text-center">Anamnesis</p>
+            <h2 class="fs-7 fw-bold text-center">Anamnesis</h2><br>
+            <h4>I. Identificación</h4>
             <form method="post">
                 {% csrf_token %}
                     {{form_base.nombre   |as_crispy_field}}
@@ -16,7 +17,77 @@
                     {{form_base.curso    |as_crispy_field}}
                     {{form_base.nivel    |as_crispy_field}}
                     {{form_base.domicilio|as_crispy_field}}
-                    {{ form|crispy }}
+
+                    {% for field in form %}
+                    {% if field.name == 'nom_familiar_uno' %}
+                        </br>
+                        <h4>II. Antecedentes familiares</h4>
+                        <h5>a) Antecedentes del grupo familiar</h5>
+                    {% elif field.name == 'nom_familiar_dos' %}
+                        </br>
+                    {% elif field.name == 'nom_familiar_tres' %}
+                        </br>
+                    {% elif field.name == 'nom_familiar_cua' %}
+                        </br>
+                    {% elif field.name == 'nom_familiar_cin' %}
+                        </br>
+                    {% elif field.name == 'alt_len_rsp' %}
+                        </br>
+                        <h5>b) Antecedentes mórbidos familiares (Herencia y relación parental)</h5>
+                    {% elif field.name == 'embarazo_num' %}
+                        </br>
+                        <h4>III. Historia personal</h4>
+                        <h5>a) Desarrollo prenatal</h5>
+                    {% elif field.name == 'med_ant' %}
+                        </br>
+                    {% elif field.name == 'lug_parto' %}
+                        </br>
+                        <h5>b) Desarrollo perinatal</h5>
+                    {% elif field.name == 'trauma_post' %}
+                        </br>
+                        <h5>c) Antecedentes postnatales</h5>
+                    {% elif field.name == 'espe_parto' %}
+                        </br>
+                    {% elif field.name == 'tipo_parto' %}
+                        </br>
+                    {% elif field.name == 'epoca_exam' %}
+                        </br>
+                        <h5>d) Exámenes realizados</h5>
+                    {% elif field.name == 'fij_cabeza' %}
+                        </br>
+                        <h4>IV. Desarrollo psicomotor</h4>
+                        <h5>Edad en que:</h5>
+                    {% elif field.name == 'entrena_esf' %}
+                        </br>
+                    {% elif field.name == 'act_motora' %}
+                        </br>
+                    {% elif field.name == 'toma_cuchara' %}
+                        <h6>Motricidad fina</h6>
+                    {% elif field.name == 'vocalizo' %}
+                        </br>
+                        <h4>V. Desarrollo del lenguaje</h4>
+                        <h5>Edad en que:</h5>
+                    {% elif field.name == 'texto_uno' %}
+                        </br>
+                    {% elif field.name == 'texto_dos' %}
+                        </br>
+                    {% elif field.name == 'texto_tres' %}
+                        </br>
+                    {% elif field.name == 'texto_cuatro' %}
+                        </br>
+                    {% elif field.name == 'texto_cinco' %}
+                        </br>
+                        <h4>VI. Desarrollo social</h4>
+                    {% elif field.name == 'sonido' %}
+                        </br>
+                        <h5>Conductas disruptivas</h5>
+                        <h6>Reacciona de forma desmesurada ante</h6>
+                    {% elif field.name == 'texto_seis' %}
+                        </br>
+                        <h4>VII. Observaciones relevantes</h4>
+                    {% endif %}
+                    {{ field|as_crispy_field }}
+                    {% endfor %}
                 <br>
                 <button class="btn btn-success" type="submit">Generar</button>
             </form>
