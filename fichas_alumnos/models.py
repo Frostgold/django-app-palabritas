@@ -37,6 +37,19 @@ class FichaAlumno(models.Model):
     certif_nacimiento = models.BooleanField(default=False)
     consent_fonoaudiologia = models.BooleanField(default=False)
     consent_vidasana = models.BooleanField(default=False)
+    solicitud_textos = models.BooleanField(default=False)
+    entrega_textos = models.BooleanField(default=False)
+    colacion_celebracion = models.BooleanField(default=False)
+    ficha_matricula = models.BooleanField(default=False)
+    autorizacion_eval = models.BooleanField(default=False)
+    formulario_reeval = models.BooleanField(default=False)
+    formulario_fudei = models.BooleanField(default=False)
+    informe_padres = models.BooleanField(default=False)
+    eval_diagnostica = models.BooleanField(default=False)
+    informe_semestral = models.BooleanField(default=False)
+    peval_semestral = models.BooleanField(default=False)
+    otros_docs_admin = models.CharField(max_length=255, null=True, blank=True)
+
     estado = models.CharField(
        max_length=32,
        choices=ESTADO,

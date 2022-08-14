@@ -28,12 +28,12 @@
                                 <li class="nav-item m-1 m-md-0" role="presentation">
                                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                         data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                        aria-controls="profile-tab-pane" aria-selected="false">Form. médicos</button>
+                                        aria-controls="profile-tab-pane" aria-selected="false">Formularios médicos</button>
                                 </li>
                                 <li class="nav-item m-1 m-md-0" role="presentation">
                                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
                                         data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                        aria-controls="contact-tab-pane" aria-selected="false">Documentos</button>
+                                        aria-controls="contact-tab-pane" aria-selected="false">Documentos administrativos</button>
                                 </li>
                             {% endif %}
                         </ul>
@@ -83,6 +83,44 @@
                                         <div class="col">
                                             <div class="fw-light">Ficha social: {% if alumno.ficha_social %}Sí{% else %}No{% endif %}</div>
                                         </div>
+                                        <div class="col">
+                                            <div class="fw-light">Solicitud textos esc.: {% if alumno.solicitud_textos %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Entrega textos esc.: {% if alumno.entrega_textos %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Norm. colación y celebración: {% if alumno.colacion_celebracion %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Ficha de matrícula: {% if alumno.ficha_matricula %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Autorización eval.: {% if alumno.autorizacion_eval %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Formulario reeval.: {% if alumno.formulario_reeval %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Formulario FUDEI: {% if alumno.formulario_fudei %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Informe para padres 2021: {% if alumno.informe_padres %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Evaluación diag.: {% if alumno.eval_diagnostica %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Informe semestral: {% if alumno.informe_semestral %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="fw-light">Prueba eval. semestral: {% if alumno.peval_semestral %}Sí{% else %}No{% endif %}</div>
+                                        </div>
+                                        {% if alumno.otros_docs_admin %}
+                                            <div class="col">
+                                                <div class="fw-light">Otros documentos: {{ alumno.otros_docs_admin }}</div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             {% endif %}

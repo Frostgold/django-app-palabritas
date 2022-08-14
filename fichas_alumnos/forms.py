@@ -24,6 +24,18 @@ class FormFichaAlumno(ModelForm):
             'certif_nacimiento',
             'consent_fonoaudiologia',
             'consent_vidasana',
+            'solicitud_textos',
+            'entrega_textos',
+            'colacion_celebracion',
+            'ficha_matricula',
+            'autorizacion_eval',
+            'formulario_reeval',
+            'formulario_fudei',
+            'informe_padres',
+            'eval_diagnostica',
+            'informe_semestral',
+            'peval_semestral',
+            'otros_docs_admin',
         ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
@@ -41,6 +53,19 @@ class FormFichaAlumno(ModelForm):
             'certif_nacimiento': ('Certificado de nacimiento'),
             'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
             'consent_vidasana': ('Consentimiento Vida Sana'),
+            'solicitud_textos': ('Colilla de solicitud textos escolares'),
+            'entrega_textos': ('Colilla de entrega de texto escolar'),
+            'colacion_celebracion': ('Normativa de colación y celebreciones'),
+            'ficha_matricula': ('Ficha de matrícula'),
+            'autorizacion_eval': ('Autorización para la evaluación'),
+            'formulario_reeval': ('Formulario de reevaluación (alumnos antiguos)'),
+            'formulario_fudei': ('Formulario FUDEI'),
+            'informe_padres': ('Informe para padres 2021'),
+            'eval_diagnostica': ('Evaluación diagnóstica (prueba inicial marzo  )'),
+            'informe_semestral': ('Informe semestral'),
+            'peval_semestral': ('Prueba de evaluación semestral'),
+            'otros_docs_admin': ('Otros documentos'),
+
         }
         error_messages = {
             'rut': {
@@ -100,6 +125,18 @@ class FormChangeFichaAlumno(ModelForm):
             'certif_nacimiento',
             'consent_fonoaudiologia',
             'consent_vidasana',
+            'solicitud_textos',
+            'entrega_textos',
+            'colacion_celebracion',
+            'ficha_matricula',
+            'autorizacion_eval',
+            'formulario_reeval',
+            'formulario_fudei',
+            'informe_padres',
+            'eval_diagnostica',
+            'informe_semestral',
+            'peval_semestral',
+            'otros_docs_admin',
             ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
@@ -117,6 +154,18 @@ class FormChangeFichaAlumno(ModelForm):
             'certif_nacimiento': ('Certificado de nacimiento'),
             'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
             'consent_vidasana': ('Consentimiento Vida Sana'),
+            'solicitud_textos': ('Colilla de solicitud textos escolares'),
+            'entrega_textos': ('Colilla de entrega de texto escolar'), 
+            'colacion_celebracion': ('Normativa de colación y celebreciones'), 
+            'ficha_matricula': ('Ficha de matrícula'), 
+            'autorizacion_eval': ('Autorización para la evaluación'), 
+            'formulario_reeval': ('Formulario de reevaluación (alumnos antiguos)'), 
+            'formulario_fudei': ('Formulario FUDEI'),  
+            'informe_padres': ('Informe para padres 2021'),  
+            'eval_diagnostica': ('Evaluación diagnóstica (prueba inicial marzo)'), 
+            'informe_semestral': ('Informe semestral'), 
+            'peval_semestral': ('Prueba de evaluación semestral'), 
+            'otros_docs_admin': ('Otros documentos'), 
         }
         error_messages = {
             'nombre': {
