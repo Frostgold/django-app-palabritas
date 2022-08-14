@@ -43,17 +43,17 @@
                             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                                     <div class="col">
-                                        <div class="fw-light">Dirección: {{ alumno.direccion }}</div>
+                                        <div class="fw-light"><b class="fw-bold">Dirección:</b> {{ alumno.direccion }}</div>
                                     </div>
                                     <div class="col">
-                                        <div class="fw-light">Teléfono: {{ alumno.telefono }}</div>
+                                        <div class="fw-light"><b class="fw-bold">Teléfono:</b> {{ alumno.telefono }}</div>
                                     </div>
                                     {% if perms.fichas_alumnos.can_view_ficha_completa %}
                                         <div class="col">
-                                            <div class="fw-light">Padre: {{ alumno.nombre_padre }}</div>
+                                            <div class="fw-light"><b class="fw-bold">Padre:</b> {{ alumno.nombre_padre }}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Madre: {{ alumno.nombre_madre }}</div>
+                                            <div class="fw-light"><b class="fw-bold">Madre:</b> {{ alumno.nombre_madre }}</div>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -62,63 +62,63 @@
                                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                                         <div class="col">
-                                            <div class="fw-light">Formulario de salud: {% if alumno.formulario_salud %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Formulario de salud:</b> {% if alumno.formulario_salud %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Anamnesis: {% if alumno.anamnesis %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Anamnesis:</b> {% if alumno.anamnesis %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Certificado de nacimiento: {% if alumno.certif_nacimiento %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Certificado de nacimiento:</b> {% if alumno.certif_nacimiento %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Consent. fonoaudiología: {% if alumno.consent_fonoaudiologia %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Consent. fonoaudiología:</b> {% if alumno.consent_fonoaudiologia %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Consent. Vida Sana: {% if alumno.consent_vidasana %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Consent. Vida Sana:</b> {% if alumno.consent_vidasana %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                                         <div class="col">
-                                            <div class="fw-light">Ficha social: {% if alumno.ficha_social %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Ficha social:</b> {% if alumno.ficha_social %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Solicitud textos esc.: {% if alumno.solicitud_textos %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Solicitud textos esc.:</b> {% if alumno.solicitud_textos %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Entrega textos esc.: {% if alumno.entrega_textos %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Entrega textos esc.:</b> {% if alumno.entrega_textos %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Norm. colación y celebración: {% if alumno.colacion_celebracion %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Norm. colación y celebración:</b> {% if alumno.colacion_celebracion %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Ficha de matrícula: {% if alumno.ficha_matricula %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Ficha de matrícula:</b> {% if alumno.ficha_matricula %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Autorización eval.: {% if alumno.autorizacion_eval %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Autorización eval.:</b> {% if alumno.autorizacion_eval %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Formulario reeval.: {% if alumno.formulario_reeval %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Formulario reeval.:</b> {% if alumno.formulario_reeval %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Formulario FUDEI: {% if alumno.formulario_fudei %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Formulario FUDEI:</b> {% if alumno.formulario_fudei %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Informe para padres 2021: {% if alumno.informe_padres %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Informe para padres 2021:</b> {% if alumno.informe_padres %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Evaluación diag.: {% if alumno.eval_diagnostica %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Evaluación diag.:</b> {% if alumno.eval_diagnostica %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Informe semestral: {% if alumno.informe_semestral %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Informe semestral:</b> {% if alumno.informe_semestral %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="fw-light">Prueba eval. semestral: {% if alumno.peval_semestral %}Sí{% else %}No{% endif %}</div>
+                                            <div class="fw-light"><b class="fw-bold">Prueba eval. semestral:</b> {% if alumno.peval_semestral %}Sí{% else %}No{% endif %}</div>
                                         </div>
                                         {% if alumno.otros_docs_admin %}
                                             <div class="col">
-                                                <div class="fw-light">Otros documentos: {{ alumno.otros_docs_admin }}</div>
+                                                <div class="fw-light"><b class="fw-bold">Otros documentos:</b> {{ alumno.otros_docs_admin }}</div>
                                             </div>
                                         {% endif %}
                                     </div>
