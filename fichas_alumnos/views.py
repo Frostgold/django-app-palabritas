@@ -70,7 +70,7 @@ def ficha_alumno_view(request, rut):
                 context['avances'] = AvanceAlumno.objects.filter(alumno=rut)
                 context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut)
                 context['documentos'] = BancoDocumento.objects.filter(alumno=rut)
-                context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.curso)
+                context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.alumno.curso)
 
                 return render(request, 'ficha_alumno.html', context)
 
