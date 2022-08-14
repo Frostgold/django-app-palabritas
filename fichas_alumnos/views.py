@@ -70,7 +70,7 @@ def ficha_alumno_view(request, rut):
                 context['avances'] = AvanceAlumno.objects.filter(alumno=rut)
                 context['trabajos'] = BancoTrabajo.objects.filter(alumno=rut)
                 context['documentos'] = BancoDocumento.objects.filter(alumno=rut)
-                context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.curso)
+                context['trabajoscurso'] = BancoTrabajoCurso.objects.filter(curso=alumno.alumno.curso)
 
                 return render(request, 'ficha_alumno.html', context)
 
@@ -1324,14 +1324,16 @@ def generate_doc_teprosif(request, rut=None):
 def generate_doc_final_teprosif(request):
     data = request.session['data']
     #del request.session['data']
-
     context = {}
-    context['form'] = FormDocumentoFinalTeprosif
+
+    barrido = True if data['psf_barrido_total'] != "" else False
+    context['form'] = FormDocumentoFinalTeprosif(barrido=barrido)
+    
     context['psf_barrido_total'] = data['psf_barrido_total']
     context['psf_total'] = data['psf_total']
 
     if request.method == 'POST':
-        form = FormDocumentoFinalTeprosif(request.POST)
+        form = FormDocumentoFinalTeprosif(request.POST, barrido=barrido)
         if form.is_valid():
 
             data['nvl_desemp_barrido'] = form.cleaned_data['nvl_desemp_barrido']

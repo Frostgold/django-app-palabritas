@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm, DateInput, Textarea, FileInput, TextInput, Select, BaseInlineFormSet, ValidationError, CharField,  ChoiceField, DateField, ModelChoiceField, BooleanField, IntegerField
+from django.forms import Form, ModelForm, DateInput, Textarea, FileInput, TextInput, Select, NumberInput, BaseInlineFormSet, ValidationError, CharField,  ChoiceField, DateField, ModelChoiceField, BooleanField, IntegerField
 import datetime
 from django.core.validators import RegexValidator
 
@@ -24,6 +24,18 @@ class FormFichaAlumno(ModelForm):
             'certif_nacimiento',
             'consent_fonoaudiologia',
             'consent_vidasana',
+            'solicitud_textos',
+            'entrega_textos',
+            'colacion_celebracion',
+            'ficha_matricula',
+            'autorizacion_eval',
+            'formulario_reeval',
+            'formulario_fudei',
+            'informe_padres',
+            'eval_diagnostica',
+            'informe_semestral',
+            'peval_semestral',
+            'otros_docs_admin',
         ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
@@ -41,6 +53,19 @@ class FormFichaAlumno(ModelForm):
             'certif_nacimiento': ('Certificado de nacimiento'),
             'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
             'consent_vidasana': ('Consentimiento Vida Sana'),
+            'solicitud_textos': ('Colilla de solicitud textos escolares'),
+            'entrega_textos': ('Colilla de entrega de texto escolar'),
+            'colacion_celebracion': ('Normativa de colación y celebreciones'),
+            'ficha_matricula': ('Ficha de matrícula'),
+            'autorizacion_eval': ('Autorización para la evaluación'),
+            'formulario_reeval': ('Formulario de reevaluación (alumnos antiguos)'),
+            'formulario_fudei': ('Formulario FUDEI'),
+            'informe_padres': ('Informe para padres 2021'),
+            'eval_diagnostica': ('Evaluación diagnóstica (prueba inicial marzo  )'),
+            'informe_semestral': ('Informe semestral'),
+            'peval_semestral': ('Prueba de evaluación semestral'),
+            'otros_docs_admin': ('Otros documentos'),
+
         }
         error_messages = {
             'rut': {
@@ -100,6 +125,18 @@ class FormChangeFichaAlumno(ModelForm):
             'certif_nacimiento',
             'consent_fonoaudiologia',
             'consent_vidasana',
+            'solicitud_textos',
+            'entrega_textos',
+            'colacion_celebracion',
+            'ficha_matricula',
+            'autorizacion_eval',
+            'formulario_reeval',
+            'formulario_fudei',
+            'informe_padres',
+            'eval_diagnostica',
+            'informe_semestral',
+            'peval_semestral',
+            'otros_docs_admin',
             ]
         widgets = {
             'fecha_nacimiento': DateInput(format=('%Y-%m-%d'), attrs={'type': "date", 'max':datetime.date.today()}),
@@ -117,6 +154,18 @@ class FormChangeFichaAlumno(ModelForm):
             'certif_nacimiento': ('Certificado de nacimiento'),
             'consent_fonoaudiologia': ('Consentimiento evaluación fonoaudióloga'),
             'consent_vidasana': ('Consentimiento Vida Sana'),
+            'solicitud_textos': ('Colilla de solicitud textos escolares'),
+            'entrega_textos': ('Colilla de entrega de texto escolar'), 
+            'colacion_celebracion': ('Normativa de colación y celebreciones'), 
+            'ficha_matricula': ('Ficha de matrícula'), 
+            'autorizacion_eval': ('Autorización para la evaluación'), 
+            'formulario_reeval': ('Formulario de reevaluación (alumnos antiguos)'), 
+            'formulario_fudei': ('Formulario FUDEI'),  
+            'informe_padres': ('Informe para padres 2021'),  
+            'eval_diagnostica': ('Evaluación diagnóstica (prueba inicial marzo)'), 
+            'informe_semestral': ('Informe semestral'), 
+            'peval_semestral': ('Prueba de evaluación semestral'), 
+            'otros_docs_admin': ('Otros documentos'), 
         }
         error_messages = {
             'nombre': {
@@ -491,13 +540,13 @@ class FormDocumentoAnamnesis(Form):
     dr_tratante = CharField(required=False, max_length=40, label="Dr. Tratante")
     vacu_dia = BooleanField(required=False, label="Vacunas al día")
     trata_dental = BooleanField(required=False, label="Tratamientos dentales")
-    epoca_dental = CharField(required=False, max_length=20, label="Época")
-    per_derivacion = CharField(required=False, max_length=20, label="Persona que lo derivó")
+    epoca_dental = CharField(required=False, max_length=50, label="Época")
+    per_derivacion = CharField(required=False, max_length=50, label="Persona que lo derivó")
     mot_dental = CharField(required=False, max_length=70, label="Motivo")
     ## d) Examenes realizados
     epoca_exam = CharField(required=False, max_length=20, label="Época")
-    per_deriva_exam = CharField(required=False, max_length=20, label="Persona que lo derivó")
-    mot_exam = CharField(required=False, max_length=20, label="Motivo")
+    per_deriva_exam = CharField(required=False, max_length=50, label="Persona que lo derivó")
+    mot_exam = CharField(required=False, max_length=50, label="Motivo")
     # IV.
     ## Edad en que
     fij_cabeza = IntegerField(required=False, min_value=0, max_value= 99, label="Fijó la cabeza")
@@ -1145,189 +1194,189 @@ CHOICES_OTHER_RESP = [
 
 class FormDocumentoTeprosif(Form):
     reg1 = CharField(required=False, label="Ítem 1 - PLANCHA", help_text="Si está correcto indique con un OK.")
-    est_sil1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu1 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp1 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="", help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg2 = CharField(required=False, label="Ítem 2 - RUEDA" ,help_text="Si está correcto indique con un OK.")
-    est_sil2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu2 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp2 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg3 = CharField(required=False, label="Ítem 3 - MARIPOSA" ,help_text="Si está correcto indique con un OK.")
-    est_sil3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu3 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp3 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg4 = CharField(required=False, label="Ítem 4 - BICICLETA" ,help_text="Si está correcto indique con un OK.")
-    est_sil4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu4 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp4 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg5 = CharField(required=False, label="Ítem 5 - HELICÓPTERO" ,help_text="Si está correcto indique con un OK.")
-    est_sil5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu5 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp5 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg6 = CharField(required=False, label="Ítem 6 - BUFANDA" ,help_text="Si está correcto indique con un OK.")
-    est_sil6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu6 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp6 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg7 = CharField(required=False, label="Ítem 7 - CAPERUCITA" ,help_text="Si está correcto indique con un OK.")
-    est_sil7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu7 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp7 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg8 = CharField(required=False, label="Ítem 8 - ALFOMBRA" ,help_text="Si está correcto indique con un OK.")
-    est_sil8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu8 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp8 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg9 = CharField(required=False, label="Ítem 9 - REFRIGERADOR" ,help_text="Si está correcto indique con un OK.")
-    est_sil9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu9 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp9 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg10 = CharField(required=False, label="Ítem 10 - EDIFICIO" ,help_text="Si está correcto indique con un OK.")
-    est_sil10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu10 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp10 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg11 = CharField(required=False, label="Ítem 11 - CALCETÍN" ,help_text="Si está correcto indique con un OK.")
-    est_sil11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu11 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp11 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg12 = CharField(required=False, label="Ítem 12 - DINOSAURIO" ,help_text="Si está correcto indique con un OK.")
-    est_sil12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu12 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp12 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg13 = CharField(required=False, label="Ítem 13 - TELÉFONO" ,help_text="Si está correcto indique con un OK.")
-    est_sil13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu13 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp13 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg14 = CharField(required=False, label="Ítem 14 - REMEDIO" ,help_text="Si está correcto indique con un OK.")
-    est_sil14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu14 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp14 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg15 = CharField(required=False, label="Ítem 15 - PEINETA" ,help_text="Si está correcto indique con un OK.")
-    est_sil15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu15 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp15 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg16 = CharField(required=False, label="Ítem 16 - AUTO" ,help_text="Si está correcto indique con un OK.")
-    est_sil16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu16 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp16 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg17 = CharField(required=False, label="Ítem 17 - INDIO" ,help_text="Si está correcto indique con un OK.")
-    est_sil17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu17 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp17 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg18 = CharField(required=False, label="Ítem 18 - PANTALÓN" ,help_text="Si está correcto indique con un OK.")
-    est_sil18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu18 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp18 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg19 = CharField(required=False, label="Ítem 19 - CAMIÓN" ,help_text="Si está correcto indique con un OK.")
-    est_sil19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu19 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp19 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg20 = CharField(required=False, label="Ítem 20 - CUADERNO" ,help_text="Si está correcto indique con un OK.")
-    est_sil20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu20 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp20 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg21 = CharField(required=False, label="Ítem 21 - MICRO" ,help_text="Si está correcto indique con un OK.")
-    est_sil21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu21 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp21 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg22 = CharField(required=False, label="Ítem 22 - TREN" ,help_text="Si está correcto indique con un OK.")
-    est_sil22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu22 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp22 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg23 = CharField(required=False, label="Ítem 23 - PLÁTANO" ,help_text="Si está correcto indique con un OK.")
-    est_sil23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu23 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp23 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg24 = CharField(required=False, label="Ítem 24 - JUGO" ,help_text="Si está correcto indique con un OK.")
-    est_sil24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu24 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp24 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg25 = CharField(required=False, label="Ítem 25 - ENCHUFE" ,help_text="Si está correcto indique con un OK.")
-    est_sil25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu25 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp25 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg26 = CharField(required=False, label="Ítem 26 - JABÓN" ,help_text="Si está correcto indique con un OK.")
-    est_sil26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu26 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp26 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg27 = CharField(required=False, label="Ítem 27 - TAMBOR" ,help_text="Si está correcto indique con un OK.")
-    est_sil27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu27 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp27 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg28 = CharField(required=False, label="Ítem 28 - VOLANTÍN" ,help_text="Si está correcto indique con un OK.")
-    est_sil28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu28 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp28 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg29 = CharField(required=False, label="Ítem 29 - JIRAFA" ,help_text="Si está correcto indique con un OK.")
-    est_sil29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu29 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp29 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg30 = CharField(required=False, label="Ítem 30 - GORRO" ,help_text="Si está correcto indique con un OK.")
-    est_sil30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu30 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp30 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg31 = CharField(required=False, label="Ítem 31 - ÁRBOL" ,help_text="Si está correcto indique con un OK.")
-    est_sil31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu31 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp31 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg32 = CharField(required=False, label="Ítem 32 - DULCE" ,help_text="Si está correcto indique con un OK.")
-    est_sil32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu32 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp32 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg33 = CharField(required=False, label="Ítem 33 - GUITARRA" ,help_text="Si está correcto indique con un OK.")
-    est_sil33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu33 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp33 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg34 = CharField(required=False, label="Ítem 34 - GUANTE" ,help_text="Si está correcto indique con un OK.")
-    est_sil34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu34 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp34 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg35 = CharField(required=False, label="Ítem 35 - RELOJ" ,help_text="Si está correcto indique con un OK.")
-    est_sil35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu35 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp35 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg36 = CharField(required=False, label="Ítem 36 - JAULA" ,help_text="Si está correcto indique con un OK.")
-    est_sil36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu36 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp36 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     reg37 = CharField(required=False, label="Ítem 37 - PUENTE" ,help_text="Si está correcto indique con un OK.")
-    est_sil37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=TextInput(attrs={'class': "mt-3"}))
-    asimi37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=TextInput(attrs={'class': "mt-1"}))
-    sustitu37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=TextInput(attrs={'class': "mt-1"}))
+    est_sil37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Est. Silbica", widget=NumberInput(attrs={'class': "mt-3"}))
+    asimi37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Asimilación", widget=NumberInput(attrs={'class': "mt-1"}))
+    sustitu37 = IntegerField(required=True, min_value=0 , max_value=6, initial=0, label="", help_text="Sustitución", widget=NumberInput(attrs={'class': "mt-1"}))
     otr_resp37 = ChoiceField(required=False, choices=CHOICES_OTHER_RESP, label="" ,help_text="Otras respuestas", widget=Select(attrs={'class': "mt-1"}))
     
     class Meta:
@@ -1347,6 +1396,16 @@ CHOICES_DESEMPENO = [
 class FormDocumentoFinalTeprosif(Form):
     nvl_desemp_barrido = ChoiceField(required=False, choices=CHOICES_DESEMPENO, label="Nivel de desempeño barrido")
     nvl_desemp_teprosif = ChoiceField(required=False, choices=CHOICES_DESEMPENO, label="Nivel de desempeño TEPROSIF completo")
+
+    def __init__(self, *args, **kwargs):
+            barrido = kwargs.pop('barrido')
+            super(FormDocumentoFinalTeprosif, self).__init__(*args, **kwargs)
+            if barrido:
+                self.fields['nvl_desemp_barrido'].required = True
+                self.fields['nvl_desemp_teprosif'].required = False
+            else:
+                self.fields['nvl_desemp_barrido'].required = False
+                self.fields['nvl_desemp_teprosif'].required = True
 
     class Meta:
         fields = ['__all__']

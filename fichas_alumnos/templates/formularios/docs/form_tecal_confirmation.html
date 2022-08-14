@@ -6,9 +6,8 @@
 
 {% block content %}
     <div class="container">
-        <div class="col col-md-8 col-lg-6 mx-auto my-4">
-            <p class="fs-5 fw-bold text-center">Resultados finales</p>
-            <center>
+        <p class="fs-5 fw-bold text-center mt-4">Resultados finales</p>
+            <center class="d-none d-md-block">
                 <table>
                     <tr style="text-align:center">
                         <th style="padding: 20pt;">TOTAL</th>
@@ -24,6 +23,27 @@
                     </tr>
                 </table>
             </center>
+            <center class="d-md-none">
+                <table>
+                    <tr style="text-align:center">
+                        <th style="padding: 10pt;">TOTAL</th>
+                        <th style="padding: 10pt;">VOCABULARIO</th>
+                    </tr>
+                    <tr style="text-align:center">
+                        <td> {{ total }} </td>
+                        <td> {{ tot_voc }} </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th style="padding: 10pt;">MORFOLOGÍA</th>
+                        <th style="padding: 10pt;">SINTAXIS</th>
+                    </tr>
+                    <tr style="text-align:center">
+                        <td> {{ tot_mor }} </td>
+                        <td> {{ tot_sin }} </td>
+                    </tr>
+                </table>
+            </center>
+        <div class="col col-md-8 col-lg-6 mx-auto my-4">
             <br>
             <form method="post">
                 {% csrf_token %}
