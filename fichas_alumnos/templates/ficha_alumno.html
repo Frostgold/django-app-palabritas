@@ -449,14 +449,16 @@
         </div>
 
         {% if perms.fichas_alumnos.can_retirar_ficha_alumno %}
-            <div class="text-center my-5">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmRetiroFichaAlumno">
-                    Retirar alumno
-                </button>
+        {% for alumno in ficha %}
+            {% if alumno.estado != 'retirado' %}
+            
+                <div class="text-center my-5">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmRetiroFichaAlumno">
+                        Retirar alumno
+                    </button>
 
-                <!-- Modal -->
-                {% for alumno in ficha %}
+                    <!-- Modal -->
                     <div class="modal fade" id="confirmRetiroFichaAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmRetiroFichaAlumnoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -476,8 +478,10 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
         {% endif %}
 
     </div>
