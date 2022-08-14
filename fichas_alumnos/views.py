@@ -1324,14 +1324,16 @@ def generate_doc_teprosif(request, rut=None):
 def generate_doc_final_teprosif(request):
     data = request.session['data']
     #del request.session['data']
-
     context = {}
-    context['form'] = FormDocumentoFinalTeprosif
+
+    barrido = True if data['psf_barrido_total'] != "" else False
+    context['form'] = FormDocumentoFinalTeprosif(barrido=barrido)
+    
     context['psf_barrido_total'] = data['psf_barrido_total']
     context['psf_total'] = data['psf_total']
 
     if request.method == 'POST':
-        form = FormDocumentoFinalTeprosif(request.POST)
+        form = FormDocumentoFinalTeprosif(request.POST, barrido=barrido)
         if form.is_valid():
 
             data['nvl_desemp_barrido'] = form.cleaned_data['nvl_desemp_barrido']

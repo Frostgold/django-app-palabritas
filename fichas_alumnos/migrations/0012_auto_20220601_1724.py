@@ -15,4 +15,9 @@ class Migration(migrations.Migration):
             name='anamnesis',
             field=models.BooleanField(default=False),
         ),
+        migrations.AlterField(
+            model_name='fichaalumno',
+            name='rut',
+            field=models.CharField(help_text='El rut debe ser ingresado sin puntos y con guión.', max_length=11, primary_key=True, serialize=False, validators=[django.core.validators.RegexValidator('^(\\d{1,3}(?:\\d{3}){2}-[\\dkK])$')], verbose_name='Rut alumno'),
+        ),
     ]

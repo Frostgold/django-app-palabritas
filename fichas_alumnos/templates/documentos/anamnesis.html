@@ -148,7 +148,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Tartamudez: {{ tarta_rsp }}
                                         </span>
                         </td>
@@ -160,7 +160,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Epilepsia: {{ epilep_rsp }}
                                         </span>
                         </td>
@@ -172,7 +172,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Deficiencia: {{ def_rsp }} 
                                         </span>
                         </td>
@@ -184,7 +184,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Deficiencia mental: {{ def_men_rsp }}
                                         </span>
                         </td>
@@ -208,12 +208,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Semanas de gestaci&oacute;n: {{ sem_gest }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Medidas anticonceptivas: {{ med_ant }}
                                         </span>
                         </td>
@@ -225,12 +225,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Sintomas de perdida: {{ sint_perd }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Convulsiones: {{ convul_per }}
                                         </span>
                         </td>
@@ -242,12 +242,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Intoxicaciones: {{ intoxi }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Traumatismos: {{ trauma_per }}
                                         </span>
                         </td>
@@ -259,7 +259,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Varicela / Rub&eacute;ola: {{ varic_rubeo }}
                                         </span>
                         </td>
@@ -306,7 +306,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Especialista: {{ espe_parto }}
                                         </span>
                         </td>
@@ -318,7 +318,7 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Inducido: {%if tipo_parto == 'Inducido'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%} 
                                         </span>
                         </td>
@@ -330,9 +330,9 @@
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
-                                        Motivo: {%if tipo_parto != 'Cesarea'%}{{ mot_part }}{%else%}{{ '-' }}{%endif%}
-                                        </span>
+                                <span lang="ES" style="font-size: 9.0pt;">
+                                        Motivo: {%if tipo_parto != 'Cesarea'%}{{ mot_parto }}{%else%}{{ '-' }}{%endif%}
+                                </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
@@ -342,8 +342,8 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
-                                        Motivo: {%if tipo_parto == 'Cesarea'%}{{ mot_part }}{%else%}{{ '-' }}{%endif%}
+                                <span lang="ES" style="font-size: 9.0pt;">
+                                        Motivo: {%if tipo_parto == 'Cesarea'%}{{ mot_parto }}{%else%}{{ '-' }}{%endif%}
                                         </span>
                         </td>
                 </tr>
@@ -354,12 +354,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Circular al cuello: {{ ant_morb_circuello }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Sufrimiento fetal: {{ ant_morb_sufrfet }}
                                         </span>
                         </td>
@@ -370,12 +370,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Placenta previa: {{ ant_morb_placprev }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Ingesta Meconio: {{ ant_morb_ingemeco }}
                                         </span>
                         </td>
@@ -394,17 +394,17 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Talla: {{ talla }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Apgar: {{ apgar }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Color: {{ color }}
                                         </span>
                         </td>
@@ -440,7 +440,7 @@
                                 </span>
                         </td>
                         <td colspan="2">
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Hospitalización: {{ hospi_post }}
                                         </span>
                         </td>
@@ -452,17 +452,17 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Encefalitis: {{ encefalitis }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Fiebres altas: {{ fieb_alta }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Convulsiones: {{ convul_post }}
                                         </span>
                         </td>
@@ -481,22 +481,22 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Bronquitis: {{ bronquitis }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         SBO: {{ sbo }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Asma: {{ amsa }}
                                         </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 IRA: {{ ira }}
                             </span>
                         </td>
@@ -508,7 +508,7 @@
                             </span>
                         </td>
                         <td colspan="2">
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Otros eventos mórbidos: {{ otros_morb }}
                             </span>
                         </td>
@@ -520,7 +520,7 @@
                             </span>
                         </td>
                         <td colspan="2">
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Dr. Tratante: {{ dr_tratante }}
                             </span>
                         </td>
@@ -539,14 +539,16 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Época: {{ epoca_dental }}
                             </span>
                         </td>
+                </tr>
+                <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="2">
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                 Persona que lo derivó: {{ per_derivacion }}
-                            </span>
+                                </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
@@ -567,12 +569,12 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Persona que lo derivó: {{ per_deriva_exam }}
                             </span>
                         </td>
                         <td colspan="2">
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Motivo: {{ mot_exam }}
                             </span>
                         </td>
@@ -590,22 +592,22 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Se sentó solo: {{ sento_solo }}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Gateó: {{ gateo }}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Caminó: {{ camino }}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Se vistió solo: {{ vist_solo }}
                             </span>
                         </td>
@@ -666,12 +668,12 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Hiperactivo: {%if act_motora == 'Hiperactivo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Hipoactivo: {%if act_motora == 'Hipoactivo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
@@ -687,17 +689,17 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Hipertónico: {%if toni_muscular == 'Hipertonico'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Hipotónico: {%if toni_muscular == 'Hipotonico'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Hiperlaxo: {%if toni_muscular == 'Hiperlaxo'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
@@ -713,12 +715,12 @@
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Inestabilidad al caminar: {%if motrici_gruesa == 'Inestabilidad'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
                         <td>
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Caídas frecuentes: {%if motrici_gruesa == 'Caidas'%}{{ '✔' }}{%else%}{{ '-' }}{%endif%}
                             </span>
                         </td>
@@ -736,22 +738,22 @@
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Movimientos finos:
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Garra: {{ mov_garra }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Presión: {{ mov_presion }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Pinza: {{ mov_pinza }}
                                         </span>
                         </td>
@@ -768,17 +770,17 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Balbuceó: {{ balbuceo }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Jerga: {{ jerga }}
                                         </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         1° Palabra: {{ prim_palabra }}
                                         </span>
                         </td>
@@ -868,12 +870,12 @@
                                 </span>
                         </td>
                         <td>
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Luces: {{ luces }}
                                         </span>
                         </td>
                         <td colspan="2">
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Personas ajenas a su círculo: {{ per_aje_cir }}
                                         </span>
                         </td>
@@ -897,14 +899,14 @@
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="4">
-                                <snap lang="ES" style="font-size: 9.0pt;">
+                                <span lang="ES" style="font-size: 9.0pt;">
                                         Realiza pataletas frecuentes y exageradas: {{ pataleta }}
                                         </span>
                         </td>
                 </tr>
                 <tr class="MsoBodyText" style="margin-left: 7.5pt; margin-right: 15pt;">
                         <td colspan="4">
-                            <snap lang="ES" style="font-size: 9.0pt;">
+                            <span lang="ES" style="font-size: 9.0pt;">
                                 Presenta dificultades para adaptarse a nuevas situaciones: {{ dificul_adaptacion }}
                             </span>
                         </td>
@@ -916,7 +918,7 @@
         <textarea  style="resize: none; width: 700px; height: 100px; margin-left: 10.0pt; margin-right: 10.0pt; font-size: 9.0pt;">
 		{{ texto_seis }}
 	</textarea>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br>
         <table style="text-align: center">
                 <tr class="MsoBodyText" style="margin-left: 7.5pt;margin-right: 15pt;">
                         <td>
