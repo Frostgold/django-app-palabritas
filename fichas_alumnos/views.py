@@ -1011,10 +1011,9 @@ def generate_doc_teprosif(request, rut=None):
     if rut:
         try:
             alumno = FichaAlumno.objects.get(rut=rut)
-            context['form_base'] = FormDatosPersonalesAlumno(data={
+            context['form_base'] = FormDatosPersonalesAlumno(initial={
                 'nombre': alumno.nombre,
                 'fech_nac': alumno.fecha_nacimiento,
-                'sexo': 'Femenino'
             }, datos_alumno=True, datos_teprosif=True)
         except:
             pass
@@ -1355,7 +1354,7 @@ def generate_pdf_teprosif(request):
             template = 'documentos/TEPROSIF-R.html'
             pdf = render_to_pdf(template, data)
             response = HttpResponse(pdf, content_type='application/pdf') 
-            filename = "Hoja de rerspuesta TEPROSIF-R - %s.pdf" %(data['alumn_nombre'])
+            filename = "Hoja de respuesta TEPROSIF-R - %s.pdf" %(data['alumn_nombre'])
             content = 'attachment; filename="{}"'.format(filename)
             response['Content-Disposition'] = content 
             return response
@@ -1411,7 +1410,6 @@ def generate_doc_fonoaudiologica(request, rut=None):
                     'antdes_comactual': form.cleaned_data['antdes_comactual'],
                     'antdes_morbidos': form.cleaned_data['antdes_morbidos'],
                     'desarrollo_social': form.cleaned_data['desarrollo_social'],
-                    'antfam': "✔" if form.cleaned_data['antfam'] == True else " ",
                     'antfam_lenguaje': "✔" if form.cleaned_data['antfam_lenguaje'] == True else " ",
                     'antfam_psiquia': "✔" if form.cleaned_data['antfam_psiquia'] == True else " ",
                     'antfam_epilepsia': "✔" if form.cleaned_data['antfam_epilepsia'] == True else " ",

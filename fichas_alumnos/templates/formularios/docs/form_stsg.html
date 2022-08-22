@@ -27,6 +27,9 @@
                         {% elif 'observac' in field.auto_id %}
                             </br>
                         {% endif %}
+                        {% if 'rec_uno_prim' in field.auto_id %}
+                            <h6><strong><i>Marque la casilla para indicar que la respuesta es correcta.</i></strong></h6>
+                        {% endif %}
                         {{ field|as_crispy_field }}
                     {% endfor %}
                 <button class="btn btn-success mt-4" type="submit">Generar</button>
