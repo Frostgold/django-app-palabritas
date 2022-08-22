@@ -14,12 +14,22 @@
                     {{form_base.nombre|as_crispy_field}}
                     {{form_base.fech_nac|as_crispy_field}}
                     {% for field in form %}
-                        {% if 'prim' in field.auto_id %}
+                        {% if field.name == 'rec_uno_prim' %}
+                            </br>
+                            <h1 class="fw-bold">Subprueba receptiva</h1>
+                            <h6><strong><i>Marque la casilla para indicar que la respuesta es correcta.</i></strong></h6>
+                        {% elif field.name == 'exp_uno_prim' %}
+                            </br>
+                            <h1 class="fw-bold">Subprueba expresiva</h1>
+                            <h6><strong><i>Marque la casilla para indicar que la respuesta es correcta.</i></strong></h6>
+                        {% elif 'prim' in field.auto_id %}
+                            </br>
+                        {% elif 'observac' in field.auto_id %}
                             </br>
                         {% endif %}
                         {{ field|as_crispy_field }}
                     {% endfor %}
-                <button class="btn btn-success mt-3" type="submit">Generar</button>
+                <button class="btn btn-success mt-4" type="submit">Generar</button>
             </form>
         </div>
     </div>
